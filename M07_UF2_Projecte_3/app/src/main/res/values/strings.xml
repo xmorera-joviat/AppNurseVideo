@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">M07_UF2_Projecte_3</string>
+    <string name="aplica">Aplica</string>
+    <string name="nom_del_jugador">Nom del jugador:</string>
+    <string name="_1">1</string>
+    <string name="mostra">Mostra</string>
+    <string name="afegeix">Afegeix</string>
+    <string name="introdueix_el_nom">Introdueix el nom</string>
+    <string name="retorna">Retorna</string>
+    <string name="partides_guanyades">Partides Guanyades:</string>
+    <string name="introdueix_les_partides_guanyades">Introdueix les partides guanyades</string>
+    <string name="_2">2</string>
+    <string name="partides_perdudes">Partides Perdudes:</string>
+    <string name="introdueix_les_partides_perdudes">Introdueix les partides perdudes</string>
+    <string name="_3">3</string>
+    <string name="partides_totals">Partides Totals:</string>
+    <string name="introdueix_les_partides_totals">Introdueix les partides totals</string>
+    <string name="_4">4</string>
+    <string name="todo">TODO</string>
+</resources>

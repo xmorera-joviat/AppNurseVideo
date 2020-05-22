@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/id"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".ViewActivity"
+    android:background="@color/colorPrimary">
+
+
+    <ImageView
+        android:id="@+id/imgView"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_margin="20dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/img_camera" />
+
+
+    <TextView
+        android:id="@+id/idTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="245dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:text="my exemple"
+        android:textColor="@color/colorAccent"
+        android:textSize="25dp"
+        android:textStyle="bold"/>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnDelete"
+        android:text="Delete"
+        android:layout_below="@+id/idTextView"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/btn"
+        android:layout_marginBottom="5dp"/>
+
+
+
+
+</RelativeLayout>
