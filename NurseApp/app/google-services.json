@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "243441860725",
+    "firebase_url": "https://nurseapp-b4a04.firebaseio.com",
+    "project_id": "nurseapp-b4a04",
+    "storage_bucket": "nurseapp-b4a04.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243441860725:android:ef0f7f35f040bd0a27b83c",
+        "android_client_info": {
+          "package_name": "com.example.nurseapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "243441860725-av5ugeu3p1npb94n7bn67nvm542n8t1e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nurseapp",
+            "certificate_hash": "6ccfb064b755c844d2f315df94a202c8b8a0b0ef"
+          }
+        },
+        {
+          "client_id": "243441860725-tn5r8m0gji8dbv3idrkmm50esqpt5ism.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNfIX9txdvV69LqVqul9rRqxoeIrJtf9M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "243441860725-tn5r8m0gji8dbv3idrkmm50esqpt5ism.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
