@@ -15,7 +15,7 @@ import com.example.nurseapp.TractamentGenericToolBar.TractamentToolBar;
  */
 public class SelectorAfegirEliminar extends TractamentToolBar {
 
-    //Inicialització de les variables
+    // Inicialització de les variables :
 
     private Button buttonAfegirVideos;
     private Button buttonEliminarVideos;
@@ -25,44 +25,31 @@ public class SelectorAfegirEliminar extends TractamentToolBar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selector_afegir_eliminar);
 
-
-        //Executem el mètode setUpToolBar
-
+        // Executem el mètode setUpToolBar
         setUpToolBar();
 
-        //Executem el mètode customTitileToolBar amb el corresponent títol.
-
+        // Executem el mètode customTitileToolBar amb el corresponent títol.
         customTitileToolBar("Afegir/Eliminar");
 
-        //Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
-
+        // Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
         buttonAfegirVideos = findViewById(R.id.idButtonAfegirVideos);
         buttonEliminarVideos = findViewById(R.id.idButtonEliminarVideos);
 
-
-
-        //Botó onClick que ens redirigeix a l'activity per poder afegir vídeos.
-
+        // Botó onClick que ens redirigeix a l'activity per poder afegir vídeos.
         buttonAfegirVideos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent i = new Intent(getApplicationContext(), AfegirVideos.class );
                 startActivity(i);
-
             }
         });
 
-
-        //Botó onClick que ens redirigeix a l'activity per poder eliminar vídeos.
-
+        // Botó onClick que ens redirigeix a l'activity per poder eliminar vídeos.
         buttonEliminarVideos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                Intent e = new Intent(getApplicationContext(), EliminarVideo.class );
                 startActivity(e);
-
             }
         });
     }

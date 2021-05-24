@@ -1,7 +1,5 @@
 package com.example.nurseapp.EliminarVideos;
 
-
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -24,12 +22,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Classe per a tractar l''activity d'eliminar els vídeos.
+ * Classe per a tractar l'activity d'eliminar els vídeos.
  */
 public class EliminarVideo extends LlistatVideosPrincipal {
 
-    //Inicialització de les variables
-
+    // Inicialització de les variables :
     private TextView idTextTitol;
     private TextView idTextDesc;
     private Spinner idSpinner;
@@ -43,35 +40,24 @@ public class EliminarVideo extends LlistatVideosPrincipal {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eliminar_video);
 
-
-        //Executem el mètode setUpToolBar
-
+        // Executem el mètode setUpToolBar
        setUpToolBar();
 
-        //Executem el mètode customTitileToolBar amb el títol corresponent.
-
+        // Executem el mètode customTitileToolBar amb el títol corresponent.
         customTitileToolBar("Eliminar Vídeos");
 
-        //Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
-
+        // Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
         idTextTitol = findViewById(R.id.idTextVideosEliminar);
         idTextDesc = findViewById(R.id.idDescElimnar);
         idSpinner = findViewById(R.id.spinnerVideos);
         idButtonDelete = findViewById(R.id.idButtonDelete);
         idBtnVideosEliminar = findViewById(R.id.idBtnVideosEliminar);
 
-        //Obtenim la referència de la base de dades en Firebase.
-
+        // Obtenim la referència de la base de dades en Firebase.
         mDataBase = FirebaseDatabase.getInstance().getReference();
 
-
-        //Executem el mètode showVideos.
-
+        // Executem el mètode showVideos.
         ShowVideos();
-
-
-
-
     }
 
     /**
@@ -91,7 +77,6 @@ public class EliminarVideo extends LlistatVideosPrincipal {
      *
      */
     public void ShowVideos(){
-
         final List<LlistatVideos> llistatVideos = new ArrayList<>();
 
         mDataBase.child("LlistatVideos").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -99,10 +84,7 @@ public class EliminarVideo extends LlistatVideosPrincipal {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 if (dataSnapshot.exists()) {
-
-
                     for(DataSnapshot ds : dataSnapshot.getChildren()){
-
                         int id = Integer.parseInt(ds.child("numId").getValue().toString());
                         String titol = ds.child("texTitolVideos").getValue().toString();
                         String descVideo = ds.child("descVideo").getValue().toString();
@@ -150,41 +132,26 @@ public class EliminarVideo extends LlistatVideosPrincipal {
                             }
                         });
 
-
-
                         idButtonDelete.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-
                                 int i = llistatVideos.get(numFilaSnipper).getNumId();
 
                                 DeleteVideo(i);
-
-
-
 
                                 finish();
                                 overridePendingTransition(0, 0);
                                 startActivity(getIntent());
                                 overridePendingTransition(0, 0);
 
-
                                 Toast.makeText(getApplicationContext(), "Vídeo eliminat", Toast.LENGTH_LONG).show();
-
 
                             }
                         });
 
-
                     }
 
-
-
-
-
                 }
-
-
 
             }
 
@@ -194,9 +161,6 @@ public class EliminarVideo extends LlistatVideosPrincipal {
             }
         });
 
-
-
-
     }
-}
 
+}

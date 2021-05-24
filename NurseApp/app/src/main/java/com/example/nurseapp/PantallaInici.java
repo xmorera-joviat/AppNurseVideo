@@ -16,21 +16,14 @@ public class PantallaInici extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_inici);
 
-
-
-        //Utilitzem l'interfície Runnable per tal d'aconseguir una espera de 3 segons amb el logo corresponent i
+        // Utilitzem l'interfície Runnable per tal d'aconseguir una espera de 3 segons amb el logo corresponent i
         // així crear un efecte de pantalla de càrrega.
-
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
-
-                }
-            },3000);
-
-
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        }, 3000);
     }
 }

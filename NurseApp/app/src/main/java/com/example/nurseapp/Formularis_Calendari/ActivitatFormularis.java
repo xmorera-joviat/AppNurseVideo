@@ -1,7 +1,5 @@
 package com.example.nurseapp.Formularis_Calendari;
 
-
-
 import android.os.Bundle;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -14,8 +12,7 @@ import com.example.nurseapp.TractamentGenericToolBar.TractamentToolBar;
  */
 public class ActivitatFormularis extends TractamentToolBar {
 
-    //Inicialització de les variables
-
+    // Inicialització de les variables:
     private WebView web;
 
     @Override
@@ -23,21 +20,16 @@ public class ActivitatFormularis extends TractamentToolBar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activitat_formularis);
 
-        //Executem el mètode setUpToolBar
-
+        // Executem el mètode setUpToolBar
         setUpToolBar();
 
-        //Executem el mètode customTitileToolBar amb el títol corresponent.
-
+        // Executem el mètode customTitileToolBar amb el títol corresponent.
         customTitileToolBar("Formularis");
 
-        //Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
-
+        // Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
         web = findViewById(R.id.idWebViewFormularis);
 
-
-        //Llancem en el WebView el forms de google.
-
+        // Llancem en el WebView el forms de google.
         WebSettings webSettings = web.getSettings();
         webSettings.setJavaScriptEnabled(true);
         web.setWebViewClient(new WebViewClient());
