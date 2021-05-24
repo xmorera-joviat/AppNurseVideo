@@ -2,16 +2,47 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-
-
     <item
         android:id="@+id/idAcces"
-        android:title="Accés"
+        android:title="@string/menuAcces"
         android:iconTint="@color/white"
         app:showAsAction="never"
         android:icon="@color/white"
         />
+
+    <item
+        android:id="@+id/idLlenguatge"
+        android:title="@string/menuLlenguatge"
+        android:iconTint="@color/white"
+        app:showAsAction="never"
+        android:icon="@color/white"
+        >
+        <menu>
+            <item
+                android:id="@+id/idCatala"
+                android:title="@string/subMenuCatalan"
+                android:iconTint="@color/white"
+                app:showAsAction="never"
+                android:icon="@color/white"
+                />
+            <item
+                android:id="@+id/idCastella"
+                android:title="@string/subMenuCastella"
+                android:iconTint="@color/white"
+                app:showAsAction="never"
+                android:icon="@color/white"
+                />
+            <item
+                android:id="@+id/idAngles"
+                android:title="@string/subMenuAngles"
+                android:iconTint="@color/white"
+                app:showAsAction="never"
+                android:icon="@color/white"
+                />
+        </menu>
+
+
+    </item>
 
 
 

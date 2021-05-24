@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -19,10 +20,9 @@ import com.example.nurseapp.Formularis_Calendari.ActivitatCalendari;
 import com.example.nurseapp.Formularis_Calendari.ActivitatFormularis;
 import com.example.nurseapp.Registres_Acces.AccesUsuaris;
 import com.example.nurseapp.TractamentVideos.LlistatVideosPrincipal;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -52,32 +52,42 @@ public class MainActivity extends AppCompatActivity {
         // Executem el mètode customTitileToolBar
         customTitileToolBar();
 
-        // Botó per tal d'obrir l'activitat corresponent al calendari.
+        //Botó per tal d'obrir l'activitat corresponent al calendari.
+
         idBtnCalendari.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentetForms = new Intent(getApplicationContext(), ActivitatCalendari.class);
-                startActivity(intentetForms);
+
+                Intent intentetCalen = new Intent(getApplicationContext(), ActivitatCalendari.class);
+                intentetCalen.putExtra("llenguatge", getResources().getString(R.string.llenguatge));
+                startActivity(intentetCalen);
+
+
             }
         });
 
 
-        // Botó per tal d'obrir l'activitat corresponent als formularis.
+        //Botó per tal d'obrir l'activitat corresponent als formularis.
+
         idBtnFormularis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 Intent intentetForms = new Intent(getApplicationContext(), ActivitatFormularis.class);
+                intentetForms.putExtra("llenguatge",getResources().getString(R.string.llenguatge));
                 startActivity(intentetForms);
+
             }
         });
 
         Map<String, Object> claims = new HashMap<>();
         claims.put("admin", true);
-        try {
+     /*   try {
             FirebaseAuth.getInstance().setCustomUserClaims("xzyj29JwXQV6vGEh6O9ATIu7P4w1", claims);
         } catch (FirebaseAuthException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     /**
@@ -86,8 +96,9 @@ public class MainActivity extends AppCompatActivity {
      * @param v View
      */
     public void onClickBtnVideos(View v) {
-        Intent i = new Intent(this, LlistatVideosPrincipal.class);
-        startActivity(i);
+        Intent video = new Intent(this, LlistatVideosPrincipal.class );
+        video.putExtra("llenguatge",getResources().getString(R.string.llenguatge));
+        startActivity(video);
     }
 
     /**
@@ -148,29 +159,66 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
+
+        switch(item.getItemId()){
+
+
             case android.R.id.home:
-                Intent i = new Intent(this, MainActivity.class);
+
+                Intent i = new Intent(this, MainActivity.class );
                 startActivity(i);
 
                 break;
 
             case R.id.idAcces:
-                Intent a = new Intent(this, AccesUsuaris.class);
-                startActivity(a);
 
+                Intent acces = new Intent(this, AccesUsuaris.class );
+                acces.putExtra("llenguatge", getResources().getString(R.string.llenguatge));
+                startActivity(acces);
+                break;
+
+            case  R.id.idCatala:
+                CanviarLlenguatge("ca");
+                break;
+
+            case  R.id.idCastella:
+                CanviarLlenguatge("es");
+                break;
+
+            case  R.id.idAngles:
+                CanviarLlenguatge("en");
                 break;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
+    private void CanviarLlenguatge(String len) {
+
+        //Configurar lenguaje actual de local.
+        Locale locale = new Locale(len);
+        Locale.setDefault(locale);
+        //Solicita al sistema que actualice el local del sistema.
+        Configuration config = new Configuration();
+        config.locale = locale;
+        //Actualizar recursos lenguaje de app.
+        getBaseContext().getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+        Intent refrescar = new Intent(this, MainActivity.class);
+        startActivity(refrescar);
+        finish();
+
+    }
+
     private void customTitileToolBar() {
-        if (getSupportActionBar() != null) {
+        if(getSupportActionBar() != null){
+
             getSupportActionBar().setDisplayShowTitleEnabled(false);
 
             TextView textView = toolbar.findViewById(R.id.toolbar_title);
 
-            textView.setText("Inici");
+            textView.setText(getResources().getString(R.string.tlbiTitul));
+
+
         }
     }
 }

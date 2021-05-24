@@ -2,12 +2,17 @@ package com.example.nurseapp.TractamentVideos;
 
 
 
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.nurseapp.MainActivity;
 import com.example.nurseapp.R;
+import com.example.nurseapp.Registres_Acces.AccesUsuaris;
 import com.example.nurseapp.TractamentGenericToolBar.TractamentToolBar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Classe en la qual tractem tot el relacionat en mostrar el text, descripció, enllaç als vídeos i mètodes que són utilitzats
@@ -33,6 +39,7 @@ public class LlistatVideosPrincipal extends TractamentToolBar {
     public SearchView searchView;
     public static FirebaseDatabase firebaseDatabase;
     public static DatabaseReference databaseReference;
+    private String ListaVideosLen;
     int numLastArrayList = 0;
 
     @Override
@@ -40,6 +47,11 @@ public class LlistatVideosPrincipal extends TractamentToolBar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_llistat_videos_principal);
 
+        Locale locale = new Locale(getIntent().getExtras().getString("llenguatge"));
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getResources().getDisplayMetrics());
 
         //Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
 
@@ -56,7 +68,7 @@ public class LlistatVideosPrincipal extends TractamentToolBar {
         //Mètodes setUpToolBar i customTitileToolBar heretats de la classe TractamentToolBar.
 
         setUpToolBar();
-        customTitileToolBar("Vídeos");
+        customTitileToolBar("Video");
 
 
 
@@ -89,11 +101,24 @@ public class LlistatVideosPrincipal extends TractamentToolBar {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
+        switch(getIntent().getExtras().getString("llenguatge")){
 
+            case "ca":
+                ListaVideosLen = "LlistatVideosCa";
+                break;
+
+            case  "es":
+                ListaVideosLen = "LlistatVideosEs";
+                break;
+
+            case  "en":
+                ListaVideosLen = "LlistatVideosEn";
+                break;
+        }
         //Amb el databaseReference.child aconseguim tenir un ValueEventListener escoltant el que tenim a la base de dades de FiireBase
         // i així poder afegir-ho a la nostra List llistatVideos.
 
-        databaseReference.child("LlistatVideos").addValueEventListener(new ValueEventListener() {
+        databaseReference.child(ListaVideosLen).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -120,7 +145,7 @@ public class LlistatVideosPrincipal extends TractamentToolBar {
 
                     //Poder saber quin és l'ID corresponent per tenir un autoincrement dels IDs a la base de dades Firebase.
 
-                   long count=(dataSnapshot.getChildrenCount());
+                    long count=(dataSnapshot.getChildrenCount());
 
                     int i = (int) count;
 

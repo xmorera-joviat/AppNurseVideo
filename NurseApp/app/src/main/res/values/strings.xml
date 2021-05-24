@@ -1,4 +1,38 @@
 <resources>
+    <string name="llenguatge">ca</string>
+
+    <!--Menu-->
+    <string name="menuAcces">Accedir</string>
+    <string name="menuLlenguatge">Llenguatge</string>
+
+    <!--SubMenu-->
+    <string name="subMenuCatalan">Català</string>
+    <string name="subMenuCastella">Castellà</string>
+    <string name="subMenuAngles">Anglès</string>
+
+    <!--Vista Inici-->
     <string name="app_name">NurseApp</string>
+    <string name="tlbiTitul">Inici</string>
     <string name="btnName">Video!</string>
+    <string name="btnFormulari">Formulari</string>
+    <string name="btnVideo">Vídeo</string>
+    <string name="btnCalendari">Calendari</string>
+
+    <!--Vista Acces-->
+    <string name="btnAcces">Accés</string>
+    <string name="edtEmail">Email</string>
+    <string name="edtContrasenya">Contrasenya</string>
+    <string name="tlbaTitul">Inicia sessió</string>
+
+    <!--Vista Formulari-->
+    <string name="tlbfTitul">Formularis</string>
+
+    <!--Vista Calendari-->
+    <string name="tlbcTitul">Formulari</string>
+
+
+
+
+
+
 </resources>
