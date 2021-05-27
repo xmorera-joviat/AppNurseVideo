@@ -20,6 +20,8 @@ import com.example.nurseapp.Formularis_Calendari.ActivitatCalendari;
 import com.example.nurseapp.Formularis_Calendari.ActivitatFormularis;
 import com.example.nurseapp.Registres_Acces.AccesUsuaris;
 import com.example.nurseapp.TractamentVideos.LlistatVideosPrincipal;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseToken;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -39,6 +41,33 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /*FirebaseAuth.getInstance().getCurrentUser().getProviderData().getUID();
+
+        FirebaseToken decoded = FirebaseAuth.getInstance().verifyIdToken(idToken);
+        if (Boolean.TRUE.equals(decoded.getClaims().get("admin"))) {
+            // Allow access to requested admin resource.
+        }
+
+        // Lookup the user associated with the specified uid.
+        UserRecord user = FirebaseAuth.getInstance().getUser(uid);
+        System.out.println(user.getCustomClaims().get("admin"));
+
+        user.getIdToken(false).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
+          @Override
+          public void onSuccess(GetTokenResult result) {
+            boolean isAdmin = result.getClaims().get("admin");
+            if (isAdmin) {
+              // Show admin UI.
+              showAdminUI();
+            } else {
+              // Show regular user UI.
+              showRegularUI();
+            }
+          }
+        });
+        */
+
         setContentView(R.layout.activity_main);
 
         // Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
@@ -52,42 +81,35 @@ public class MainActivity extends AppCompatActivity {
         // Executem el mètode customTitileToolBar
         customTitileToolBar();
 
-        //Botó per tal d'obrir l'activitat corresponent al calendari.
-
+        // Botó per tal d'obrir l'activitat corresponent al calendari.
         idBtnCalendari.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intentetCalen = new Intent(getApplicationContext(), ActivitatCalendari.class);
                 intentetCalen.putExtra("llenguatge", getResources().getString(R.string.llenguatge));
                 startActivity(intentetCalen);
-
-
             }
         });
 
-
-        //Botó per tal d'obrir l'activitat corresponent als formularis.
-
+        // Botó per tal d'obrir l'activitat corresponent als formularis.
         idBtnFormularis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 Intent intentetForms = new Intent(getApplicationContext(), ActivitatFormularis.class);
                 intentetForms.putExtra("llenguatge",getResources().getString(R.string.llenguatge));
                 startActivity(intentetForms);
-
             }
         });
 
+        /*
         Map<String, Object> claims = new HashMap<>();
         claims.put("admin", true);
-     /*   try {
+        try {
             FirebaseAuth.getInstance().setCustomUserClaims("xzyj29JwXQV6vGEh6O9ATIu7P4w1", claims);
         } catch (FirebaseAuthException e) {
             e.printStackTrace();
-        }*/
+        }
+        */
     }
 
     /**
@@ -159,32 +181,22 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         switch(item.getItemId()){
-
-
             case android.R.id.home:
-
                 Intent i = new Intent(this, MainActivity.class );
                 startActivity(i);
-
                 break;
-
             case R.id.idAcces:
-
                 Intent acces = new Intent(this, AccesUsuaris.class );
                 acces.putExtra("llenguatge", getResources().getString(R.string.llenguatge));
                 startActivity(acces);
                 break;
-
             case  R.id.idCatala:
                 CanviarLlenguatge("ca");
                 break;
-
             case  R.id.idCastella:
                 CanviarLlenguatge("es");
                 break;
-
             case  R.id.idAngles:
                 CanviarLlenguatge("en");
                 break;
@@ -194,31 +206,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void CanviarLlenguatge(String len) {
-
-        //Configurar lenguaje actual de local.
+        // Configurar lenguaje actual de local.
         Locale locale = new Locale(len);
         Locale.setDefault(locale);
-        //Solicita al sistema que actualice el local del sistema.
+
+        // Solicita al sistema que actualice el local del sistema.
         Configuration config = new Configuration();
         config.locale = locale;
-        //Actualizar recursos lenguaje de app.
+
+        // Actualizar recursos lenguaje de app.
         getBaseContext().getResources().updateConfiguration(config, getResources().getDisplayMetrics());
         Intent refrescar = new Intent(this, MainActivity.class);
         startActivity(refrescar);
         finish();
-
     }
 
     private void customTitileToolBar() {
         if(getSupportActionBar() != null){
-
             getSupportActionBar().setDisplayShowTitleEnabled(false);
 
             TextView textView = toolbar.findViewById(R.id.toolbar_title);
 
             textView.setText(getResources().getString(R.string.tlbiTitul));
-
-
         }
     }
 }
