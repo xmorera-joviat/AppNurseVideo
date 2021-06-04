@@ -21,13 +21,17 @@ import com.example.nurseapp.Formularis_Calendari.ActivitatFormularis;
 import com.example.nurseapp.Registres_Acces.AccesUsuaris;
 import com.example.nurseapp.TractamentVideos.LlistatVideosPrincipal;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.GetTokenResult;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Activitat que controla la pantalla principal.
@@ -39,39 +43,12 @@ public class MainActivity extends AppCompatActivity {
     private Button idBtnCalendari;
     private Button idBtnFormularis;
     private Toolbar toolbar;
+    private FirebaseAuth fAuth;
+    private FirebaseFirestore fStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        /*
-        Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getProviderData().getUID();
-
-        FirebaseToken decoded = FirebaseAuth.getInstance().verifyIdToken(idToken);
-        if (Boolean.TRUE.equals(decoded.getClaims().get("admin"))) {
-            // Allow access to requested admin resource.
-        }
-
-        // Lookup the user associated with the specified uid.
-        UserRecord user = FirebaseAuth.getInstance().getUser(uid);
-        System.out.println(user.getCustomClaims().get("admin"));
-
-        user.getIdToken(false).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
-          @Override
-          public void onSuccess(GetTokenResult result) {
-            boolean isAdmin = result.getClaims().get("admin");
-            if (isAdmin) {
-              // Show admin UI.
-              showAdminUI();
-            } else {
-              // Show regular user UI.
-              showRegularUI();
-            }
-          }
-        });
-         */
-
-        setContentView(R.layout.activity_main);
 
         // Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
         IdBtnVideos = findViewById(R.id.idBtnVideos);
@@ -104,15 +81,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("admin", true);
-        try {
-            FirebaseAuth.getInstance().setCustomUserClaims("xzyj29JwXQV6vGEh6O9ATIu7P4w1", claims);
-        } catch (FirebaseAuthException e) {
-            e.printStackTrace();
-        }
-        */
+
+
+    }
+
+    private void CheckUserRole(String uid) {
+        DocumentReference df = fStore.collection("Users").document(uid);
+
+        // Extraiem les dades del document
+        df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.getString("rol") != null) {
+                    if (documentSnapshot.getString("rol").equals("editor")) {
+                        setContentView(R.layout.activity_main_editor);
+                    }
+                    else if (documentSnapshot.getString("rol").equals("professional")) {
+                        setContentView(R.layout.activity_main_professional);
+                    }
+                    else {
+                        setContentView(R.layout.activity_main_pacient);
+                    }
+                }
+                else {
+                    setContentView(R.layout.activity_main_pacient);
+                }
+            }
+        });
+
     }
 
     /**
