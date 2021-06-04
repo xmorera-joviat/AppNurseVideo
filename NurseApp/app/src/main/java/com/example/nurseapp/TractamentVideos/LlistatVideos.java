@@ -6,19 +6,13 @@ package com.example.nurseapp.TractamentVideos;
 public class LlistatVideos {
 
     //Inicialització de les variables
-
     private  int numId;
     private String texTitolVideos;
     private String descVideo;
     private String urlVideo;
 
-
-
     //Constructors corresponents.
-
     public  LlistatVideos(){}
-
-
 
     public LlistatVideos(int numId, String texTitolVideos, String descVideo, String urlVideo) {
         this.numId = numId;
@@ -27,9 +21,7 @@ public class LlistatVideos {
         this.urlVideo = urlVideo;
     }
 
-
     //Getters i Setters de cada una de les variables.
-
     public int getNumId() {
         return numId;
     }

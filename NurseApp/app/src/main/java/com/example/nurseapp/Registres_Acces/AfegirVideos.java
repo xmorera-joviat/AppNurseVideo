@@ -93,7 +93,8 @@ public class AfegirVideos extends LlistatVideosPrincipal {
                                 // Si tot es correcte afegim el vídeo a la base de dades Firebase.
                                 Toast.makeText(getApplicationContext(), "Vídeo afegit", Toast.LENGTH_LONG).show();
                                 netejar();
-                            } else {
+                            }
+                            else {
                                 // Si l'url no és correcta, no s'enregistrarà el vídeo i es mostrarà un avís d'error.
                                 Toast.makeText(getApplicationContext(), "Revisa la URL", Toast.LENGTH_LONG).show();
                             }

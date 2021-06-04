@@ -29,10 +29,7 @@ import java.util.Locale;
  */
 public class LlistatVideosPrincipal extends TractamentToolBar {
 
-
     //Inicialització de les variables
-
-
     public static List<LlistatVideos> llistatVideos = new ArrayList<>();
     public static RecyclerView llistat;
     public static LlistatVideosAdabter adapter;
@@ -54,7 +51,6 @@ public class LlistatVideosPrincipal extends TractamentToolBar {
         getBaseContext().getResources().updateConfiguration(config, getResources().getDisplayMetrics());
 
         //Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
-
         llistat = (RecyclerView) findViewById(R.id.idRecyvler);
         LinearLayoutManager lim = new LinearLayoutManager(this);
         lim.setOrientation(LinearLayoutManager.VERTICAL);
@@ -62,17 +58,11 @@ public class LlistatVideosPrincipal extends TractamentToolBar {
         searchView = findViewById(R.id.search);
 
         //Mètode inicialitzaAdabter.
-
         inicialitzaAdabter();
 
         //Mètodes setUpToolBar i customTitileToolBar heretats de la classe TractamentToolBar.
-
         setUpToolBar();
         customTitileToolBar("Video");
-
-
-
-
 
     }
 
@@ -87,7 +77,6 @@ public class LlistatVideosPrincipal extends TractamentToolBar {
 
         llistatVideos.clear();
         data();
-
     }
 
 
@@ -97,12 +86,10 @@ public class LlistatVideosPrincipal extends TractamentToolBar {
     public void data(){
 
         //Instanciem de les variables firebaseDatabase i databaseReference.
-
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
         switch(getIntent().getExtras().getString("llenguatge")){
-
             case "ca":
                 ListaVideosLen = "LlistatVideosCa";
                 break;
@@ -121,56 +108,36 @@ public class LlistatVideosPrincipal extends TractamentToolBar {
         databaseReference.child(ListaVideosLen).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 if(dataSnapshot.exists()){
-
                     for(DataSnapshot ds : dataSnapshot.getChildren()){
-
-
                         int id = Integer.parseInt(ds.child("numId").getValue().toString());
                         String titol = ds.child("texTitolVideos").getValue().toString();
                         String descVideo = ds.child("descVideo").getValue().toString();
                         String urlVideo = ds.child("urlVideo").getValue().toString();
 
-
-
-
                         llistatVideos.add(new LlistatVideos(id, titol, descVideo, urlVideo));
-
-
-
 
                     }
 
-
                     //Poder saber quin és l'ID corresponent per tenir un autoincrement dels IDs a la base de dades Firebase.
-
                     long count=(dataSnapshot.getChildrenCount());
 
                     int i = (int) count;
 
                     numLastArrayList = llistatVideos.get(i-1).getNumId();
 
-
                     adapter = new LlistatVideosAdabter(llistatVideos);
                     llistat.setAdapter(adapter);
-
-
                 }
 
-
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
 
-
-
         //searchView.setOnQueryTextListener que utilitzem per poder fer cerques al llistat.
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -179,74 +146,48 @@ public class LlistatVideosPrincipal extends TractamentToolBar {
 
             @Override
             public boolean onQueryTextChange(String s) {
-
                 //Mètode Cerca.
-
                 Cerca(s);
-
 
                 return true;
             }
         });
 
-
     }
 
 
     /**
-     *
      * Mètode que utilitzem per a filtrar el llistat de vídeos.
-     *
      * @param s string
      */
     private void Cerca(String s) {
-
         ArrayList<LlistatVideos> myList = new ArrayList<>();
-
         for(LlistatVideos videos : llistatVideos){
-
-
             if(videos.getTexTitolVideos().toLowerCase().contains(s.toLowerCase()) || videos.getDescVideo().toLowerCase().contains(s.toLowerCase())){
-
                 myList.add(videos);
 
                 adapter = new LlistatVideosAdabter(myList);
                 llistat.setAdapter(adapter);
             }
 
-
         }
 
-
-
-
     }
 
     /**
-     *
      * Mètode utilitzat per a inicialitzar l'adabter que hi té el List llsitatVideos.
-     *
      */
     public void inicialitzaAdabter(){
-
         adapter = new LlistatVideosAdabter(llistatVideos);
         llistat.setAdapter(adapter);
-
-
-
-
     }
 
 
     /**
-     *
      * Mètode que utilitzem per a carregar la connexió a Firebase i eliminar l'ID indicat.
-     *
      * @param i Int.
      */
     public void DeleteVideo(int i){
-
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("LlistatVideos").child(String.valueOf(i));
         ref.removeValue();
@@ -254,8 +195,6 @@ public class LlistatVideosPrincipal extends TractamentToolBar {
         llistatVideos.clear();
 
         adapter.notifyDataSetChanged();
-
-
     }
 
 
@@ -265,12 +204,7 @@ public class LlistatVideosPrincipal extends TractamentToolBar {
      * @return int numLastArrayList
      */
     public int getMidaLlista(){
-
-
         return numLastArrayList;
-
     }
-
-
 
 }

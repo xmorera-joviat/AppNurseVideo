@@ -30,20 +30,15 @@ public class ActivitatFormularis extends TractamentToolBar {
         getBaseContext().getResources().updateConfiguration(config, getResources().getDisplayMetrics());
 
         //Executem el mètode setUpToolBar
-
         setUpToolBar();
 
         //Executem el mètode customTitileToolBar amb el títol corresponent.
-
         customTitileToolBar(getResources().getString(R.string.tlbfTitul));
 
         //Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
-
         web = findViewById(R.id.idWebViewFormularis);
 
-
         //Llancem en el WebView el forms de google.
-
         WebSettings webSettings = web.getSettings();
         webSettings.setJavaScriptEnabled(true);
         web.setWebViewClient(new WebViewClient());

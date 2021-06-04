@@ -15,14 +15,11 @@ import com.google.android.youtube.player.YouTubePlayerView;
 public class ApiYoutube extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener {
 
     //Inicialització de les variables corresponents.
-
     String clauYoutube="AIzaSyCHXQMgIDXbgB5LZeK2ugWLCUMgyyV61xM";
 
     YouTubePlayerView youTubePlayerView;
 
     String nomUrl = "azxDhcKYku4";
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,34 +27,27 @@ public class ApiYoutube extends YouTubeBaseActivity implements YouTubePlayer.OnI
         setContentView(R.layout.activity_api_youtube);
 
       //Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
-
         youTubePlayerView = findViewById(R.id.idYoutube);
         youTubePlayerView.initialize(clauYoutube, this);
 
         //Obtenim l'url corresponent al vídeo que hem de reproduir.
-
         Bundle b = getIntent().getExtras();
         nomUrl = b.get("url").toString();
-
     }
 
     /**
-     *
      * Mètode utilitzat per a la càrrega i reproducció directament el vídeo en pantalla completa.
-     *
      * @param provider YouTubePlayer.Provider
      * @param youTubePlayer YouTubePlayer
      * @param b boolean
      */
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-
         youTubePlayer=youTubePlayer;
         youTubePlayer.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
 
         youTubePlayer.loadVideo(nomUrl);
         youTubePlayer.setFullscreen(true);
-
     }
 
     /**
@@ -69,15 +59,12 @@ public class ApiYoutube extends YouTubeBaseActivity implements YouTubePlayer.OnI
      */
     @Override
     public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-
         if(youTubeInitializationResult.isUserRecoverableError())
         {
             youTubeInitializationResult.getErrorDialog(this,1).show();
-
         }
 
     }
-
 
     /**
      *
@@ -88,18 +75,11 @@ public class ApiYoutube extends YouTubeBaseActivity implements YouTubePlayer.OnI
      * @param data Intent
      */
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
-
-
         if(requestCode == 1){
-
             getYoutubePlayerProvider().initialize(clauYoutube, this);
-
-
         }
 
-
     }
-
 
     /**
      *
@@ -108,11 +88,7 @@ public class ApiYoutube extends YouTubeBaseActivity implements YouTubePlayer.OnI
      * @return YouTubePlayer.Provider
      */
     protected YouTubePlayer.Provider getYoutubePlayerProvider(){
-
-
         return youTubePlayerView;
-
     }
-
 
 }

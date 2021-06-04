@@ -20,12 +20,14 @@ import com.example.nurseapp.Formularis_Calendari.ActivitatCalendari;
 import com.example.nurseapp.Formularis_Calendari.ActivitatFormularis;
 import com.example.nurseapp.Registres_Acces.AccesUsuaris;
 import com.example.nurseapp.TractamentVideos.LlistatVideosPrincipal;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseToken;
+import com.google.firebase.auth.GetTokenResult;
 
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Activitat que controla la pantalla principal.
@@ -42,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /*FirebaseAuth.getInstance().getCurrentUser().getProviderData().getUID();
+        /*
+        Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getProviderData().getUID();
 
         FirebaseToken decoded = FirebaseAuth.getInstance().verifyIdToken(idToken);
         if (Boolean.TRUE.equals(decoded.getClaims().get("admin"))) {
@@ -66,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
             }
           }
         });
-        */
+         */
 
         setContentView(R.layout.activity_main);
 
