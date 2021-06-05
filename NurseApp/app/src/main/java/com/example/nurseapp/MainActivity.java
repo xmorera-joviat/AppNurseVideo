@@ -9,6 +9,8 @@ import android.content.res.Configuration;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,12 +18,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.nurseapp.TractamentVideos.EliminarVideo;
 import com.example.nurseapp.Formularis_Calendari.ActivitatCalendari;
 import com.example.nurseapp.Formularis_Calendari.ActivitatFormularis;
 import com.example.nurseapp.Registres_Acces.AccesUsuaris;
+import com.example.nurseapp.TractamentVideos.AfegirVideos;
 import com.example.nurseapp.TractamentVideos.LlistatVideosPrincipal;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -34,27 +40,29 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     // Inicialització de les variables :
-    private Button IdBtnVideos;
     private Button idBtnCalendari;
     private Button idBtnFormularis;
     private Toolbar toolbar;
-    private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+        // Creem una instància de la base de dades de firebase cloudstore.
+        fStore = FirebaseFirestore.getInstance();
 
-        //String uid = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
+        // Agafem les dades de l'usuari.
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        //CheckUserRole(uid);
-
-        // Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
-        IdBtnVideos = findViewById(R.id.idBtnVideos);
-        idBtnCalendari = findViewById(R.id.idBtnCalendari);
-        idBtnFormularis = findViewById(R.id.idBtnFormulari);
+        // Comprovem que no sigui null, i per tant, algú tingui la sessió iniciada.
+        if (user != null) {
+            CheckUserRole(user.getUid());
+        }
+        // Si es null, ficarem la vista dels pacients.
+        else {
+            setContentView(R.layout.activity_main_pacient);
+        }
 
         // Executem el mètode setUpToolBar
         setUpToolBar();
@@ -62,68 +70,92 @@ public class MainActivity extends AppCompatActivity {
         // Executem el mètode customTitileToolBar
         customTitileToolBar();
 
-        // Botó per tal d'obrir l'activitat corresponent al calendari.
-        idBtnCalendari.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentetCalen = new Intent(getApplicationContext(), ActivitatCalendari.class);
-                intentetCalen.putExtra("llenguatge", getResources().getString(R.string.llenguatge));
-                startActivity(intentetCalen);
-            }
-        });
-
-        // Botó per tal d'obrir l'activitat corresponent als formularis.
-        idBtnFormularis.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentetForms = new Intent(getApplicationContext(), ActivitatFormularis.class);
-                intentetForms.putExtra("llenguatge",getResources().getString(R.string.llenguatge));
-                startActivity(intentetForms);
-            }
-        });
-
     }
 
+    /**
+     * Mètode per comprovar quin tipus de rol té l'usuari i per tant mostrar les
+     * opcions per pantalla corresponents al seu privilegi.
+     * @param uid Variable de tipus String, és l'identificador de l'usuari.
+     */
     private void CheckUserRole(String uid) {
-        if (uid != null) {
-            DocumentReference df = fStore.collection("Users").document(uid);
+        DocumentReference df = fStore.collection("Users").document(uid);
 
-            // Extraiem les dades del document
-            df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    if (documentSnapshot.getString("rol") != null) {
-                        if (documentSnapshot.getString("rol").equals("editor")) {
-                            setContentView(R.layout.activity_main_editor);
-                        }
-                        else if (documentSnapshot.getString("rol").equals("professional")) {
-                            setContentView(R.layout.activity_main_professional);
-                        }
-                        else {
-                            setContentView(R.layout.activity_main_pacient);
-                        }
+        // Extraiem les dades del document
+        df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.getString("rol") != null) {
+                    if (documentSnapshot.getString("rol").equals("editor")) {
+                        setContentView(R.layout.activity_main_editor);
+                    }
+                    else if (documentSnapshot.getString("rol").equals("professional")) {
+                        setContentView(R.layout.activity_main_professional);
                     }
                     else {
                         setContentView(R.layout.activity_main_pacient);
                     }
                 }
-            });
-        }
-        else {
-            setContentView(R.layout.activity_main_pacient);
-        }
+                else {
+                    setContentView(R.layout.activity_main_pacient);
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                setContentView(R.layout.activity_main_pacient);
+            }
+        });
 
     }
 
     /**
+     * Mètode que utilitzem per a obrir l'activitat del calendari.
+     * @param v View
+     */
+    public void onClickBtnCalendari(View v) {
+        Intent calendari = new Intent(getApplicationContext(), ActivitatCalendari.class);
+        calendari.putExtra("llenguatge", getResources().getString(R.string.llenguatge));
+        startActivity(calendari);
+    }
+
+    /**
+     * Mètode que utilitzem per a obrir l'activitat del formulari.
+     * @param v View
+     */
+    public void onClickBtnFormulari(View v) {
+        Intent forms = new Intent(getApplicationContext(), ActivitatFormularis.class);
+        forms.putExtra("llenguatge",getResources().getString(R.string.llenguatge));
+        startActivity(forms);
+    }
+
+    /**
      * Mètode que utilitzem per a obrir l'activitat corresponent als vídeos.
-     *
      * @param v View
      */
     public void onClickBtnVideos(View v) {
-        Intent video = new Intent(this, LlistatVideosPrincipal.class );
-        video.putExtra("llenguatge",getResources().getString(R.string.llenguatge));
-        startActivity(video);
+        Intent videos = new Intent(this, LlistatVideosPrincipal.class );
+        videos.putExtra("llenguatge",getResources().getString(R.string.llenguatge));
+        startActivity(videos);
+    }
+
+    /**
+     * Mètode que utilitzem per a obrir l'activitat per a poder afegir un vídeo.
+     * @param v View
+     */
+    public void onClickBtnAfegirVideo(View v) {
+        Intent afegir = new Intent(this, AfegirVideos.class );
+        afegir.putExtra("llenguatge",getResources().getString(R.string.llenguatge));
+        startActivity(afegir);
+    }
+
+    /**
+     * Mètode que utilitzem per a obrir l'activitat per a poder eliminar un vídeo.
+     * @param v View
+     */
+    public void onClickBtnEliminarVideo(View v) {
+        Intent eliminar = new Intent(this, EliminarVideo.class );
+        eliminar.putExtra("llenguatge",getResources().getString(R.string.llenguatge));
+        startActivity(eliminar);
     }
 
     /**

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.nurseapp.MainActivity;
 import com.example.nurseapp.R;
 import com.example.nurseapp.TractamentGenericToolBar.TractamentToolBar;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -53,13 +54,10 @@ public class AccesUsuaris extends TractamentToolBar {
         buttonAcces.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 ComprovarLogin();
-
             }
         });
     }
-
 
     /**
      * Mètode amb el que comprovem si el login a la base de dades Firebase s'ha realitzat correctament.
@@ -76,18 +74,19 @@ public class AccesUsuaris extends TractamentToolBar {
                             if (task.isSuccessful()) {
                                 FirebaseUser user = mAuth.getCurrentUser();
 
-                                Intent a = new Intent(getApplicationContext(), SelectorAfegirEliminar.class);
-                                startActivity(a);
+                                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(i);
+
+                                finish();
                             }
                             else {
-                                Toast.makeText(getApplicationContext(), "Revisa les dades",
-                                        Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Revisa les dades!", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
         }
         catch (IllegalArgumentException | NullPointerException d) {
-            Toast.makeText(getApplicationContext(), "Revisa les dades", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Revisa les dades!", Toast.LENGTH_LONG).show();
         }
     }
 }

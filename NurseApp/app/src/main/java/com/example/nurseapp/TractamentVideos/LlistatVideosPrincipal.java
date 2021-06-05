@@ -2,17 +2,14 @@ package com.example.nurseapp.TractamentVideos;
 
 
 
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
+
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.nurseapp.MainActivity;
 import com.example.nurseapp.R;
-import com.example.nurseapp.Registres_Acces.AccesUsuaris;
 import com.example.nurseapp.TractamentGenericToolBar.TractamentToolBar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,7 +29,7 @@ public class LlistatVideosPrincipal extends TractamentToolBar {
     //Inicialització de les variables
     public static List<LlistatVideos> llistatVideos = new ArrayList<>();
     public static RecyclerView llistat;
-    public static LlistatVideosAdabter adapter;
+    public static LlistatVideosAdapter adapter;
     public SearchView searchView;
     public static FirebaseDatabase firebaseDatabase;
     public static DatabaseReference databaseReference;
@@ -126,7 +123,7 @@ public class LlistatVideosPrincipal extends TractamentToolBar {
 
                     numLastArrayList = llistatVideos.get(i-1).getNumId();
 
-                    adapter = new LlistatVideosAdabter(llistatVideos);
+                    adapter = new LlistatVideosAdapter(llistatVideos);
                     llistat.setAdapter(adapter);
                 }
 
@@ -166,7 +163,7 @@ public class LlistatVideosPrincipal extends TractamentToolBar {
             if(videos.getTexTitolVideos().toLowerCase().contains(s.toLowerCase()) || videos.getDescVideo().toLowerCase().contains(s.toLowerCase())){
                 myList.add(videos);
 
-                adapter = new LlistatVideosAdabter(myList);
+                adapter = new LlistatVideosAdapter(myList);
                 llistat.setAdapter(adapter);
             }
 
@@ -178,7 +175,7 @@ public class LlistatVideosPrincipal extends TractamentToolBar {
      * Mètode utilitzat per a inicialitzar l'adabter que hi té el List llsitatVideos.
      */
     public void inicialitzaAdabter(){
-        adapter = new LlistatVideosAdabter(llistatVideos);
+        adapter = new LlistatVideosAdapter(llistatVideos);
         llistat.setAdapter(adapter);
     }
 

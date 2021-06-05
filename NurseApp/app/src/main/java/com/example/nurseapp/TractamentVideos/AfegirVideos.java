@@ -1,4 +1,4 @@
-package com.example.nurseapp.Registres_Acces;
+package com.example.nurseapp.TractamentVideos;
 
 import android.os.Bundle;
 import android.view.View;

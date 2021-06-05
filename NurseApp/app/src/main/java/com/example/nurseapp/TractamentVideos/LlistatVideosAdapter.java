@@ -16,13 +16,13 @@ import java.util.List;
 /**
  * Classe per tal de construir el RecyclerView.Adapter que utilitzem per a mostrar tot el llistat dels vídeos.
  */
-public class LlistatVideosAdabter extends RecyclerView.Adapter<LlistatVideosAdabter.LlistatVideosViewHolder>{
+public class LlistatVideosAdapter extends RecyclerView.Adapter<LlistatVideosAdapter.LlistatVideosViewHolder>{
 
     //Inicialització de les variables
     private List<LlistatVideos> llistatsVideos;
 
     //Constructor.
-    public LlistatVideosAdabter(List<LlistatVideos> llistatsVideos){
+    public LlistatVideosAdapter(List<LlistatVideos> llistatsVideos){
 
         this.llistatsVideos = llistatsVideos;
 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="llenguatge">es</string>
+
+    <!--Menu-->
+    <string name="menuAcces">Acceder</string>
+    <string name="menuLlenguatge">Lenguaje</string>
+
+    <!--SubMenu-->
+    <string name="subMenuCatalan">Catalàn</string>
+    <string name="subMenuCastella">Castellano</string>
+    <string name="subMenuAngles">Inglés</string>
+
+    <!--Vista Inici-->
+    <string name="app_name">NurseApp</string>
+    <string name="tlbiTitol">Inicio</string>
+    <string name="btnFormulari">Formulario</string>
+    <string name="btnVideo">Vídeos</string>
+    <string name="btnCalendari">Calendario</string>
+    <string name="btnEditarRols">Editar Roles</string>
+    <string name="btnAfegirVideo">Añadir Video</string>
+    <string name="btnEliminarVideo">Eliminar Vídeo</string>
+
+    <!--Vista Acces-->
+    <string name="btnAcces">Acceso</string>
+    <string name="edtEmail">Email</string>
+    <string name="edtContrasenya">Contraseña</string>
+    <string name="tlbaTitol">Iniciar sesión</string>
+
+    <!--Vista Formulari-->
+    <string name="tlbfTitol">Formurarios</string>
+
+    <!--Vista Calendari-->
+    <string name="tlbcTitol">Calendario</string>
+
+</resources>

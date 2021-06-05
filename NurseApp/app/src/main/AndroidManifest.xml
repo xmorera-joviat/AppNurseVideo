@@ -15,10 +15,9 @@
         <activity android:name=".Formularis_Calendari.ActivitatCalendari" />
         <activity android:name=".Formularis_Calendari.ActivitatFormularis" />
         <activity android:name=".TractamentGenericToolBar.TractamentToolBar" />
-        <activity android:name=".EliminarVideos.EliminarVideo" />
-        <activity android:name=".Registres_Acces.SelectorAfegirEliminar" />
+        <activity android:name=".TractamentVideos.EliminarVideo" />
         <activity android:name=".Registres_Acces.AccesUsuaris" />
-        <activity android:name=".Registres_Acces.AfegirVideos" />
+        <activity android:name=".TractamentVideos.AfegirVideos" />
         <activity android:name=".TractamentVideos.ApiYoutube" />
         <activity android:name=".TractamentVideos.LlistatVideosPrincipal" />
         <activity android:name=".MainActivity" />

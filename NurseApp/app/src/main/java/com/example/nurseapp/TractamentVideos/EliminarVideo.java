@@ -1,4 +1,4 @@
-package com.example.nurseapp.EliminarVideos;
+package com.example.nurseapp.TractamentVideos;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +10,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.nurseapp.R;
-import com.example.nurseapp.TractamentVideos.ApiYoutube;
-import com.example.nurseapp.TractamentVideos.LlistatVideos;
-import com.example.nurseapp.TractamentVideos.LlistatVideosPrincipal;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
