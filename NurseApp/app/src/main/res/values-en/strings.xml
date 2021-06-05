@@ -14,10 +14,12 @@
     <!--Vista Inici-->
     <string name="app_name">NurseApp</string>
     <string name="tlbiTitol">Home Page</string>
-    <string name="btnName">Video!</string>
     <string name="btnFormulari">Form</string>
-    <string name="btnVideo">Vídeo</string>
+    <string name="btnVideo">Videos</string>
     <string name="btnCalendari">Calendar</string>
+    <string name="btnEditarRols">Edit Roles</string>
+    <string name="btnAfegirVideo">Add Video</string>
+    <string name="btnEliminarVideo">Delete Video</string>
 
     <!--Vista Acces-->
     <string name="btnAcces">Access</string>

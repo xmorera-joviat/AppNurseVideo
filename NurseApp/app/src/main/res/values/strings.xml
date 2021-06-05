@@ -13,10 +13,12 @@
     <!--Vista Inici-->
     <string name="app_name">NurseApp</string>
     <string name="tlbiTitol">Inici</string>
-    <string name="btnName">Video!</string>
     <string name="btnFormulari">Formulari</string>
-    <string name="btnVideo">Vídeo</string>
+    <string name="btnVideo">Vídeos</string>
     <string name="btnCalendari">Calendari</string>
+    <string name="btnEditarRols">Editar Rols</string>
+    <string name="btnAfegirVideo">Afegir Video</string>
+    <string name="btnEliminarVideo">Eliminar Vídeo</string>
 
     <!--Vista Acces-->
     <string name="btnAcces">Accés</string>

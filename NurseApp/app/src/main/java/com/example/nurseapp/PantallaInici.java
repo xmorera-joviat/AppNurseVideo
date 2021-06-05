@@ -1,7 +1,6 @@
 package com.example.nurseapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.multidex.MultiDex;
 
 import android.content.Context;
 import android.content.Intent;
