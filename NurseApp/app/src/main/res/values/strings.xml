@@ -32,4 +32,10 @@
     <!--Vista Calendari-->
     <string name="tlbcTitol">Formulari</string>
 
+    <!--Vista AfegirVideos-->
+    <string name="tlbafTitol">Vídeo nuevo</string>
+
+    <!--Vista EliminarVideos-->
+    <string name="tlbevTitol">Esborrar vídeo</string>
+
 </resources>

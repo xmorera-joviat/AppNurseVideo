@@ -1,5 +1,6 @@
 package com.example.nurseapp.TractamentVideos;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,8 @@ import com.example.nurseapp.TractamentVideos.LlistatVideos;
 import com.example.nurseapp.TractamentVideos.LlistatVideosPrincipal;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.Locale;
 
 /**
  * Classe utilitzada per afegir títol del vídeo, descripció, url i ID, l'ID és autonumèric. A la base de dades Firebase.
@@ -33,6 +36,13 @@ public class AfegirVideos extends LlistatVideosPrincipal {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_afegir_videos);
 
+        Locale locale = new Locale(getIntent().getExtras().getString("llenguatge"));
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+
+        getBaseContext().getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+
         // Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
         idNom = findViewById(R.id.idNom);
         idDesc = findViewById(R.id.idDesc);
@@ -43,7 +53,7 @@ public class AfegirVideos extends LlistatVideosPrincipal {
         setUpToolBar();
 
         // Executem el mètode customTitileToolBar amb el seu títol corresponent.
-        customTitileToolBar("Nou Vídeo");
+        customTitileToolBar(getResources().getString(R.string.tlbafTitol));
 
         // Obtenim la referència del fill que tenim a la base de dades.
         ref = database.getInstance().getReference().child("LlistatVideos");

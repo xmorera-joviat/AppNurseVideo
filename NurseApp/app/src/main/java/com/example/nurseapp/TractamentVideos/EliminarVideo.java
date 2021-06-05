@@ -1,6 +1,7 @@
 package com.example.nurseapp.TractamentVideos;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Classe per a tractar l'activity d'eliminar els vídeos.
@@ -37,11 +39,17 @@ public class EliminarVideo extends LlistatVideosPrincipal {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eliminar_video);
 
+        Locale locale = new Locale(getIntent().getExtras().getString("llenguatge"));
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+
+        getBaseContext().getResources().updateConfiguration(config, getResources().getDisplayMetrics());
         // Executem el mètode setUpToolBar
        setUpToolBar();
 
         // Executem el mètode customTitileToolBar amb el títol corresponent.
-        customTitileToolBar("Eliminar Vídeos");
+        customTitileToolBar(getResources().getString(R.string.tlbevTitol));
 
         // Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
         idTextTitol = findViewById(R.id.idTextVideosEliminar);

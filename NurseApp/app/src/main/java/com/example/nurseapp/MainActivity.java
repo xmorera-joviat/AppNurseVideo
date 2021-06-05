@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         // Creem una instància de la base de dades de firebase cloudstore.
         fStore = FirebaseFirestore.getInstance();
 
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         }
         // Si es null, ficarem la vista dels pacients.
         else {
-            setContentView(R.layout.activity_main_pacient);
+            setContentView(R.layout.activity_main_editor);
         }
 
         // Executem el mètode setUpToolBar
