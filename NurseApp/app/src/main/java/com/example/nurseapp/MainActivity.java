@@ -21,17 +21,12 @@ import com.example.nurseapp.Formularis_Calendari.ActivitatFormularis;
 import com.example.nurseapp.Registres_Acces.AccesUsuaris;
 import com.example.nurseapp.TractamentVideos.LlistatVideosPrincipal;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 /**
  * Activitat que controla la pantalla principal.
@@ -49,6 +44,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_main);
+
+        //String uid = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
+
+        //CheckUserRole(uid);
 
         // Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
         IdBtnVideos = findViewById(R.id.idBtnVideos);
@@ -81,33 +82,36 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
 
     private void CheckUserRole(String uid) {
-        DocumentReference df = fStore.collection("Users").document(uid);
+        if (uid != null) {
+            DocumentReference df = fStore.collection("Users").document(uid);
 
-        // Extraiem les dades del document
-        df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.getString("rol") != null) {
-                    if (documentSnapshot.getString("rol").equals("editor")) {
-                        setContentView(R.layout.activity_main_editor);
-                    }
-                    else if (documentSnapshot.getString("rol").equals("professional")) {
-                        setContentView(R.layout.activity_main_professional);
+            // Extraiem les dades del document
+            df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    if (documentSnapshot.getString("rol") != null) {
+                        if (documentSnapshot.getString("rol").equals("editor")) {
+                            setContentView(R.layout.activity_main_editor);
+                        }
+                        else if (documentSnapshot.getString("rol").equals("professional")) {
+                            setContentView(R.layout.activity_main_professional);
+                        }
+                        else {
+                            setContentView(R.layout.activity_main_pacient);
+                        }
                     }
                     else {
                         setContentView(R.layout.activity_main_pacient);
                     }
                 }
-                else {
-                    setContentView(R.layout.activity_main_pacient);
-                }
-            }
-        });
+            });
+        }
+        else {
+            setContentView(R.layout.activity_main_pacient);
+        }
 
     }
 
@@ -226,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
 
             TextView textView = toolbar.findViewById(R.id.toolbar_title);
 
-            textView.setText(getResources().getString(R.string.tlbiTitul));
+            textView.setText(getResources().getString(R.string.tlbiTitol));
         }
     }
 }

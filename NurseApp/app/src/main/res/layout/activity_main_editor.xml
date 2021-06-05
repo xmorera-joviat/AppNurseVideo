@@ -1,6 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <include
+        android:id="@+id/idToolBar"
+        layout="@layout/toolbar"
+        />
+
+    <Button
+        android:id="@+id/idBtnRols"
+        android:layout_width="130dp"
+        android:layout_height="45dp"
+        android:layout_below="@id/idBtnVideos"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_marginBottom="300dp"
+        android:background="@drawable/buttons"
+        android:text="editar rols"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idToolBar"
+        app:layout_constraintVertical_bias="0.319" />
+
+    <Button
+        android:id="@+id/idBtnCalendari"
+        android:layout_width="130dp"
+        android:layout_height="45dp"
+        android:layout_below="@id/idBtnVideos"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/buttons"
+        android:text="@string/btnCalendari"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idBtnRols" />
+
+    <Button
+        android:id="@+id/idBtnFormulari"
+        android:layout_width="130dp"
+        android:layout_height="45dp"
+        android:layout_above="@+id/idBtnVideos"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/buttons"
+        android:text="@string/btnFormulari"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idBtnCalendari" />
+
+    <Button
+        android:id="@+id/idBtnVideos"
+        android:layout_width="130dp"
+        android:layout_height="45dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/buttons"
+        android:onClick="onClickBtnVideos"
+        android:text="@string/btnVideo"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idBtnFormulari" />
+
+    <Button
+        android:id="@+id/idBtnAfegir"
+        android:layout_width="130dp"
+        android:layout_height="45dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/buttons"
+        android:onClick="onClickBtnVideos"
+        android:text="@string/btnVideo"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idBtnVideos" />
+
+    <Button
+        android:id="@+id/idBtnEsborrar"
+        android:layout_width="130dp"
+        android:layout_height="45dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/buttons"
+        android:onClick="onClickBtnVideos"
+        android:text="@string/btnVideo"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idBtnAfegir" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

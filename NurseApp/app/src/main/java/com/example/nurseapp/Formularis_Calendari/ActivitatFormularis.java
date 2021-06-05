@@ -33,7 +33,7 @@ public class ActivitatFormularis extends TractamentToolBar {
         setUpToolBar();
 
         //Executem el mètode customTitileToolBar amb el títol corresponent.
-        customTitileToolBar(getResources().getString(R.string.tlbfTitul));
+        customTitileToolBar(getResources().getString(R.string.tlbfTitol));
 
         //Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
         web = findViewById(R.id.idWebViewFormularis);

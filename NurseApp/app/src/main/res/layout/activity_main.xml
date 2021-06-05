@@ -6,53 +6,48 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
     <include
         android:id="@+id/idToolBar"
         layout="@layout/toolbar"
         />
 
+    <Button
+        android:id="@+id/idBtnCalendari"
+        android:layout_width="130dp"
+        android:layout_height="45dp"
+        android:layout_below="@id/idBtnVideos"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:background="@drawable/buttons"
+        android:text="@string/btnCalendari"
+        android:textColor="@color/white"
+        tools:layout_editor_absoluteX="105dp"
+        tools:layout_editor_absoluteY="146dp" />
+
+    <Button
+        android:id="@+id/idBtnFormulari"
+        android:layout_width="130dp"
+        android:layout_height="45dp"
+        android:layout_above="@+id/idBtnVideos"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:background="@drawable/buttons"
+        android:text="@string/btnFormulari"
+        android:textColor="@color/white"
+        tools:layout_editor_absoluteX="105dp"
+        tools:layout_editor_absoluteY="218dp" />
 
     <Button
         android:id="@+id/idBtnVideos"
-        android:layout_width="201dp"
+        android:layout_width="130dp"
         android:layout_height="45dp"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
         android:background="@drawable/buttons"
         android:onClick="onClickBtnVideos"
         android:text="@string/btnVideo"
-        android:textColor="@color/white" />
-
-    <Button
-        android:id="@+id/idBtnCalendari"
-        android:layout_width="201dp"
-        android:layout_height="45dp"
-        android:layout_below="@id/idBtnVideos"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/buttons"
-        android:text="@string/btnCalendari"
-        android:textColor="@color/white" />
-
-    <Button
-        android:id="@+id/idBtnFormulari"
-        android:layout_width="201dp"
-        android:layout_height="45dp"
-        android:layout_above="@+id/idBtnVideos"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/buttons"
-        android:text="@string/btnFormulari"
-        android:textColor="@color/white" />
-
-
-
-
+        android:textColor="@color/white"
+        tools:layout_editor_absoluteX="105dp"
+        tools:layout_editor_absoluteY="294dp" />
 
 </RelativeLayout>

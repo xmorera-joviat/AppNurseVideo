@@ -13,7 +13,7 @@
 
     <!--Vista Inici-->
     <string name="app_name">NurseApp</string>
-    <string name="tlbiTitul">Home Page</string>
+    <string name="tlbiTitol">Home Page</string>
     <string name="btnName">Video!</string>
     <string name="btnFormulari">Form</string>
     <string name="btnVideo">Vídeo</string>
@@ -23,13 +23,12 @@
     <string name="btnAcces">Access</string>
     <string name="edtEmail">Email</string>
     <string name="edtContrasenya">Password</string>
-    <string name="tlbaTitul">Login</string>
+    <string name="tlbaTitol">Login</string>
 
     <!--Vista Formulari-->
-    <string name="tlbfTitul">Forms</string>
+    <string name="tlbfTitol">Forms</string>
 
     <!--Vista Calendari-->
-    <string name="tlbcTitul">Calendar</string>
-
+    <string name="tlbcTitol">Calendar</string>
 
 </resources>

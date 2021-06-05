@@ -35,7 +35,7 @@ public class ActivitatCalendari extends TractamentToolBar {
         setUpToolBar();
 
         //Executem el mètode customTitileToolBar amb el títol corresponent.
-        customTitileToolBar(getResources().getString(R.string.tlbcTitul));
+        customTitileToolBar(getResources().getString(R.string.tlbcTitol));
 
         //Llancem en el WebView el calendari de google.
         WebSettings webSettings = web.getSettings();

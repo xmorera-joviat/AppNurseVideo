@@ -12,7 +12,7 @@
 
     <!--Vista Inici-->
     <string name="app_name">NurseApp</string>
-    <string name="tlbiTitul">Inici</string>
+    <string name="tlbiTitol">Inici</string>
     <string name="btnName">Video!</string>
     <string name="btnFormulari">Formulari</string>
     <string name="btnVideo">Vídeo</string>
@@ -22,17 +22,12 @@
     <string name="btnAcces">Accés</string>
     <string name="edtEmail">Email</string>
     <string name="edtContrasenya">Contrasenya</string>
-    <string name="tlbaTitul">Inicia sessió</string>
+    <string name="tlbaTitol">Inicia sessió</string>
 
     <!--Vista Formulari-->
-    <string name="tlbfTitul">Formularis</string>
+    <string name="tlbfTitol">Formularis</string>
 
     <!--Vista Calendari-->
-    <string name="tlbcTitul">Formulari</string>
-
-
-
-
-
+    <string name="tlbcTitol">Formulari</string>
 
 </resources>
