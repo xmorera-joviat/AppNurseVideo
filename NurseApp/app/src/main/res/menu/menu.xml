@@ -5,17 +5,15 @@
     <item
         android:id="@+id/idAcces"
         android:title="@string/menuAcces"
-        android:iconTint="@color/white"
-        app:showAsAction="never"
-        android:icon="@color/white"
-        />
+        android:icon="@drawable/ic_account"
+        app:showAsAction="ifRoom"
+    />
 
     <item
         android:id="@+id/idLlenguatge"
         android:title="@string/menuLlenguatge"
-        android:iconTint="@color/white"
-        app:showAsAction="never"
-        android:icon="@color/white"
+        android:icon="@drawable/ic_language"
+        app:showAsAction="ifRoom"
         >
         <menu>
             <item
@@ -23,27 +21,21 @@
                 android:title="@string/subMenuCatalan"
                 android:iconTint="@color/white"
                 app:showAsAction="never"
-                android:icon="@color/white"
                 />
             <item
                 android:id="@+id/idCastella"
                 android:title="@string/subMenuCastella"
                 android:iconTint="@color/white"
                 app:showAsAction="never"
-                android:icon="@color/white"
                 />
             <item
                 android:id="@+id/idAngles"
                 android:title="@string/subMenuAngles"
                 android:iconTint="@color/white"
                 app:showAsAction="never"
-                android:icon="@color/white"
                 />
         </menu>
 
-
     </item>
-
-
 
 </menu>
