@@ -28,6 +28,7 @@ public class Registrarse extends TractamentToolBar {
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private EditText editTextEmail;
     private EditText editTextContrassenya;
+    private EditText editTextComprovacio;
     private Button buttonAcces;
 
     @Override
@@ -39,11 +40,12 @@ public class Registrarse extends TractamentToolBar {
         setUpToolBar();
 
         // Executem el mètode customTitileTool, passant com a paràmetre el nom que volem indicar.
-        customTitileToolBar("Login");
+        customTitileToolBar(getResources().getString(R.string.register));
 
         // Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
         editTextEmail = findViewById(R.id.idEmail);
         editTextContrassenya = findViewById(R.id.idContrassenya);
+        editTextContrassenya = findViewById(R.id.idComprovacio);
         buttonAcces = findViewById(R.id.idButtonAcces);
 
         // Obtenim l'instància de FirebaseAuth.

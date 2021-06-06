@@ -59,8 +59,7 @@ public class LlistatVideosPrincipal extends TractamentToolBar {
 
         //Mètodes setUpToolBar i customTitileToolBar heretats de la classe TractamentToolBar.
         setUpToolBar();
-        customTitileToolBar("Video");
-
+        customTitileToolBar(getResources().getString(R.string.tlbvTitol));
     }
 
 

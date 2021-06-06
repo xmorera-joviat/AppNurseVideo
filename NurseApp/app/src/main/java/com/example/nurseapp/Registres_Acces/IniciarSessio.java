@@ -40,7 +40,7 @@ public class IniciarSessio extends TractamentToolBar {
         setUpToolBar();
 
         // Executem el mètode customTitileTool, passant com a paràmetre el nom que volem indicar.
-        customTitileToolBar("Login");
+        customTitileToolBar(getResources().getString(R.string.login));
 
         // Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
         editTextEmail = findViewById(R.id.idEmail);

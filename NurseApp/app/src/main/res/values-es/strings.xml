@@ -31,10 +31,13 @@
     <string name="tlbaTitol">Iniciar sesión</string>
 
     <!--Vista Formulari-->
-    <string name="tlbfTitol">Formurarios</string>
+    <string name="tlbfTitol">Formulario</string>
 
     <!--Vista Calendari-->
     <string name="tlbcTitol">Calendario</string>
+
+    <!--Vista Llistat vídeos-->
+    <string name="tlbvTitol">Vídeos</string>
 
     <!--Vista AfegirVideos-->
     <string name="tlbafTitol">Vídeo nuevo</string>
