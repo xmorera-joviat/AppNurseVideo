@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
     tools:context=".MainActivity">
 
     <include
@@ -15,6 +16,7 @@
         android:layout_width="104dp"
         android:layout_height="94dp"
         android:layout_marginEnd="20dp"
+        android:clickable="true"
         android:onClick="onClickBtnFormulari"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imv_editrols"
@@ -114,6 +116,7 @@
         android:id="@+id/imv_editrols"
         android:layout_width="104dp"
         android:layout_height="94dp"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imv_form"
         app:layout_constraintHorizontal_bias="0.454"
@@ -127,6 +130,7 @@
         android:layout_width="104dp"
         android:layout_height="94dp"
         android:layout_marginTop="92dp"
+        android:clickable="true"
         android:onClick="onClickBtnAfegirVideo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imv_delvideo"
@@ -141,6 +145,7 @@
         android:layout_width="105dp"
         android:layout_height="94dp"
         android:layout_marginStart="28dp"
+        android:clickable="true"
         android:onClick="onClickBtnVideos"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imv_addvideo"
@@ -151,6 +156,7 @@
         android:layout_width="97dp"
         android:layout_height="95dp"
         android:layout_marginEnd="24dp"
+        android:clickable="true"
         android:onClick="onClickBtnEliminarVideo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imv_addvideo"
