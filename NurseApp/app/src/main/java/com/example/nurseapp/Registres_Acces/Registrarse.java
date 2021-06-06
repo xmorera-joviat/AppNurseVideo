@@ -17,6 +17,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Classe que controla l'accés d'usuaris per registrar-se a Firebase.
@@ -24,6 +29,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class Registrarse extends TractamentToolBar {
 
     // Inicialització de les variables :
+    private FirebaseFirestore fStore;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private EditText editTextEmail;
@@ -45,49 +51,70 @@ public class Registrarse extends TractamentToolBar {
         // Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
         editTextEmail = findViewById(R.id.idEmail);
         editTextContrassenya = findViewById(R.id.idContrassenya);
-        editTextContrassenya = findViewById(R.id.idComprovacio);
+        editTextComprovacio = findViewById(R.id.idComprovacio);
         buttonAcces = findViewById(R.id.idButtonAcces);
 
         // Obtenim l'instància de FirebaseAuth.
         mAuth = FirebaseAuth.getInstance();
 
-        // Botó onClick per tal d'executar el mètode ComprovarLogin.
+        // Botó onClick per tal d'executar el mètode ComprovarRegistre.
         buttonAcces.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ComprovarLogin();
+                ComprovarRegistre();
             }
         });
     }
 
     /**
-     * Mètode amb el que comprovem si el login a la base de dades Firebase s'ha realitzat correctament.
+     * Mètode amb el que comprovem si el registre a la base de dades Firebase s'ha realitzat correctament.
      */
-    public void ComprovarLogin() {
+    public void ComprovarRegistre() {
         String email = editTextEmail.getText().toString();
         String contrassenya = editTextContrassenya.getText().toString();
+        String comprovacio = editTextComprovacio.getText().toString();
 
-        try {
-            mAuth.signInWithEmailAndPassword(email, contrassenya)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                FirebaseUser user = mAuth.getCurrentUser();
+        if (contrassenya.equals(comprovacio)) {
+            try {
+                mAuth.createUserWithEmailAndPassword(email, contrassenya)
+                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Agafem l'usuari creat.
+                                    FirebaseUser user = mAuth.getCurrentUser();
 
-                                Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                                startActivity(i);
+                                    // Afegim automàticament que la compte és un pacient.
+                                    DocumentReference df = fStore.collection("Users").document(user.getUid());
+                                    Map<String,Object> userInfo = new HashMap<>();
+                                    userInfo.put("rol","pacient");
+                                    df.set(userInfo);
 
-                                finish();
+                                    // Informem que la compte s'ha creat correctament.
+                                    Toast.makeText(getApplicationContext(), "Compte creada.", Toast.LENGTH_LONG).show();
+
+                                    // Tornem a la MainActivity i
+                                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                                    startActivity(i);
+
+                                    // finalitzem aquesta activitat.
+                                    finish();
+                                }
+                                // Informem que no s'ha pogut crear el compte degut a que ja existeix.
+                                else {
+                                    Toast.makeText(getApplicationContext(), "Aquest compte ja existeix!", Toast.LENGTH_LONG).show();
+                                }
                             }
-                            else {
-                                Toast.makeText(getApplicationContext(), "Revisa les dades!", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
+                        });
+            }
+            // Informem que hi ha hagut un error amb les dades introduïdes.
+            catch (IllegalArgumentException | NullPointerException e) {
+                Toast.makeText(getApplicationContext(), "Dades no vàlides!", Toast.LENGTH_LONG).show();
+            }
         }
-        catch (IllegalArgumentException | NullPointerException d) {
-            Toast.makeText(getApplicationContext(), "Revisa les dades!", Toast.LENGTH_LONG).show();
+        else {
+            // Informem que les contrasenyes no coincideixen.
+            Toast.makeText(getApplicationContext(), "La contrasenya no coincideix!", Toast.LENGTH_LONG).show();
         }
     }
 }
