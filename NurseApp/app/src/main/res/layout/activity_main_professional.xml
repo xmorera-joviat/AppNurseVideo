@@ -11,83 +11,136 @@
         layout="@layout/toolbar"
         />
 
-    <Button
-        android:id="@+id/idBtnCalendari"
-        android:layout_width="130dp"
-        android:layout_height="45dp"
-        android:layout_below="@id/idBtnVideos"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:layout_marginBottom="350dp"
-        android:background="@drawable/buttons"
-        android:onClick="onClickBtnCalendari"
-        android:text="@string/btnCalendari"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idToolBar" />
-
-    <Button
-        android:id="@+id/idBtnFormulari"
-        android:layout_width="130dp"
-        android:layout_height="45dp"
-        android:layout_above="@+id/idBtnVideos"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/buttons"
+    <ImageView
+        android:id="@+id/imv_form"
+        android:layout_width="104dp"
+        android:layout_height="94dp"
+        android:layout_marginTop="148dp"
+        android:layout_marginEnd="72dp"
         android:onClick="onClickBtnFormulari"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idToolBar"
+        app:srcCompat="@drawable/button_form" />
+
+    <TextView
+        android:id="@+id/tv_calendar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/btnCalendari"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#65473E"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/imv_calendari"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/imv_calendari"
+        app:layout_constraintTop_toBottomOf="@+id/imv_calendari" />
+
+    <TextView
+        android:id="@+id/tv_form"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="@string/btnFormulari"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idBtnCalendari" />
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#65473E"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/imv_form"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/imv_form"
+        app:layout_constraintTop_toBottomOf="@+id/imv_form" />
 
-    <Button
-        android:id="@+id/idBtnVideos"
-        android:layout_width="130dp"
-        android:layout_height="45dp"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/buttons"
-        android:onClick="onClickBtnVideos"
+    <TextView
+        android:id="@+id/tv_video"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="@string/btnVideo"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idBtnFormulari" />
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#65473E"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/imv_video"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/imv_video"
+        app:layout_constraintTop_toBottomOf="@+id/imv_video" />
 
-    <Button
-        android:id="@+id/idBtnAfegir"
-        android:layout_width="130dp"
-        android:layout_height="45dp"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/buttons"
-        android:onClick="onClickBtnAfegirVideo"
+    <TextView
+        android:id="@+id/tv_addvideo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="@string/btnAfegirVideo"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idBtnVideos" />
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#65473E"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/imv_addvideo"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/imv_addvideo"
+        app:layout_constraintTop_toBottomOf="@+id/imv_addvideo" />
 
-    <Button
-        android:id="@+id/idBtnEsborrar"
-        android:layout_width="130dp"
-        android:layout_height="45dp"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/buttons"
-        android:onClick="onClickBtnEliminarVideo"
+    <TextView
+        android:id="@+id/tv_delvideo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="@string/btnEliminarVideo"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#65473E"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/imv_delvideo"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/imv_delvideo"
+        app:layout_constraintTop_toBottomOf="@+id/imv_delvideo" />
+
+    <ImageView
+        android:id="@+id/imv_addvideo"
+        android:layout_width="104dp"
+        android:layout_height="94dp"
+        android:onClick="onClickBtnAfegirVideo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imv_delvideo"
+        app:layout_constraintHorizontal_bias="0.415"
+        app:layout_constraintStart_toEndOf="@+id/imv_video"
+        app:layout_constraintTop_toBottomOf="@+id/tv_calendar"
+        app:layout_constraintVertical_bias="0.211"
+        app:srcCompat="@drawable/button_addvideos" />
+
+    <ImageView
+        android:id="@+id/imv_video"
+        android:layout_width="105dp"
+        android:layout_height="94dp"
+        android:layout_marginStart="28dp"
+        android:onClick="onClickBtnVideos"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idBtnAfegir" />
+        app:layout_constraintTop_toTopOf="@+id/imv_addvideo"
+        app:srcCompat="@drawable/button_videos" />
+
+    <ImageView
+        android:id="@+id/imv_delvideo"
+        android:layout_width="97dp"
+        android:layout_height="95dp"
+        android:layout_marginEnd="24dp"
+        android:onClick="onClickBtnEliminarVideo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imv_addvideo"
+        app:srcCompat="@drawable/button_delvideos" />
+
+    <ImageView
+        android:id="@+id/imv_calendari"
+        android:layout_width="104dp"
+        android:layout_height="94dp"
+        android:layout_marginStart="24dp"
+        android:background="@drawable/button_calendar"
+        android:clickable="true"
+        android:onClick="onClickBtnCalendari"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toStartOf="@+id/imv_form"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imv_form" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

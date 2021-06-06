@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         }
         // Si es null, ficarem la vista dels pacients.
         else {
-            setContentView(R.layout.activity_main_editor);
+            setContentView(R.layout.activity_main_pacient);
         }
 
         // Executem el mètode setUpToolBar
