@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-        <item android:drawable="@drawable/editrolclik"  android:state_pressed="true" />
-        <item android:drawable="@drawable/editrol" />
+        <item android:drawable="@drawable/edit_role_click"  android:state_pressed="true" />
+        <item android:drawable="@drawable/edit_role" />
 
 </selector>

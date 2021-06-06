@@ -35,7 +35,6 @@ public class TractamentToolBar extends AppCompatActivity {
     public void setUpToolBar() {
         toolbar = findViewById(R.id.idToolBar);
         setSupportActionBar(toolbar);
-
         showHomeUpIcon(R.drawable.ic_home);
     }
 

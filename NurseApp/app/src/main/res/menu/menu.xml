@@ -7,7 +7,25 @@
         android:title="@string/menuAcces"
         android:icon="@drawable/ic_account"
         app:showAsAction="ifRoom"
-    />
+        >
+        <menu>
+            <item
+                android:id="@+id/idLogin"
+                android:title="@string/login"
+                app:showAsAction="never"
+                />
+            <item
+                android:id="@+id/idRegister"
+                android:title="@string/register"
+                app:showAsAction="never"
+                />
+            <item
+                android:id="@+id/idLogout"
+                android:title="@string/logout"
+                app:showAsAction="never"
+                />
+        </menu>
+    </item>
 
     <item
         android:id="@+id/idLlenguatge"
@@ -19,23 +37,22 @@
             <item
                 android:id="@+id/idCatala"
                 android:title="@string/subMenuCatalan"
-                android:iconTint="@color/white"
+                android:icon="@drawable/ic_catalan_flag"
                 app:showAsAction="never"
                 />
             <item
                 android:id="@+id/idCastella"
                 android:title="@string/subMenuCastella"
-                android:iconTint="@color/white"
+                android:icon="@drawable/ic_spain_flag"
                 app:showAsAction="never"
                 />
             <item
                 android:id="@+id/idAngles"
                 android:title="@string/subMenuAngles"
-                android:iconTint="@color/white"
+                android:icon="@drawable/ic_england_flag"
                 app:showAsAction="never"
                 />
         </menu>
-
     </item>
 
 </menu>

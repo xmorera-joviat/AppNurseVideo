@@ -1,13 +1,13 @@
 package com.example.nurseapp.Registres_Acces;
 
-import androidx.annotation.NonNull;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.example.nurseapp.MainActivity;
 import com.example.nurseapp.R;
@@ -17,16 +17,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.FirebaseAuth.AuthStateListener;
 
 /**
- * Classe que controla l'accés d'usuaris ja registrats a Firebase.
+ * Classe que controla l'accés d'usuaris per registrar-se a Firebase.
  */
-public class AccesUsuaris extends TractamentToolBar {
+public class Registrarse extends TractamentToolBar {
 
     // Inicialització de les variables :
     private FirebaseAuth mAuth;
-    private AuthStateListener mAuthStateListener;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
     private EditText editTextEmail;
     private EditText editTextContrassenya;
     private Button buttonAcces;
@@ -34,7 +33,7 @@ public class AccesUsuaris extends TractamentToolBar {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_acces_usuaris);
+        setContentView(R.layout.activity_registrar);
 
         // Executem el mètode setUpToolBar
         setUpToolBar();

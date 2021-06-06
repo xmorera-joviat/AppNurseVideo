@@ -21,7 +21,7 @@ public class ActivitatFormularis extends TractamentToolBar {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_activitat_formularis);
+        setContentView(R.layout.activity_formulari);
         Locale locale = new Locale(getIntent().getExtras().getString("llenguatge"));
         Locale.setDefault(locale);
         Configuration config = new Configuration();

@@ -7,7 +7,10 @@
     <string name="menuLlenguatge">Lenguaje</string>
 
     <!--SubMenu-->
-    <string name="subMenuCatalan">Catalàn</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="register">Registrarse</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="subMenuCatalan">Catalán</string>
     <string name="subMenuCastella">Castellano</string>
     <string name="subMenuAngles">Inglés</string>
 

@@ -21,7 +21,7 @@ public class ActivitatCalendari extends TractamentToolBar {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_activitat_calendari);
+        setContentView(R.layout.activity_calendari);
 
         Locale locale = new Locale(getIntent().getExtras().getString("llenguatge"));
         Locale.setDefault(locale);

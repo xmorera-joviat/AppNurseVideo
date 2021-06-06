@@ -6,11 +6,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,10 +15,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.nurseapp.Registres_Acces.Registrarse;
 import com.example.nurseapp.TractamentVideos.EliminarVideo;
 import com.example.nurseapp.Formularis_Calendari.ActivitatCalendari;
 import com.example.nurseapp.Formularis_Calendari.ActivitatFormularis;
-import com.example.nurseapp.Registres_Acces.AccesUsuaris;
+import com.example.nurseapp.Registres_Acces.IniciarSessio;
 import com.example.nurseapp.TractamentVideos.AfegirVideos;
 import com.example.nurseapp.TractamentVideos.LlistatVideosPrincipal;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -44,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     private Button idBtnFormularis;
     private Toolbar toolbar;
     private FirebaseFirestore fStore;
+    private boolean loggedIn;
+    private MenuItem logIn, register, logOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,18 +57,25 @@ public class MainActivity extends AppCompatActivity {
 
         // Comprovem que no sigui null, i per tant, algú tingui la sessió iniciada.
         if (user != null) {
+            loggedIn = true;
             CheckUserRole(user.getUid());
         }
         // Si es null, ficarem la vista dels pacients.
         else {
+            loggedIn = false;
             setContentView(R.layout.activity_main_pacient);
         }
 
-        // Executem el mètode setUpToolBar
-        setUpToolBar();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Executem el mètode setUpToolBar
+                setUpToolBar();
 
-        // Executem el mètode customTitileToolBar
-        customTitileToolBar();
+                // Executem el mètode customTitileToolBar
+                customTitileToolBar();
+            }
+        }, 1000);
 
     }
 
@@ -168,7 +175,6 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Mètode que utilitzem per a fer l'inflater del menú.
-     *
      * @param menu menu
      * @return menu
      */
@@ -177,25 +183,53 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
 
+        // Incialitzem la instància dels diferents items.
+        logIn = menu.findItem(R.id.idLogin);
+        register = menu.findItem(R.id.idRegister);
+        logOut = menu.findItem(R.id.idLogout);
+
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+
+        // Comprovem si l'usuari té la sessió iniciada i en qüestió d'aixó mostrem
+        // les opcions de iniciar sessió i registrar-te, o l'opció de tancar sessió.
+        logIn.setVisible(!loggedIn);
+        register.setVisible(!loggedIn);
+        logOut.setVisible(loggedIn);
+
+        return true;
     }
 
     /**
      * Mètode que controla quin botó del menú s'ha seleccionat per tal d'obrir la corresponent activity.
-     * <p>
      * També controla el text que hi ha en el centre de la toolbar en aquesta activity.
-     *
      * @param item MenuItem
      * @return ItemSelected
      */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
-            case R.id.idAcces:
-                Intent acces = new Intent(this, AccesUsuaris.class );
-                acces.putExtra("llenguatge", getResources().getString(R.string.llenguatge));
-                startActivity(acces);
+            case R.id.idLogin:
+                Intent login = new Intent(this, IniciarSessio.class );
+                login.putExtra("llenguatge", getResources().getString(R.string.llenguatge));
+                startActivity(login);
                 finish();
+                break;
+            case R.id.idRegister:
+                Intent register = new Intent(this, Registrarse.class );
+                register.putExtra("llenguatge", getResources().getString(R.string.llenguatge));
+                startActivity(register);
+                finish();
+                break;
+            case R.id.idLogout:
+                FirebaseAuth.getInstance().signOut();
+                Intent i = new Intent(this, RecreateScreen.class);
+                startActivity(i);
+                recreate();
                 break;
             case  R.id.idCatala:
                 CanviarLlenguatge("ca");
@@ -226,6 +260,7 @@ public class MainActivity extends AppCompatActivity {
         // Actualizar recursos lenguaje de app.
         getBaseContext().getResources().updateConfiguration(config, getResources().getDisplayMetrics());
 
+        // Recarreguem l'activitat.
         recreate();
     }
 
