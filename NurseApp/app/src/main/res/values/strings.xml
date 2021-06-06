@@ -21,7 +21,7 @@
     <string name="btnEliminarVideo">Eliminar Vídeo</string>
 
     <!--Vista Acces-->
-    <string name="btnAcces">Accés</string>
+    <string name="btnAcces">Accedir</string>
     <string name="edtEmail">Email</string>
     <string name="edtContrasenya">Contrasenya</string>
     <string name="tlbaTitol">Inicia sessió</string>

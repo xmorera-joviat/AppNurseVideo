@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         // Creem una instància de la base de dades de firebase cloudstore.
         fStore = FirebaseFirestore.getInstance();
 
@@ -165,31 +164,6 @@ public class MainActivity extends AppCompatActivity {
     public void setUpToolBar() {
         toolbar = findViewById(R.id.idToolBar);
         setSupportActionBar(toolbar);
-        showHomeUpIcon();
-        setUpHomeUpIconColor(R.drawable.ic_home, R.color.white);
-    }
-
-    /**
-     * Mètode que utilitzem per mostrar el botó de home
-     */
-    public void showHomeUpIcon() {
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-    }
-
-    /**
-     * Mètode per tal d'aplicar el color que necessitem a les nostres icones.
-     *
-     * @param drawable icona
-     * @param color    color per a l'icona
-     */
-    public void setUpHomeUpIconColor(int drawable, int color) {
-        if (getSupportActionBar() != null) {
-            final Drawable icon = getResources().getDrawable(drawable);
-            icon.setColorFilter(getResources().getColor(color), PorterDuff.Mode.SRC_ATOP);
-            getSupportActionBar().setHomeAsUpIndicator(icon);
-        }
     }
 
     /**
@@ -206,7 +180,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-
     /**
      * Mètode que controla quin botó del menú s'ha seleccionat per tal d'obrir la corresponent activity.
      * <p>
@@ -218,14 +191,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
-            case android.R.id.home:
-                Intent i = new Intent(this, MainActivity.class );
-                startActivity(i);
-                break;
             case R.id.idAcces:
                 Intent acces = new Intent(this, AccesUsuaris.class );
                 acces.putExtra("llenguatge", getResources().getString(R.string.llenguatge));
                 startActivity(acces);
+                finish();
                 break;
             case  R.id.idCatala:
                 CanviarLlenguatge("ca");
@@ -250,11 +220,13 @@ public class MainActivity extends AppCompatActivity {
         Configuration config = new Configuration();
         config.locale = locale;
 
+        Intent i = new Intent(this, RecreateScreen.class);
+        startActivity(i);
+
         // Actualizar recursos lenguaje de app.
         getBaseContext().getResources().updateConfiguration(config, getResources().getDisplayMetrics());
-        Intent refrescar = new Intent(this, MainActivity.class);
-        startActivity(refrescar);
-        finish();
+
+        recreate();
     }
 
     private void customTitileToolBar() {

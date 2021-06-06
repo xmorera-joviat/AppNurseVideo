@@ -36,32 +36,16 @@ public class TractamentToolBar extends AppCompatActivity {
         toolbar = findViewById(R.id.idToolBar);
         setSupportActionBar(toolbar);
 
-        showHomeUpIcon();
-
-        setUpHomeUpIconColor(R.drawable.ic_home, R.color.white);
+        showHomeUpIcon(R.drawable.ic_home);
     }
 
     /**
      * Mètode que utilitzem per mostrar el botó de home
      */
-    public void showHomeUpIcon() {
+    public void showHomeUpIcon(int drawable) {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-            //  getSupportActionBar().setDisplayShowTitleEnabled(false);
-        }
-    }
-
-    /**
-     * Mètode per tal d'aplicar el color que necessitem a les nostres icones.
-     *
-     * @param drawable icona
-     * @param color    color per a l'icona
-     */
-    public void setUpHomeUpIconColor(int drawable, int color) {
-        if (getSupportActionBar() != null) {
             final Drawable icon = getResources().getDrawable(drawable);
-            icon.setColorFilter(getResources().getColor(color), PorterDuff.Mode.SRC_ATOP);
             getSupportActionBar().setHomeAsUpIndicator(icon);
         }
     }
@@ -77,6 +61,7 @@ public class TractamentToolBar extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home) {
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
