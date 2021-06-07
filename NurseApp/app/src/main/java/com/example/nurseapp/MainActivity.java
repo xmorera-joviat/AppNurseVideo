@@ -126,6 +126,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * Mètode que utilitzem per a obrir l'activitat per a editar rols.
+     * @param v View
+     */
+    public void onClickBtnEditarRols(View v) {
+        Intent rols = new Intent(getApplicationContext(), EditarRols.class);
+        rols.putExtra("llenguatge", getResources().getString(R.string.llenguatge));
+        startActivity(rols);
+    }
+
+    /**
      * Mètode que utilitzem per a obrir l'activitat del formulari.
      * @param v View
      */

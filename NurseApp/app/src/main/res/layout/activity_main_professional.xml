@@ -11,17 +11,6 @@
         layout="@layout/toolbar"
         />
 
-    <ImageView
-        android:id="@+id/imv_form"
-        android:layout_width="104dp"
-        android:layout_height="94dp"
-        android:layout_marginTop="148dp"
-        android:layout_marginEnd="72dp"
-        android:onClick="onClickBtnFormulari"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idToolBar"
-        app:srcCompat="@drawable/button_form" />
-
     <TextView
         android:id="@+id/tv_calendar"
         android:layout_width="0dp"
@@ -98,6 +87,40 @@
         app:layout_constraintTop_toBottomOf="@+id/imv_delvideo" />
 
     <ImageView
+        android:id="@+id/imv_calendari"
+        android:layout_width="104dp"
+        android:layout_height="94dp"
+        android:layout_marginStart="24dp"
+        android:background="@drawable/button_calendar"
+        android:clickable="true"
+        android:onClick="onClickBtnCalendari"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toStartOf="@+id/imv_form"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imv_form" />
+
+    <ImageView
+        android:id="@+id/imv_form"
+        android:layout_width="104dp"
+        android:layout_height="94dp"
+        android:layout_marginTop="148dp"
+        android:layout_marginEnd="72dp"
+        android:onClick="onClickBtnFormulari"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idToolBar"
+        app:srcCompat="@drawable/button_form" />
+
+    <ImageView
+        android:id="@+id/imv_video"
+        android:layout_width="105dp"
+        android:layout_height="94dp"
+        android:layout_marginStart="28dp"
+        android:onClick="onClickBtnVideos"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imv_addvideo"
+        app:srcCompat="@drawable/button_videos" />
+
+    <ImageView
         android:id="@+id/imv_addvideo"
         android:layout_width="104dp"
         android:layout_height="94dp"
@@ -111,16 +134,6 @@
         app:srcCompat="@drawable/button_addvideos" />
 
     <ImageView
-        android:id="@+id/imv_video"
-        android:layout_width="105dp"
-        android:layout_height="94dp"
-        android:layout_marginStart="28dp"
-        android:onClick="onClickBtnVideos"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imv_addvideo"
-        app:srcCompat="@drawable/button_videos" />
-
-    <ImageView
         android:id="@+id/imv_delvideo"
         android:layout_width="97dp"
         android:layout_height="95dp"
@@ -129,18 +142,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imv_addvideo"
         app:srcCompat="@drawable/button_delvideos" />
-
-    <ImageView
-        android:id="@+id/imv_calendari"
-        android:layout_width="104dp"
-        android:layout_height="94dp"
-        android:layout_marginStart="24dp"
-        android:background="@drawable/button_calendar"
-        android:clickable="true"
-        android:onClick="onClickBtnCalendari"
-        android:scaleType="fitXY"
-        app:layout_constraintEnd_toStartOf="@+id/imv_form"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imv_form" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

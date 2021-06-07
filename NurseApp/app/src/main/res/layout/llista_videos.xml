@@ -6,16 +6,6 @@
     android:layout_height="wrap_content"
     android:id="@+id/rlLlista">
 
-
-
-
-
-
-
-
-
-
-
     <androidx.cardview.widget.CardView
         android:backgroundTint="#ffa040"
         app:cardCornerRadius="15dp"
@@ -23,18 +13,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
-
         <LinearLayout
-
-
-
             android:layout_margin="10dp"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-
 
             <TextView
                 android:id="@+id/idTextVideos"
@@ -55,9 +38,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-
-
-
         </LinearLayout>
 
         <Button
@@ -68,13 +48,6 @@
             android:layout_marginTop="5dp"
             android:background="@drawable/ic_play_" />
 
-
     </androidx.cardview.widget.CardView>
-
-
-
-
-
-
 
 </LinearLayout>

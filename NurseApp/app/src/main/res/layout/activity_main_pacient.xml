@@ -40,31 +40,6 @@
         app:layout_constraintTop_toBottomOf="@+id/imv_calendari" />
 
     <ImageView
-        android:id="@+id/imv_video"
-        android:layout_width="105dp"
-        android:layout_height="94dp"
-        android:onClick="onClickBtnVideos"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imv_form"
-        app:layout_constraintTop_toTopOf="@+id/imv_form"
-        app:srcCompat="@drawable/button_videos" />
-
-    <TextView
-        android:id="@+id/tv_video"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/btnVideo"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="#65473E"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/imv_video"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imv_video"
-        app:layout_constraintTop_toBottomOf="@+id/imv_video" />
-
-    <ImageView
         android:id="@+id/imv_form"
         android:layout_width="104dp"
         android:layout_height="94dp"
@@ -92,6 +67,31 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/imv_form"
         app:layout_constraintTop_toBottomOf="@+id/imv_form" />
+
+    <ImageView
+        android:id="@+id/imv_video"
+        android:layout_width="105dp"
+        android:layout_height="94dp"
+        android:onClick="onClickBtnVideos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imv_form"
+        app:layout_constraintTop_toTopOf="@+id/imv_form"
+        app:srcCompat="@drawable/button_videos" />
+
+    <TextView
+        android:id="@+id/tv_video"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/btnVideo"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#65473E"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/imv_video"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/imv_video"
+        app:layout_constraintTop_toBottomOf="@+id/imv_video" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

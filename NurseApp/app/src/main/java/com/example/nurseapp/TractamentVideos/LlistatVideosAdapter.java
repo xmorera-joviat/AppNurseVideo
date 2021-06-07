@@ -37,7 +37,7 @@ public class LlistatVideosAdapter extends RecyclerView.Adapter<LlistatVideosAdap
     @NonNull
     @Override
     public LlistatVideosViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.llista_items, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.llista_videos, parent, false);
         return new LlistatVideosViewHolder(v);
     }
 

@@ -58,8 +58,6 @@ public class TractamentToolBar extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            Intent i = new Intent(this, MainActivity.class);
-            startActivity(i);
             finish();
         }
         return super.onOptionsItemSelected(item);

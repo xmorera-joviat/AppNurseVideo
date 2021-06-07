@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="rols">
+        <item></item>
+        <item>pacient</item>
+        <item>professional</item>
+        <item>editor</item>
+    </string-array>
+</resources>
