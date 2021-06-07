@@ -15,9 +15,6 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
-import com.google.firebase.auth.UserRecord;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -64,6 +61,8 @@ public class AdapterEditarRols extends FirestoreRecyclerAdapter<UserInfo, Adapte
                     }
                 });
 
+        /*
+        // Intent per agafar el correu dels usuaris mitjançant la implementació del Admin sdk de firebase. Però no va.
         try {
             UserRecord userRecord = FirebaseAuth.getInstance().getUser(holder.userUid.getText().toString());
             holder.userEmail.setText(userRecord.getEmail());
@@ -71,6 +70,7 @@ public class AdapterEditarRols extends FirestoreRecyclerAdapter<UserInfo, Adapte
         catch (FirebaseAuthException e) {
             e.printStackTrace();
         }
+        */
 
         ArrayAdapter<CharSequence> adp = ArrayAdapter.createFromResource(holder.itemView.getContext(),R.array.rols, android.R.layout.simple_spinner_item);
         holder.rolSpinner.setAdapter(adp);
@@ -79,10 +79,12 @@ public class AdapterEditarRols extends FirestoreRecyclerAdapter<UserInfo, Adapte
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // Canviem el rol de la compte.
-                DocumentReference df = fStore.collection("Users").document(holder.userUid.getText().toString());
-                Map<String,Object> rol = new HashMap<>();
-                rol.put("rol", holder.rolSpinner.getAdapter().getItem(position));
-                df.set(rol);
+                if (!holder.userUid.getText().toString().equals("UID")) {
+                    DocumentReference df = fStore.collection("Users").document(holder.userUid.getText().toString());
+                    Map<String, Object> rol = new HashMap<>();
+                    rol.put("rol", holder.rolSpinner.getAdapter().getItem(position));
+                    df.set(rol);
+                }
             }
 
             @Override
