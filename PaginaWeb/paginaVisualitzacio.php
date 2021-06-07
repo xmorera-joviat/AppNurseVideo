@@ -10,11 +10,6 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 
-<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script> 
-
-
 <body>
 <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
@@ -37,10 +32,26 @@
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
 </script>
+<style>
+div.centrar {
+	color: #FFFFFF;
+	text-align: center;
+}
+</style>
+<style>
+body {
+background-color: #000000;
+}
+</style>
 
 <div id="txtHint"></div>
 <br>
-<div>
+
+<div class="centrar">
+<br>
+<br>
+<button  class="btn btn-outline-success" onclick="window.location.href = 'PaginaInserir.php'" >Inserir Nou Vídeo</button>
+</div>
 <?php 
 $url = "https://nurseapp-b4a04.firebaseio.com/LlistatVideosBiel.json";
 
@@ -58,19 +69,30 @@ foreach ($data as $key => $value) {
 		$id = $data[$key]["numId"];
 		echo "\n <iframe width='560' height='315' src='https://www.youtube.com/embed/".$data[$key]["urlVideo"]."'title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe> \n";
 		echo "<br>";
-		echo "<p><button type='button' class='btn btn-dark' onclick='Esborrar($id)'>Esborrar</button> \n";
+		echo "<p><button type='button' class='btn btn-outline-danger' onclick='Esborrar($id)'>Esborrar</button> \n";
 		echo "<br>";
 		echo "<br>";
 	}
 }
 ?>
 </div>
-
+<div class="centrar">
+<br>
+<br>
+<button  class="btn btn-primary btn-lg" onclick="SignOut()" >Sortir</button> 
+<br>
+<br>
+</div>
 <script>
 function Esborrar(id){
 	
 	firebase.database().ref('LlistatVideosBiel/'+id).remove();
 }
 </script>
-
+<script>
+function SignOut(){
+	firebase.auth().signOut();
+	window.location.href = "PaginaInici.html";
+}
+</script>
 </body>

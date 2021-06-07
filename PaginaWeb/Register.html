@@ -14,6 +14,7 @@
 
 <style>
 div.centrar {
+	color: #FFFFFF;
 	text-align: center;
 }
 </style>
@@ -51,17 +52,21 @@ div.centrar {
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
 </script>
-
+<style>
+body {
+background-color: #000000;
+}
+</style>
 <div class="centrar">
 <div id="txtHint"></div>
 <br>
-  <label for="usr">Usuari:</label> <br>
+  <b> Usuari:</b> <br>
 <input id = "email" type="email" size="30" maxlength="30" placeholder="Ingressa un email.">
 </div>
 <br>
 <br>
 <div class="centrar">
-  <label for="pass">Contrassenya:</label> <br>
+  <b> Contrassenya:</b> <br>
 <input id = "contrassenya" type="password" size="30" maxlength="20"  placeholder="Ingressa una contrassenya.">
 </div>
 <br>
@@ -70,7 +75,12 @@ div.centrar {
 </div>
 <br>
 <div class="centrar">
-<button class="btn btn-dark" onclick="Verify(email.value,contrassenya.value,verificacio.value)">Entrar</button>
+<button class="btn btn-outline-success" onclick="Verify(email.value,contrassenya.value,verificacio.value)">Entrar</button>
+
+<br>
+<br>
+<br>
+<button class="btn btn-outline-success" onclick="window.location.href = 'PaginaInici.html'" >Tornar</button>
 </div>
 <br>
 <br>
