@@ -53,7 +53,7 @@ background-color: #000000;
 <button  class="btn btn-outline-success" onclick="window.location.href = 'PaginaInserir.php'" >Inserir Nou Vídeo</button>
 </div>
 <?php 
-$url = "https://nurseapp-b4a04.firebaseio.com/LlistatVideosBiel.json";
+$url = "https://nurseapp-b4a04.firebaseio.com/LlistatVideos.json";
 
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL,$url);
@@ -86,7 +86,7 @@ foreach ($data as $key => $value) {
 <script>
 function Esborrar(id){
 	
-	firebase.database().ref('LlistatVideosBiel/'+id).remove();
+	firebase.database().ref('LlistatVideos/'+id).remove();
 }
 </script>
 <script>

@@ -83,7 +83,7 @@ background-color: #000000;
 <div class="centrar">
 <!--Php-->
 <?php 
-$url = "https://nurseapp-b4a04.firebaseio.com/LlistatVideosBiel.json";
+$url = "https://nurseapp-b4a04.firebaseio.com/LlistatVideos.json";
 
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL,$url);
@@ -125,7 +125,7 @@ function Inserir(cat,desc,title,url,id){
 				document.getElementById("txtHint").innerHTML = "Posa un enllaç de youtube correcte. Exemple: youtube.com/watch?v=57mfjMVka";
 			}
 			else{
-				firebase.database().ref('LlistatVideosBiel/'+id).set({
+				firebase.database().ref('LlistatVideos/'+id).set({
 					'categoria': cat,
 					'descVideo': desc,
 					'numId': id,
