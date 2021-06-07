@@ -17,6 +17,7 @@ public class EditarRols extends TractamentToolBar {
     private AdapterEditarRols adapter;
     private RecyclerView recycler;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,14 +29,15 @@ public class EditarRols extends TractamentToolBar {
         // Executem el mètode customTitileTool, passant com a paràmetre el nom que volem indicar.
         customTitileToolBar(getResources().getString(R.string.btnEditarRols));
 
+        // Obtenim una instància d'accés a la base de dades Firestore.
+        db = FirebaseFirestore.getInstance();
+
         // Obtenim les referències necessàries als components de la interfície.
         recycler = (RecyclerView) findViewById(R.id.idRecyclerRols);
 
         // Assignem al recycler que volem mostrar l'informació una columna lineal
         recycler.setLayoutManager(new LinearLayoutManager(this));
 
-        // Obtenim una instància d'accés a la base de dades Firestore.
-        db = FirebaseFirestore.getInstance();
 
         // Cridem el mètode encarregat de mostrar la llista d'artistes.
         MostrarUsuaris();
@@ -59,6 +61,24 @@ public class EditarRols extends TractamentToolBar {
 
         // Associem l'adapter creat amb el RecyclerView que tenim a la vista.
         recycler.setAdapter(adapter);
+    }
+
+    @Override
+    // En l'esdeveniment onStart() de l'activity activem el mode "Listening" del Adapter del
+    // RecyclerView perquè actualitzi automàticament el contingut si detecta actualitzacions
+    // a la base de dades.
+    protected void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    // Si l'activity queda oculta o finalitza, aturem el mode "Listening" de l'Adapter ja
+    // que consumeix recursos de forma innecessària si resta activat mentre l'activity no
+    // no es veu.
+    @Override
+    protected void onStop() {
+        super.onStop();
+        adapter.stopListening();
     }
 
 }
