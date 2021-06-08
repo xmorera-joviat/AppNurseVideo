@@ -9,12 +9,10 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.nurseapp.AdapterEditarRols;
 import com.example.nurseapp.R;
 import com.example.nurseapp.TractamentGenericToolBar.TractamentToolBar;
-import com.example.nurseapp.UserInfo;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,7 +31,7 @@ public class LlistatVideos extends TractamentToolBar {
 
     //Inicialització de les variables
     public static List<Video> videos = new ArrayList<>();
-    public static RecyclerView llistat;
+    public static RecyclerView recycler;
     public static LlistatVideosAdapter adapter;
     public SearchView searchView;
     public static FirebaseDatabase firebaseDatabase;
@@ -53,10 +51,10 @@ public class LlistatVideos extends TractamentToolBar {
         getBaseContext().getResources().updateConfiguration(config, getResources().getDisplayMetrics());
 
         //Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
-        llistat = (RecyclerView) findViewById(R.id.idRecyvler);
+        recycler = (RecyclerView) findViewById(R.id.idRecyvler);
         LinearLayoutManager lim = new LinearLayoutManager(this);
         lim.setOrientation(LinearLayoutManager.VERTICAL);
-        llistat.setLayoutManager(lim);
+        recycler.setLayoutManager(lim);
         searchView = findViewById(R.id.search);
 
         //Mètode inicialitzaAdapter.
@@ -108,26 +106,29 @@ public class LlistatVideos extends TractamentToolBar {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
+                    /*
                     for(DataSnapshot ds : dataSnapshot.getChildren()){
                         int id = Integer.parseInt(ds.child("numId").getValue().toString());
                         String titol = ds.child("titol").getValue().toString();
                         String descVideo = ds.child("descVideo").getValue().toString();
                         String urlVideo = ds.child("urlVideo").getValue().toString();
+                        String categoria = ds.child("categoria").getValue().toString();
 
-                        videos.add(new Video(id, titol, descVideo, urlVideo, true));
+                        videos.add(new Video(id, titol, descVideo, urlVideo, categoria, true));
                     }
 
                     //Poder saber quin és l'ID corresponent per tenir un autoincrement dels IDs a la base de dades Firebase.
-                    long count=(dataSnapshot.getChildrenCount());
+                    long count = (dataSnapshot.getChildrenCount());
 
                     int i = (int) count;
 
                     numLastArrayList = videos.get(i-1).getNumId();
 
                     adapter = new LlistatVideosAdapter(videos);
-                    llistat.setAdapter(adapter);
+                    recycler.setAdapter(adapter);
+                    */
+                    inicialitzaAdapter();
                 }
-
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -159,15 +160,27 @@ public class LlistatVideos extends TractamentToolBar {
      * @param s string
      */
     private void Cerca(String s) {
-        ArrayList<Video> myList = new ArrayList<>();
-        for(Video video : videos){
-            if(video.getTitol().toLowerCase().contains(s.toLowerCase()) || video.getDescVideo().toLowerCase().contains(s.toLowerCase())){
-                myList.add(video);
+        // Preparem la consulta a realitzar a la base de dades.
+        Query consulta = FirebaseDatabase.getInstance()
+                .getReference(LlistaVideosLlengua)
+                .orderByChild("titol")
+                .startAt(s)
+                .endAt(s + "\uf8ff");
 
-                adapter = new LlistatVideosAdapter(myList);
-                llistat.setAdapter(adapter);
-            }
-        }
+        // Preparem l'objecte "Options" que ens ha de permetre crear l'adapter. Aquest objecte
+        // defineix, entre altres aspectes, la consulta amb el tipus d'objecte que retornarà
+        // aquesta consulta (en el nostre cas, Videos).
+        FirebaseRecyclerOptions<Video> opcions =
+                new FirebaseRecyclerOptions
+                        .Builder<Video>()
+                        .setQuery(consulta, Video.class)
+                        .build();
+
+        // Creem l'objecte Adapter passant-li l'objecte Options al constructor.
+        adapter = new LlistatVideosAdapter(opcions);
+
+        // Associem l'adapter creat amb el RecyclerView que tenim a la vista.
+        recycler.setAdapter(adapter);
     }
 
     /**
@@ -181,8 +194,8 @@ public class LlistatVideos extends TractamentToolBar {
         // Preparem l'objecte "Options" que ens ha de permetre crear l'adapter. Aquest objecte
         // defineix, entre altres aspectes, la consulta amb el tipus d'objecte que retornarà
         // aquesta consulta (en el nostre cas, Alumne).
-        FirestoreRecyclerOptions<Video> opcions =
-                new FirestoreRecyclerOptions
+        FirebaseRecyclerOptions<Video> opcions =
+                new FirebaseRecyclerOptions
                         .Builder<Video>()
                         .setQuery(consulta, Video.class)
                         .build();

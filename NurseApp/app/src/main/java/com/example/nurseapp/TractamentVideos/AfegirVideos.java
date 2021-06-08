@@ -24,8 +24,6 @@ public class AfegirVideos extends LlistatVideos {
     private EditText idTitolCa, idDescCa, idUrlCa, idCategoriaCa, idTituloEs, idDescEs, idUrlEs, idCategoriaEs, idTitleEn, idDescEn, idUrlEn, idCategoryEn;
     private Button btnAfegir;
     DatabaseReference ref;
-    private boolean isInsert = false;
-    long count = 0;
     int numLlista = 0;
     private Fragment fragment;
 
@@ -75,20 +73,22 @@ public class AfegirVideos extends LlistatVideos {
                 String titolCa = idTitolCa.getText().toString();
                 String descCa = idDescCa.getText().toString();
                 String urlCa = idUrlCa.getText().toString();
+                String categoriaCa = idCategoriaCa.getText().toString();
 
                 String tituloEs = idTituloEs.getText().toString();
                 String descEs = idDescEs.getText().toString();
                 String urlEs = idUrlEs.getText().toString();
+                String categoriaEs = idCategoriaEs.getText().toString();
 
                 String titleEn = idTitleEn.getText().toString();
                 String descEn = idDescEn.getText().toString();
                 String urlEn = idUrlEn.getText().toString();
+                String categoryEn = idCategoryEn.getText().toString();
 
                 data();
 
                 // Número del següent ID.
                 numLlista = getMidaLlista();
-
                 numLlista++;
 
                 // Fem una petita validació per saber si algun dels caps està buit.
@@ -102,22 +102,44 @@ public class AfegirVideos extends LlistatVideos {
                 // ja que si no és així, no es tracta d'una url acceptada i per tal el vídeo no es podrà reproduir.
                 else {
                     int inici = 0;
+
                     if (urlCa.contains("be/")) {
                         inici = urlCa.indexOf("be/");
                     } else if (urlCa.contains("?v")) {
                         inici = urlCa.indexOf("?v");
                     }
 
-                    Video lv = new Video();
+                    Video Cat = new Video();
+                    Video Esp = new Video();
+                    Video Eng = new Video();
 
-                    if (urlCa.contains("be/") || urlCa.contains("?v")) {
-                        lv.setNumId(numLlista);
-                        lv.setTitol(titolCa);
-                        lv.setDescVideo(descCa);
+                    if ((urlCa.contains("be/") || urlCa.contains("?v")) &&
+                            (urlEs.contains("be/") || urlEs.contains("?v")) &&
+                                (urlEn.contains("be/") || urlEn.contains("?v")))
+                    {
+                        Cat.setNumId(numLlista);
+                        Cat.setTitol(titolCa);
+                        Cat.setDescVideo(descCa);
+                        Cat.setUrlVideo(urlCa.substring(inici + 3, inici + 14));
+                        Cat.setCategoria(categoriaCa);
 
-                        lv.setUrlVideo(urlCa.substring(inici + 3, inici + 14));
+                        ref.child(String.valueOf(numLlista)).setValue(Cat);
 
-                        ref.child(String.valueOf(numLlista)).setValue(lv);
+                        Esp.setNumId(numLlista);
+                        Esp.setTitol(tituloEs);
+                        Esp.setDescVideo(descEs);
+                        Esp.setUrlVideo(urlEs.substring(inici + 3, inici + 14));
+                        Esp.setCategoria(categoriaEs);
+
+                        ref.child(String.valueOf(numLlista)).setValue(Esp);
+
+                        Eng.setNumId(numLlista);
+                        Eng.setTitol(titleEn);
+                        Eng.setDescVideo(descEn);
+                        Eng.setUrlVideo(urlEn.substring(inici + 3, inici + 14));
+                        Eng.setCategoria(categoryEn);
+
+                        ref.child(String.valueOf(numLlista)).setValue(Eng);
 
                         // Si tot es correcte afegim el vídeo a la base de dades Firebase.
                         Toast.makeText(getApplicationContext(), "Vídeo afegit", Toast.LENGTH_LONG).show();

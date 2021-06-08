@@ -12,10 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nurseapp.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 
 import java.util.HashMap;
 import java.util.List;
@@ -31,8 +30,8 @@ public class LlistatVideosAdapter extends FirebaseRecyclerAdapter<Video, Llistat
     private DatabaseReference mDatabase;
 
     //Constructor.
-    public LlistatVideosAdapter(Class<Video> modelClass, int modelLayout, Class<LlistatVideosViewHolder> viewHolderClass, Query ref) {
-        super(modelClass, modelLayout, viewHolderClass, ref);
+    public LlistatVideosAdapter(@NonNull FirebaseRecyclerOptions<Video> options) {
+        super(options);
     }
 
     /**
@@ -54,11 +53,11 @@ public class LlistatVideosAdapter extends FirebaseRecyclerAdapter<Video, Llistat
      * @param position int
      */
     @Override
-    protected void populateViewHolder(LlistatVideosViewHolder holder, Video video, int position) {
+    protected void onBindViewHolder(@NonNull LlistatVideosViewHolder holder, int position, @NonNull Video video) {
         Video llistatVideo = llistatsVideos.get(position);
 
-        holder.texTitolVideos.setText(llistatVideo.getTitol());
-        holder.texDescVideos.setText(llistatVideo.getDescVideo());
+        holder.titol.setText(llistatVideo.getTitol());
+        holder.desc.setText(llistatVideo.getDescVideo());
 
         holder.btnPlayVideo.setOnClickListener(new TouchElement(position));
         holder.btnVisibilidad.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +68,6 @@ public class LlistatVideosAdapter extends FirebaseRecyclerAdapter<Video, Llistat
                 mDatabase.child("Videos").updateChildren(VideoMap);
             }
         });
-
     }
 
     /**
@@ -85,16 +83,16 @@ public class LlistatVideosAdapter extends FirebaseRecyclerAdapter<Video, Llistat
      */
     public class LlistatVideosViewHolder extends RecyclerView.ViewHolder {
         //Inicialització de les variables
-        private TextView texTitolVideos;
-        private TextView texDescVideos;
+        private TextView titol;
+        private TextView desc;
         private Button btnPlayVideo;
         private  Button btnVisibilidad;
 
         //Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
         public LlistatVideosViewHolder(@NonNull View itemView) {
             super(itemView);
-            texTitolVideos = (TextView) itemView.findViewById(R.id.idTextVideos);
-            texDescVideos = (TextView) itemView.findViewById(R.id.idDesc);
+            titol = (TextView) itemView.findViewById(R.id.idTextVideos);
+            //desc = (TextView) itemView.findViewById(R.id.idDesc);
             btnPlayVideo =  (Button) itemView.findViewById(R.id.idBtnVideos);
             btnVisibilidad = (Button) itemView.findViewById(R.id.idBtnVisibility);
             mDatabase = FirebaseDatabase.getInstance().getReference();
