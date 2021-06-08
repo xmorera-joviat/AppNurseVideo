@@ -9,23 +9,25 @@ import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.nurseapp.R;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.database.Query;
 
 import java.util.List;
 
 /**
  * Classe per tal de construir el RecyclerView.Adapter que utilitzem per a mostrar tot el llistat dels vídeos.
  */
-public class LlistatVideosAdapter extends RecyclerView.Adapter<LlistatVideosAdapter.LlistatVideosViewHolder>{
+public class LlistatVideosAdapter extends FirebaseRecyclerAdapter<Video, LlistatVideosAdapter.LlistatVideosViewHolder> {
 
     //Inicialització de les variables
-    private List<LlistatVideos> llistatsVideos;
+    private List<Video> llistatsVideos;
 
     //Constructor.
-    public LlistatVideosAdapter(List<LlistatVideos> llistatsVideos){
-
-        this.llistatsVideos = llistatsVideos;
-
+    public LlistatVideosAdapter(Class<Video> modelClass, int modelLayout, Class<LlistatVideosViewHolder> viewHolderClass, Query ref) {
+        super(modelClass, modelLayout, viewHolderClass, ref);
     }
 
     /**
@@ -41,31 +43,28 @@ public class LlistatVideosAdapter extends RecyclerView.Adapter<LlistatVideosAdap
         return new LlistatVideosViewHolder(v);
     }
 
-    //
-
     /**
      * Amb aquest mètode obtenim la posició dels elements del List llistatVideo i amb el holder indiquem el que volem obtenir.
      * @param holder LlistatVideosViewHolder
      * @param position int
      */
     @Override
-    public void onBindViewHolder(@NonNull LlistatVideosViewHolder holder, int position) {
-        LlistatVideos llistatVideo = llistatsVideos.get(position);
+    protected void populateViewHolder(LlistatVideosViewHolder holder, Video video, int position) {
+        Video llistatVideo = llistatsVideos.get(position);
 
-        holder.texTitolVideos.setText(llistatVideo.getTexTitolVideos());
+        holder.texTitolVideos.setText(llistatVideo.getTitol());
         holder.texDescVideos.setText(llistatVideo.getDescVideo());
 
         holder.btnPlayVideo.setOnClickListener(new TouchElement(position));
     }
 
     /**
-     * @return size de la List llistatVideos
+     * @return size de la List videos
      */
     @Override
     public int getItemCount() {
         return llistatsVideos.size();
     }
-
 
     /**
      * Classe LlistatVideosViewHolder
@@ -86,12 +85,11 @@ public class LlistatVideosAdapter extends RecyclerView.Adapter<LlistatVideosAdap
 
     }
 
-
     /**
      * Classe TouchElement que fem servir cada cop que seleccionem el botó corresponent "play"
      * per tal d'indicar quina url s'ha d'enviar a l'activity ApiYoutube.
      */
-    class  TouchElement extends LlistatVideosPrincipal implements View.OnClickListener{
+    class  TouchElement extends LlistatVideos implements View.OnClickListener{
         int position;
 
         public TouchElement(int position) {

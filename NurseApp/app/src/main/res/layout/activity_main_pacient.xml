@@ -12,70 +12,15 @@
         />
 
     <ImageView
-        android:id="@+id/imv_calendari"
-        android:layout_width="104dp"
-        android:layout_height="94dp"
-        android:layout_marginStart="4dp"
-        android:background="@drawable/button_calendar"
-        android:clickable="true"
-        android:onClick="onClickBtnCalendari"
-        android:scaleType="fitXY"
-        app:layout_constraintEnd_toStartOf="@+id/imv_form"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imv_form" />
-
-    <TextView
-        android:id="@+id/tv_calendar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/btnCalendari"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="#65473E"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/imv_calendari"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imv_calendari"
-        app:layout_constraintTop_toBottomOf="@+id/imv_calendari" />
-
-    <ImageView
-        android:id="@+id/imv_form"
-        android:layout_width="104dp"
-        android:layout_height="94dp"
-        android:layout_marginTop="208dp"
-        android:onClick="onClickBtnFormulari"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idToolBar"
-        app:layout_constraintVertical_bias="0.099"
-        app:srcCompat="@drawable/button_form" />
-
-    <TextView
-        android:id="@+id/tv_form"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/btnFormulari"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="#65473E"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/imv_form"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/imv_form"
-        app:layout_constraintTop_toBottomOf="@+id/imv_form" />
-
-    <ImageView
         android:id="@+id/imv_video"
         android:layout_width="105dp"
         android:layout_height="94dp"
         android:onClick="onClickBtnVideos"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imv_form"
-        app:layout_constraintTop_toTopOf="@+id/imv_form"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idToolBar"
+        app:layout_constraintVertical_bias="0.40"
         app:srcCompat="@drawable/button_videos" />
 
     <TextView

@@ -1,67 +1,233 @@
 package com.example.nurseapp.TractamentVideos;
 
+
+
+import android.content.res.Configuration;
+import android.os.Bundle;
+
+import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.nurseapp.AdapterEditarRols;
+import com.example.nurseapp.R;
+import com.example.nurseapp.TractamentGenericToolBar.TractamentToolBar;
+import com.example.nurseapp.UserInfo;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 /**
- * Classe que utilitzem per a poder gestionar l'Id, nom, descripció i url de cada vídeo.
+ * Classe en la qual tractem tot el relacionat en mostrar el text, descripció, enllaç als vídeos i mètodes que són utilitzats
+ * des d'altes classes com per exemple eliminar vídeos.
  */
-public class LlistatVideos {
+public class LlistatVideos extends TractamentToolBar {
 
     //Inicialització de les variables
-    private  int numId;
-    private String texTitolVideos;
-    private String descVideo;
-    private String urlVideo;
+    public static List<Video> videos = new ArrayList<>();
+    public static RecyclerView llistat;
+    public static LlistatVideosAdapter adapter;
+    public SearchView searchView;
+    public static FirebaseDatabase firebaseDatabase;
+    public static DatabaseReference databaseReference;
+    private String LlistaVideosLlengua;
+    int numLastArrayList = 0;
 
-    //Constructors corresponents.
-    public  LlistatVideos(){}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_llistat_videos);
 
-    public LlistatVideos(int numId, String texTitolVideos, String descVideo, String urlVideo) {
-        this.numId = numId;
-        this.texTitolVideos = texTitolVideos;
-        this.descVideo = descVideo;
-        this.urlVideo = urlVideo;
+        Locale locale = new Locale(getIntent().getExtras().getString("llenguatge"));
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+
+        //Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
+        llistat = (RecyclerView) findViewById(R.id.idRecyvler);
+        LinearLayoutManager lim = new LinearLayoutManager(this);
+        lim.setOrientation(LinearLayoutManager.VERTICAL);
+        llistat.setLayoutManager(lim);
+        searchView = findViewById(R.id.search);
+
+        //Mètode inicialitzaAdapter.
+        inicialitzaAdapter();
+
+        //Mètodes setUpToolBar i customTitileToolBar heretats de la classe TractamentToolBar.
+        setUpToolBar();
+        customTitileToolBar(getResources().getString(R.string.tlbvTitol));
     }
 
-    //Getters i Setters de cada una de les variables.
-    public int getNumId() {
-        return numId;
+
+    /**
+     * Amb l'estat onResume solucionem el problema que cada cop que canviem d'activity o canviem a l'estat onPuase
+     * es dupliquin els items del llistat de vídeos.
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        videos.clear();
+        data();
     }
 
-    public void setNumId(int numId) {
-        this.numId = numId;
+
+    /**
+     * Mètode per a carregar els item corresponents de cada vídeo.
+     */
+    public void data(){
+
+        //Instanciem de les variables firebaseDatabase i databaseReference.
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+
+        switch(getIntent().getExtras().getString("llenguatge")){
+            case "ca":
+                LlistaVideosLlengua = "LlistatVideosCa";
+                break;
+
+            case  "es":
+                LlistaVideosLlengua = "LlistatVideosEs";
+                break;
+
+            case  "en":
+                LlistaVideosLlengua = "LlistatVideosEn";
+                break;
+        }
+        //Amb el databaseReference.child aconseguim tenir un ValueEventListener escoltant el que tenim a la base de dades de FiireBase
+        // i així poder afegir-ho a la nostra List videos.
+
+        databaseReference.child(LlistaVideosLlengua).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    for(DataSnapshot ds : dataSnapshot.getChildren()){
+                        int id = Integer.parseInt(ds.child("numId").getValue().toString());
+                        String titol = ds.child("titol").getValue().toString();
+                        String descVideo = ds.child("descVideo").getValue().toString();
+                        String urlVideo = ds.child("urlVideo").getValue().toString();
+
+                        videos.add(new Video(id, titol, descVideo, urlVideo));
+
+                    }
+
+                    //Poder saber quin és l'ID corresponent per tenir un autoincrement dels IDs a la base de dades Firebase.
+                    long count=(dataSnapshot.getChildrenCount());
+
+                    int i = (int) count;
+
+                    numLastArrayList = videos.get(i-1).getNumId();
+
+                    adapter = new LlistatVideosAdapter(videos);
+                    llistat.setAdapter(adapter);
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        //searchView.setOnQueryTextListener que utilitzem per poder fer cerques al llistat.
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                //Mètode Cerca.
+                Cerca(s);
+
+                return true;
+            }
+        });
+
     }
 
-    public String getTexTitolVideos() {
-        return texTitolVideos;
-    }
 
-    public void setTexTitolVideos(String texTitolVideos) {
-        this.texTitolVideos = texTitolVideos;
-    }
+    /**
+     * Mètode que utilitzem per a filtrar el llistat de vídeos.
+     * @param s string
+     */
+    private void Cerca(String s) {
+        ArrayList<Video> myList = new ArrayList<>();
+        for(Video video : videos){
+            if(video.getTitol().toLowerCase().contains(s.toLowerCase()) || video.getDescVideo().toLowerCase().contains(s.toLowerCase())){
+                myList.add(video);
 
-    public String getDescVideo() {
-        return descVideo;
-    }
-
-    public void setDescVideo(String descVideo) {
-        this.descVideo = descVideo;
-    }
-
-    public String getUrlVideo() {
-        return urlVideo;
-    }
-
-    public void setUrlVideo(String urlVideo) {
-        this.urlVideo = urlVideo;
+                adapter = new LlistatVideosAdapter(myList);
+                llistat.setAdapter(adapter);
+            }
+        }
     }
 
     /**
-     *
-     * Mètode toStrings per tal de retornar el títol dels vídeos.
-     *
-     * @return string.
+     * Mètode utilitzat per a inicialitzar l'adabter que hi té el List llsitatVideos.
      */
-    @Override
-    public String toString() {
-        return texTitolVideos;
+    public void inicialitzaAdapter(){
+        Query consulta = FirebaseDatabase.getInstance()
+                .getReference()
+                .child(LlistaVideosLlengua);
+
+        // Preparem l'objecte "Options" que ens ha de permetre crear l'adapter. Aquest objecte
+        // defineix, entre altres aspectes, la consulta amb el tipus d'objecte que retornarà
+        // aquesta consulta (en el nostre cas, Alumne).
+        FirestoreRecyclerOptions<Video> opcions =
+                new FirestoreRecyclerOptions
+                        .Builder<Video>()
+                        .setQuery(consulta, Video.class)
+                        .build();
+
+        // Creem l'objecte Adapter passant-li l'objecte Options al constructor.
+        adapter = new LlistatVideosAdapter(opcions);
+
+        // Associem l'adapter creat amb el RecyclerView que tenim a la vista.
+        recycler.setAdapter(adapter);
     }
+
+    /**
+     * Mètode que utilitzem per a carregar la connexió a Firebase i eliminar l'ID indicat.
+     * @param i Int.
+     */
+    public void DeleteVideo(int i){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+        // Eliminem el vídeo de la llista de vídeos en català.
+        DatabaseReference ref = database.getReference("LlistatVideosCa").child(String.valueOf(i));
+        ref.removeValue();
+
+        // Eliminem el vídeo de la llista de vídeos en anglès.
+        ref = database.getReference("LlistatVideosEn").child(String.valueOf(i));
+        ref.removeValue();
+
+        // Eliminem el vídeo de la llista de vídeos en castellà.
+        ref = database.getReference("LlistatVideosEs").child(String.valueOf(i));
+        ref.removeValue();
+
+        videos.clear();
+
+        adapter.notifyDataSetChanged();
+    }
+
+    /**
+     * Mètode per a retornar el últim nombre de la llista que conte els vídeos,
+     * és utilitzat per a controlar l'autoincrement a la base de dades Firebase.
+     * @return int numLastArrayList
+     */
+    public int getMidaLlista(){
+        return numLastArrayList;
+    }
+
 }

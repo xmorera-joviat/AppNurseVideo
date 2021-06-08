@@ -8,8 +8,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.nurseapp.R;
-import com.example.nurseapp.TractamentVideos.LlistatVideos;
-import com.example.nurseapp.TractamentVideos.LlistatVideosPrincipal;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -18,7 +16,7 @@ import java.util.Locale;
 /**
  * Classe utilitzada per afegir títol del vídeo, descripció, url i ID, l'ID és autonumèric. A la base de dades Firebase.
  */
-public class AfegirVideos extends LlistatVideosPrincipal {
+public class AfegirVideos extends LlistatVideos {
 
     // Inicialització de les variables :
     private EditText idNom;
@@ -56,7 +54,7 @@ public class AfegirVideos extends LlistatVideosPrincipal {
         customTitileToolBar(getResources().getString(R.string.tlbafTitol));
 
         // Obtenim la referència del fill que tenim a la base de dades.
-        ref = database.getInstance().getReference().child("LlistatVideos");
+        ref = database.getInstance().getReference().child("Video");
 
         // Botó onClick per ta d'afegir les dades a la base de dades.
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -89,11 +87,11 @@ public class AfegirVideos extends LlistatVideosPrincipal {
                                 inici = url.indexOf("?v");
                             }
 
-                            LlistatVideos lv = new LlistatVideos();
+                            Video lv = new Video();
 
                             if (url.contains("be/") || url.contains("?v")) {
                                 lv.setNumId(numLlista);
-                                lv.setTexTitolVideos(nomVideo);
+                                lv.setTitol(nomVideo);
                                 lv.setDescVideo(descVideo);
 
                                 lv.setUrlVideo(url.substring(inici + 3, inici + 14));

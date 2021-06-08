@@ -23,7 +23,7 @@ import java.util.Locale;
 /**
  * Classe per a tractar l'activity d'eliminar els vídeos.
  */
-public class EliminarVideo extends LlistatVideosPrincipal {
+public class EliminarVideo extends LlistatVideos {
 
     // Inicialització de les variables :
     private TextView idTextTitol;
@@ -82,9 +82,9 @@ public class EliminarVideo extends LlistatVideosPrincipal {
      *
      */
     public void ShowVideos(){
-        final List<LlistatVideos> llistatVideos = new ArrayList<>();
+        final List<Video> videos = new ArrayList<>();
 
-        mDataBase.child("LlistatVideos").addListenerForSingleValueEvent(new ValueEventListener() {
+        mDataBase.child("Video").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -95,10 +95,10 @@ public class EliminarVideo extends LlistatVideosPrincipal {
                         String descVideo = ds.child("descVideo").getValue().toString();
                         String urlVideo = ds.child("urlVideo").getValue().toString();
 
-                        llistatVideos.add(new LlistatVideos(id, titol, descVideo, urlVideo));
+                        videos.add(new Video(id, titol, descVideo, urlVideo));
 
-                        ArrayAdapter<LlistatVideos> arrayAdapter = new ArrayAdapter<>
-                                (EliminarVideo.this, android.R.layout.simple_dropdown_item_1line,llistatVideos);
+                        ArrayAdapter<Video> arrayAdapter = new ArrayAdapter<>
+                                (EliminarVideo.this, android.R.layout.simple_dropdown_item_1line, videos);
 
                         idSpinner.setAdapter(arrayAdapter);
 
@@ -108,22 +108,19 @@ public class EliminarVideo extends LlistatVideosPrincipal {
 
                                 numFilaSnipper = parent.getSelectedItemPosition();
 
-                                idTextTitol.setText(llistatVideos.get(numFilaSnipper).getTexTitolVideos());
-                                idTextDesc.setText(llistatVideos.get(numFilaSnipper).getDescVideo());
+                                idTextTitol.setText(videos.get(numFilaSnipper).getTitol());
+                                idTextDesc.setText(videos.get(numFilaSnipper).getDescVideo());
 
                                 idBtnVideosEliminar.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-
-
                                         Intent i = new Intent(v.getContext(), ApiYoutube.class);
                                         Bundle b = new Bundle();
 
-                                        b.putString("url", llistatVideos.get(numFilaSnipper).getUrlVideo());
+                                        b.putString("url", videos.get(numFilaSnipper).getUrlVideo());
                                         i.putExtras(b);
 
                                         v.getContext().startActivity(i);
-
                                     }
                                 });
 
@@ -140,8 +137,7 @@ public class EliminarVideo extends LlistatVideosPrincipal {
                         idButtonDelete.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                int i = llistatVideos.get(numFilaSnipper).getNumId();
-
+                                int i = videos.get(numFilaSnipper).getNumId();
                                 DeleteVideo(i);
 
                                 finish();

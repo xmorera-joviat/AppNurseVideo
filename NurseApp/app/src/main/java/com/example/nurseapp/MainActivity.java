@@ -21,7 +21,7 @@ import com.example.nurseapp.Formularis_Calendari.ActivitatCalendari;
 import com.example.nurseapp.Formularis_Calendari.ActivitatFormularis;
 import com.example.nurseapp.Registres_Acces.IniciarSessio;
 import com.example.nurseapp.TractamentVideos.AfegirVideos;
-import com.example.nurseapp.TractamentVideos.LlistatVideosPrincipal;
+import com.example.nurseapp.TractamentVideos.LlistatVideos;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
      * @param v View
      */
     public void onClickBtnVideos(View v) {
-        Intent videos = new Intent(this, LlistatVideosPrincipal.class );
+        Intent videos = new Intent(this, LlistatVideos.class );
         videos.putExtra("llenguatge",getResources().getString(R.string.llenguatge));
         startActivity(videos);
     }
