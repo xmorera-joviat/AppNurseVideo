@@ -86,7 +86,9 @@ foreach ($data as $key => $value) {
 <script>
 function Esborrar(id){
 	
-	firebase.database().ref('LlistatVideos/'+id).remove();
+	firebase.database().ref('LlistatVideos/'+id).remove()
+		.then(result => window.location.reload(result));
+	
 }
 </script>
 <script>
