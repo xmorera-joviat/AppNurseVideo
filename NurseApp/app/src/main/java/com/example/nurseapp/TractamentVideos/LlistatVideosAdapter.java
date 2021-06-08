@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nurseapp.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.database.Query;
 
 import java.util.List;
@@ -79,7 +78,7 @@ public class LlistatVideosAdapter extends FirebaseRecyclerAdapter<Video, Llistat
         public LlistatVideosViewHolder(@NonNull View itemView) {
             super(itemView);
             texTitolVideos = (TextView) itemView.findViewById(R.id.idTextVideos);
-            texDescVideos = (TextView) itemView.findViewById(R.id.idDesc);
+            texDescVideos = (TextView) itemView.findViewById(R.id.idDescripcioCa);
             btnPlayVideo =  (Button) itemView.findViewById(R.id.idBtnVideos);
         }
 

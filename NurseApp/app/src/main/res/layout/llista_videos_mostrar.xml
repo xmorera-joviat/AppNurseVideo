@@ -30,7 +30,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/idDesc"
+                android:id="@+id/idDescripcioCa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="70dp"

@@ -80,12 +80,10 @@ public class LlistatVideos extends TractamentToolBar {
         data();
     }
 
-
     /**
      * Mètode per a carregar els item corresponents de cada vídeo.
      */
     public void data(){
-
         //Instanciem de les variables firebaseDatabase i databaseReference.
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
@@ -103,9 +101,9 @@ public class LlistatVideos extends TractamentToolBar {
                 LlistaVideosLlengua = "LlistatVideosEn";
                 break;
         }
+
         //Amb el databaseReference.child aconseguim tenir un ValueEventListener escoltant el que tenim a la base de dades de FiireBase
         // i així poder afegir-ho a la nostra List videos.
-
         databaseReference.child(LlistaVideosLlengua).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -116,8 +114,7 @@ public class LlistatVideos extends TractamentToolBar {
                         String descVideo = ds.child("descVideo").getValue().toString();
                         String urlVideo = ds.child("urlVideo").getValue().toString();
 
-                        videos.add(new Video(id, titol, descVideo, urlVideo));
-
+                        videos.add(new Video(id, titol, descVideo, urlVideo, true));
                     }
 
                     //Poder saber quin és l'ID corresponent per tenir un autoincrement dels IDs a la base de dades Firebase.

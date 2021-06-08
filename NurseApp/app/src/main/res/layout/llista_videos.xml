@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"/>
 
             <TextView
-                android:id="@+id/idDesc"
+                android:id="@+id/idDescripcioCa"
                 android:textColor="#ffffff"
                 android:textSize="19dp"
                 android:text=""

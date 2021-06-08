@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+
 import com.example.nurseapp.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -19,15 +21,13 @@ import java.util.Locale;
 public class AfegirVideos extends LlistatVideos {
 
     // Inicialització de les variables :
-    private EditText idNom;
-    private EditText idDesc;
-    private EditText idUrl;
-    private Button btnSave;
-    FirebaseDatabase database;
+    private EditText idTitolCa, idDescCa, idUrlCa, idCategoriaCa, idTituloEs, idDescEs, idUrlEs, idCategoriaEs, idTitleEn, idDescEn, idUrlEn, idCategoryEn;
+    private Button btnAfegir;
     DatabaseReference ref;
     private boolean isInsert = false;
     long count = 0;
     int numLlista = 0;
+    private Fragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,11 +41,23 @@ public class AfegirVideos extends LlistatVideos {
 
         getBaseContext().getResources().updateConfiguration(config, getResources().getDisplayMetrics());
 
-        // Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
-        idNom = findViewById(R.id.idNom);
-        idDesc = findViewById(R.id.idDesc);
-        idUrl = findViewById(R.id.idUrl);
-        btnSave = findViewById(R.id.idButtonSave);
+        // Vinculem el fragment.
+        fragment = getSupportFragmentManager().findFragmentById(R.id.fragmentAfegirVideos);
+
+        // Vinculem les variables amb els corresponents objectes de l'apartat  del fragment.
+        idTitolCa = fragment.getView().findViewById(R.id.idTitolCa);
+        idDescCa = fragment.getView().findViewById(R.id.idDescripcioCa);
+        idUrlCa = fragment.getView().findViewById(R.id.idUrlCa);
+        idCategoriaCa = fragment.getView().findViewById(R.id.idCategoriaCa);
+        idTituloEs = fragment.getView().findViewById(R.id.idTituloEs);
+        idDescEs = fragment.getView().findViewById(R.id.idDescripcionEs);
+        idUrlEs = fragment.getView().findViewById(R.id.idUrlEs);
+        idCategoriaEs = fragment.getView().findViewById(R.id.idCategoriaEs);
+        idTitleEn = fragment.getView().findViewById(R.id.idTitleEn);
+        idDescEn = fragment.getView().findViewById(R.id.idDescriptionEn);
+        idUrlEn = fragment.getView().findViewById(R.id.idUrlEn);
+        idCategoryEn = fragment.getView().findViewById(R.id.idCategoryEn);
+        btnAfegir = fragment.getView().findViewById(R.id.idButtonAfegir);
 
         // Executem el mètode setUpToolBar
         setUpToolBar();
@@ -54,15 +66,23 @@ public class AfegirVideos extends LlistatVideos {
         customTitileToolBar(getResources().getString(R.string.tlbafTitol));
 
         // Obtenim la referència del fill que tenim a la base de dades.
-        ref = database.getInstance().getReference().child("Video");
+        ref = FirebaseDatabase.getInstance().getReference().child("Video");
 
         // Botó onClick per ta d'afegir les dades a la base de dades.
-        btnSave.setOnClickListener(new View.OnClickListener() {
+        btnAfegir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nomVideo = idNom.getText().toString();
-                String descVideo = idDesc.getText().toString();
-                String url = idUrl.getText().toString();
+                String titolCa = idTitolCa.getText().toString();
+                String descCa = idDescCa.getText().toString();
+                String urlCa = idUrlCa.getText().toString();
+
+                String tituloEs = idTituloEs.getText().toString();
+                String descEs = idDescEs.getText().toString();
+                String urlEs = idUrlEs.getText().toString();
+
+                String titleEn = idTitleEn.getText().toString();
+                String descEn = idDescEn.getText().toString();
+                String urlEn = idUrlEn.getText().toString();
 
                 data();
 
@@ -72,83 +92,72 @@ public class AfegirVideos extends LlistatVideos {
                 numLlista++;
 
                 // Fem una petita validació per saber si algun dels caps està buit.
-                switch (v.getId()) {
-                    case R.id.idButtonSave: {
-                        if (nomVideo.equals("") || descVideo.equals("") || url.equals("")) {
-                            validar();
-                        } else {
-                            // En el cas que tot sigui correcte, hem de validar si l'url conte "be/" o "?v",
-                            // ja que si no és així, no es tracta d'una url acceptada i per tal el vídeo no es podrà reproduir.
-                            int inici = 0;
-                            if (url.contains("be/")) {
-
-                                inici = url.indexOf("be/");
-                            } else if (url.contains("?v")) {
-                                inici = url.indexOf("?v");
-                            }
-
-                            Video lv = new Video();
-
-                            if (url.contains("be/") || url.contains("?v")) {
-                                lv.setNumId(numLlista);
-                                lv.setTitol(nomVideo);
-                                lv.setDescVideo(descVideo);
-
-                                lv.setUrlVideo(url.substring(inici + 3, inici + 14));
-
-                                ref.child(String.valueOf(numLlista)).setValue(lv);
-
-                                // Si tot es correcte afegim el vídeo a la base de dades Firebase.
-                                Toast.makeText(getApplicationContext(), "Vídeo afegit", Toast.LENGTH_LONG).show();
-                                netejar();
-                            }
-                            else {
-                                // Si l'url no és correcta, no s'enregistrarà el vídeo i es mostrarà un avís d'error.
-                                Toast.makeText(getApplicationContext(), "Revisa la URL", Toast.LENGTH_LONG).show();
-                            }
-
-                            // Cada cop que fem un registre hem de recarregar l'activity, ja que si no el comptador del ID no
-                            // s'incrementa y això ens donarà problemes a l'hora d'intentar realitzar el
-                            // següent registre, per tal que la recàrrega de l'activity no tingui un salt amb la imatge
-                            // utilitzem finish, overridePendingTransition i startActivity.
-                            finish();
-                            overridePendingTransition(0, 0);
-                            startActivity(getIntent());
-                            overridePendingTransition(0, 0);
-
-                        }
-                        break;
+                if (titolCa.equals("") || descCa.equals("") || urlCa.equals("") ||
+                    tituloEs.equals("") || descEs.equals("") || urlEs.equals("") ||
+                    titleEn.equals("") || descEn.equals("") || urlEn.equals("") )
+                {
+                    Toast.makeText(getApplicationContext(), "Omple els camps obligatoris, siusplau!", Toast.LENGTH_LONG).show();
+                }
+                // En el cas que tot sigui correcte, hem de validar si l'url conte "be/" o "?v",
+                // ja que si no és així, no es tracta d'una url acceptada i per tal el vídeo no es podrà reproduir.
+                else {
+                    int inici = 0;
+                    if (urlCa.contains("be/")) {
+                        inici = urlCa.indexOf("be/");
+                    } else if (urlCa.contains("?v")) {
+                        inici = urlCa.indexOf("?v");
                     }
+
+                    Video lv = new Video();
+
+                    if (urlCa.contains("be/") || urlCa.contains("?v")) {
+                        lv.setNumId(numLlista);
+                        lv.setTitol(titolCa);
+                        lv.setDescVideo(descCa);
+
+                        lv.setUrlVideo(urlCa.substring(inici + 3, inici + 14));
+
+                        ref.child(String.valueOf(numLlista)).setValue(lv);
+
+                        // Si tot es correcte afegim el vídeo a la base de dades Firebase.
+                        Toast.makeText(getApplicationContext(), "Vídeo afegit", Toast.LENGTH_LONG).show();
+                        netejar();
+                    }
+                    else {
+                        // Si l'url no és correcta, no s'enregistrarà el vídeo i es mostrarà un avís d'error.
+                        Toast.makeText(getApplicationContext(), "URL no acceptada, revisa-la!", Toast.LENGTH_LONG).show();
+                    }
+
+                    // Cada cop que fem un registre hem de recarregar l'activity, ja que si no el comptador del ID no
+                    // s'incrementa y això ens donarà problemes a l'hora d'intentar realitzar el
+                    // següent registre, per tal que la recàrrega de l'activity no tingui un salt amb la imatge
+                    // utilitzem finish, overridePendingTransition i startActivity.
+                    finish();
+                    overridePendingTransition(0, 0);
+                    startActivity(getIntent());
+                    overridePendingTransition(0, 0);
                 }
             }
         });
     }
 
     /**
-     * Mètode que comprova que els camps no estiguis buits.
-     */
-    private void validar() {
-        String nomVideo = idNom.getText().toString();
-        String descVideo = idDesc.getText().toString();
-        String url = idUrl.getText().toString();
-
-        if (nomVideo.equals("")) {
-            Toast.makeText(getApplicationContext(), "Tots els camps han de tenir text", Toast.LENGTH_LONG).show();
-        }
-        else if (descVideo.equals("")) {
-            Toast.makeText(getApplicationContext(), "Tots els camps han de tenir text", Toast.LENGTH_LONG).show();
-        }
-        else if (url.equals("")) {
-            Toast.makeText(getApplicationContext(), "Tots els camps han de tenir text", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    /**
-     * Mètode per deixar els camps de text buits cada cop que es realitza un registre o hi hagi un error.
+     * Mètode per deixar els camps de text buits cada cop que es realitza un registre.
      */
     private void netejar() {
-        idNom.setText("");
-        idDesc.setText("");
-        idUrl.setText("");
+        idTitolCa.setText("");
+        idDescCa.setText("");
+        idUrlCa.setText("");
+        idCategoriaCa.setText("");
+
+        idTituloEs.setText("");
+        idDescEs.setText("");
+        idUrlEs.setText("");
+        idCategoriaEs.setText("");
+
+        idTitleEn.setText("");
+        idDescEn.setText("");
+        idUrlEn.setText("");
+        idCategoryEn.setText("");
     }
 }

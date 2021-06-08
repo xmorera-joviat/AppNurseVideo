@@ -10,15 +10,17 @@ public class Video {
     private String titol;
     private String descVideo;
     private String urlVideo;
+    private Boolean mostra;
 
     //Constructors corresponents.
     public Video(){}
 
-    public Video(int numId, String titol, String descVideo, String urlVideo) {
+    public Video(int numId, String titol, String descVideo, String urlVideo, Boolean mostra) {
         this.numId = numId;
         this.titol = titol;
         this.descVideo = descVideo;
         this.urlVideo = urlVideo;
+        this.mostra = mostra;
     }
 
     //Getters i Setters de cada una de les variables.
@@ -52,6 +54,14 @@ public class Video {
 
     public void setUrlVideo(String urlVideo) {
         this.urlVideo = urlVideo;
+    }
+
+    public Boolean getMostra() {
+        return mostra;
+    }
+
+    public void setMostra(Boolean mostra) {
+        this.mostra = mostra;
     }
 
     /**
