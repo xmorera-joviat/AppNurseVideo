@@ -100,6 +100,7 @@ public class LlistatVideos extends TractamentToolBar {
                 break;
         }
 
+        /*
         //Amb el databaseReference.child aconseguim tenir un ValueEventListener escoltant el que tenim a la base de dades de FiireBase
         // i així poder afegir-ho a la nostra List videos.
         databaseReference.child(LlistaVideosLlengua).addValueEventListener(new ValueEventListener() {
@@ -126,7 +127,7 @@ public class LlistatVideos extends TractamentToolBar {
 
                     adapter = new LlistatVideosAdapter(videos);
                     recycler.setAdapter(adapter);
-                    */
+
                     inicialitzaAdapter();
                 }
             }
@@ -135,7 +136,7 @@ public class LlistatVideos extends TractamentToolBar {
 
             }
         });
-
+        */
         //searchView.setOnQueryTextListener que utilitzem per poder fer cerques al llistat.
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -188,8 +189,7 @@ public class LlistatVideos extends TractamentToolBar {
      */
     public void inicialitzaAdapter(){
         Query consulta = FirebaseDatabase.getInstance()
-                .getReference()
-                .child(LlistaVideosLlengua);
+                .getReference(LlistaVideosLlengua);
 
         // Preparem l'objecte "Options" que ens ha de permetre crear l'adapter. Aquest objecte
         // defineix, entre altres aspectes, la consulta amb el tipus d'objecte que retornarà

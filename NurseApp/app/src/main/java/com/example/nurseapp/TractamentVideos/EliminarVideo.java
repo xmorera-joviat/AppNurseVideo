@@ -87,15 +87,15 @@ public class EliminarVideo extends LlistatVideos {
         mDataBase.child("Video").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 if (dataSnapshot.exists()) {
                     for(DataSnapshot ds : dataSnapshot.getChildren()){
                         int id = Integer.parseInt(ds.child("numId").getValue().toString());
                         String titol = ds.child("texTitolVideos").getValue().toString();
                         String descVideo = ds.child("descVideo").getValue().toString();
                         String urlVideo = ds.child("urlVideo").getValue().toString();
+                        String categoria = ds.child("categoria").getValue().toString();
 
-                        videos.add(new Video(id, titol, descVideo, urlVideo));
+                        videos.add(new Video(id, titol, descVideo, urlVideo, categoria, true));
 
                         ArrayAdapter<Video> arrayAdapter = new ArrayAdapter<>
                                 (EliminarVideo.this, android.R.layout.simple_dropdown_item_1line, videos);
@@ -123,9 +123,6 @@ public class EliminarVideo extends LlistatVideos {
                                         v.getContext().startActivity(i);
                                     }
                                 });
-
-
-
                             }
 
                             @Override

@@ -74,9 +74,7 @@ public class Video {
     }
 
     /**
-     *
      * Mètode toStrings per tal de retornar el títol dels vídeos.
-     *
      * @return string.
      */
     @Override
