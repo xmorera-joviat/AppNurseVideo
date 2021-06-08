@@ -12,9 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nurseapp.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Classe per tal de construir el RecyclerView.Adapter que utilitzem per a mostrar tot el llistat dels vídeos.
@@ -23,6 +28,7 @@ public class LlistatVideosAdapter extends FirebaseRecyclerAdapter<Video, Llistat
 
     //Inicialització de les variables
     private List<Video> llistatsVideos;
+    private DatabaseReference mDatabase;
 
     //Constructor.
     public LlistatVideosAdapter(Class<Video> modelClass, int modelLayout, Class<LlistatVideosViewHolder> viewHolderClass, Query ref) {
@@ -55,6 +61,15 @@ public class LlistatVideosAdapter extends FirebaseRecyclerAdapter<Video, Llistat
         holder.texDescVideos.setText(llistatVideo.getDescVideo());
 
         holder.btnPlayVideo.setOnClickListener(new TouchElement(position));
+        holder.btnVisibilidad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Map<String, Object> VideoMap = new HashMap<>();
+                VideoMap.put("Mostrar",0);
+                mDatabase.child("Videos").updateChildren(VideoMap);
+            }
+        });
+
     }
 
     /**
@@ -73,13 +88,16 @@ public class LlistatVideosAdapter extends FirebaseRecyclerAdapter<Video, Llistat
         private TextView texTitolVideos;
         private TextView texDescVideos;
         private Button btnPlayVideo;
+        private  Button btnVisibilidad;
 
         //Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
         public LlistatVideosViewHolder(@NonNull View itemView) {
             super(itemView);
             texTitolVideos = (TextView) itemView.findViewById(R.id.idTextVideos);
-            texDescVideos = (TextView) itemView.findViewById(R.id.idDescripcioCa);
+            texDescVideos = (TextView) itemView.findViewById(R.id.idDesc);
             btnPlayVideo =  (Button) itemView.findViewById(R.id.idBtnVideos);
+            btnVisibilidad = (Button) itemView.findViewById(R.id.idBtnVisibility);
+            mDatabase = FirebaseDatabase.getInstance().getReference();
         }
 
     }
