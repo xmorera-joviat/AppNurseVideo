@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.nurseapp.R;
 import com.example.nurseapp.TractamentToolBar;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -185,7 +186,8 @@ public class LlistatVideos extends TractamentToolBar {
      * Mètode utilitzat per a inicialitzar l'adabter que hi té el List llsitatVideos.
      */
     public void inicialitzaAdapter(){
-        Query consulta = databaseReference.child("LlistatVideosCa");
+        Query consulta = databaseReference.child(LlistaVideosLlengua);
+
 
         // Preparem l'objecte "Options" que ens ha de permetre crear l'adapter. Aquest objecte
         // defineix, entre altres aspectes, la consulta amb el tipus d'objecte que retornarà
@@ -195,13 +197,13 @@ public class LlistatVideos extends TractamentToolBar {
                         .Builder<Video>()
                         .setQuery(consulta, Video.class)
                         .build();
-        Toast.makeText(LlistatVideos.this, "Valor: "+ opcions.getClass().getCanonicalName(), Toast.LENGTH_LONG).show();
         // Creem l'objecte Adapter passant-li l'objecte Options al constructor.
         adapter = new LlistatVideosAdapter(opcions);
 
         // Associem l'adapter creat amb el RecyclerView que tenim a la vista.
         recycler.setAdapter(adapter);
     }
+
 
     /**
      * Mètode que utilitzem per a carregar la connexió a Firebase i eliminar l'ID indicat.
@@ -236,4 +238,17 @@ public class LlistatVideos extends TractamentToolBar {
         return numLastArrayList;
     }
 
+
+    @Override protected void onStart()
+    {
+        super.onStart();
+        adapter.startListening();
+    }
+
+
+    @Override protected void onStop()
+    {
+        super.onStop();
+        adapter.stopListening();
+    }
 }

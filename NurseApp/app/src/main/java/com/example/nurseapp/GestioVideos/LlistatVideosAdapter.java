@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -81,35 +83,47 @@ public class LlistatVideosAdapter extends FirebaseRecyclerAdapter<Video, Llistat
      */
     @Override
     protected void onBindViewHolder(@NonNull LlistatVideosViewHolder holder, int position, @NonNull Video video) {
-        Video llistatVideo = llistatsVideos.get(position);
 
-        holder.titol.setText(llistatVideo.getTitol());
-        holder.desc.setText(llistatVideo.getDescVideo());
+        holder.titol.setText(video.getTitol());
+        holder.desc.setText(video.getDescVideo());
 
-        holder.btnPlayVideo.setOnClickListener(new TouchElement(position));
+        //Visualizar la situación de vídeos  de  por defecto.
+        if (video.getMostrar().equals("true")){
+            holder.btnVisibilidad.setVisibility(View.VISIBLE);
+            holder.btnVisibilidadOff.setVisibility(View.GONE);
+        }
+        else if (video.getMostrar().equals("false")){
+            holder.btnVisibilidadOff.setVisibility(View.VISIBLE);
+            holder.btnVisibilidad.setVisibility(View.GONE);
+        }
+        //holder.btnPlayVideo.setOnClickListener(new TouchElement(position));
         holder.btnVisibilidad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                holder.btnVisibilidad.setVisibility(View.GONE);
-                holder.btnVisibilidadOff.setVisibility(View.VISIBLE);
-                Map<String, Object> VideoMap = new HashMap<>();
-                VideoMap.put("mostrar",0);
-                mDatabase.child("LlistatVideosCa/"+llistatVideo.getNumId()).updateChildren(VideoMap);
-                mDatabase.child("LlistatVideosEn/"+llistatVideo.getNumId()).updateChildren(VideoMap);
-                mDatabase.child("LlistatVideosEs/"+llistatVideo.getNumId()).updateChildren(VideoMap);
+                if(video.getMostrar().equals("true")) {
+                    holder.btnVisibilidad.setVisibility(View.GONE);
+                    holder.btnVisibilidadOff.setVisibility(View.VISIBLE);
+                    Map<String, Object> VideoMap = new HashMap<>();
+                    VideoMap.put("mostrar", "false");
+                    mDatabase.child("LlistatVideosCa/" + video.getNumId()).updateChildren(VideoMap);
+                    mDatabase.child("LlistatVideosEn/" + video.getNumId()).updateChildren(VideoMap);
+                    mDatabase.child("LlistatVideosEs/" + video.getNumId()).updateChildren(VideoMap);
+                }
             }
         });
 
         holder.btnVisibilidadOff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                holder.btnVisibilidadOff.setVisibility(View.GONE);
-                holder.btnVisibilidad.setVisibility(View.VISIBLE);
-                Map<String, Object> VideoMap = new HashMap<>();
-                VideoMap.put("mostrar",1);
-                mDatabase.child("LlistatVideosCa/"+llistatVideo.getNumId()).updateChildren(VideoMap);
-                mDatabase.child("LlistatVideosEn/"+llistatVideo.getNumId()).updateChildren(VideoMap);
-                mDatabase.child("LlistatVideosEs/"+llistatVideo.getNumId()).updateChildren(VideoMap);
+                if (video.getMostrar().equals("false")) {
+                    holder.btnVisibilidadOff.setVisibility(View.GONE);
+                    holder.btnVisibilidad.setVisibility(View.VISIBLE);
+                    Map<String, Object> VideoMap = new HashMap<>();
+                    VideoMap.put("mostrar", "true");
+                    mDatabase.child("LlistatVideosCa/" + video.getNumId()).updateChildren(VideoMap);
+                    mDatabase.child("LlistatVideosEn/" + video.getNumId()).updateChildren(VideoMap);
+                    mDatabase.child("LlistatVideosEs/" + video.getNumId()).updateChildren(VideoMap);
+                }
             }
         });
     }
@@ -131,6 +145,7 @@ public class LlistatVideosAdapter extends FirebaseRecyclerAdapter<Video, Llistat
         public void onClick(View v) {
             Intent i = new Intent(v.getContext(), ApiYoutube.class);
             Bundle b = new Bundle();
+
 
             b.putString("url", llistatsVideos.get(position).getUrlVideo());
             i.putExtras(b);

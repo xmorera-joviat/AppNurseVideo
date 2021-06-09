@@ -11,18 +11,18 @@ public class Video {
     private String descVideo;
     private String urlVideo;
     private String categoria;
-    private String mostra;
+    private String mostrar;
 
     public Video() {
     }
 
-    public Video(int numId, String titol, String descVideo, String urlVideo, String categoria, String mostra) {
+    public Video(int numId, String titol, String descVideo, String urlVideo, String categoria, String mostrar) {
         this.numId = numId;
         this.titol = titol;
         this.descVideo = descVideo;
         this.urlVideo = urlVideo;
         this.categoria = categoria;
-        this.mostra = mostra;
+        this.mostrar = mostrar;
     }
 
     public int getNumId() {
@@ -65,12 +65,12 @@ public class Video {
         this.categoria = categoria;
     }
 
-    public String getMostra() {
-        return mostra;
+    public String getMostrar() {
+        return mostrar;
     }
 
-    public void setMostra(String mostra) {
-        this.mostra = mostra;
+    public void setMostrar(String mostrar) {
+        this.mostrar = mostrar;
     }
 
 
