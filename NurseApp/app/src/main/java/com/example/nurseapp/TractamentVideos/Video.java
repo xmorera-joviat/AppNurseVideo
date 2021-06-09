@@ -11,20 +11,20 @@ public class Video {
     private String descVideo;
     private String urlVideo;
     private String categoria;
-    private Boolean mostra;
+    private String mostra;
 
-    //Constructors corresponents.
-    public Video(){}
+    public Video() {
+    }
 
-    public Video(int numId, String titol, String descVideo, String urlVideo, String categoria, Boolean mostra) {
+    public Video(int numId, String titol, String descVideo, String urlVideo, String categoria, String mostra) {
         this.numId = numId;
         this.titol = titol;
         this.descVideo = descVideo;
         this.urlVideo = urlVideo;
+        this.categoria = categoria;
         this.mostra = mostra;
     }
 
-    //Getters i Setters de cada una de les variables.
     public int getNumId() {
         return numId;
     }
@@ -37,8 +37,8 @@ public class Video {
         return titol;
     }
 
-    public void setTitol(String texTitolVideos) {
-        this.titol = texTitolVideos;
+    public void setTitol(String titol) {
+        this.titol = titol;
     }
 
     public String getDescVideo() {
@@ -65,13 +65,16 @@ public class Video {
         this.categoria = categoria;
     }
 
-    public Boolean getMostra() {
+    public String getMostra() {
         return mostra;
     }
 
-    public void setMostra(Boolean mostra) {
+    public void setMostra(String mostra) {
         this.mostra = mostra;
     }
+
+
+
 
     /**
      * Mètode toStrings per tal de retornar el títol dels vídeos.

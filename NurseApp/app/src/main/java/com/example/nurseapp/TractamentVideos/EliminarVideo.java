@@ -95,7 +95,7 @@ public class EliminarVideo extends LlistatVideos {
                         String urlVideo = ds.child("urlVideo").getValue().toString();
                         String categoria = ds.child("categoria").getValue().toString();
 
-                        videos.add(new Video(id, titol, descVideo, urlVideo, categoria, true));
+                        videos.add(new Video(id, titol, descVideo, urlVideo, categoria, "true"));
 
                         ArrayAdapter<Video> arrayAdapter = new ArrayAdapter<>
                                 (EliminarVideo.this, android.R.layout.simple_dropdown_item_1line, videos);

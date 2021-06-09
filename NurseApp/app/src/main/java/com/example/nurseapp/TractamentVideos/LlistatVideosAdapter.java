@@ -29,10 +29,37 @@ public class LlistatVideosAdapter extends FirebaseRecyclerAdapter<Video, Llistat
     private List<Video> llistatsVideos;
     private DatabaseReference mDatabase;
 
+
     //Constructor.
     public LlistatVideosAdapter(@NonNull FirebaseRecyclerOptions<Video> options) {
         super(options);
     }
+
+    /**
+     * Classe LlistatVideosViewHolder
+     */
+    public class LlistatVideosViewHolder extends RecyclerView.ViewHolder {
+        //Inicialització de les variables
+        private TextView titol;
+        private TextView desc;
+        private Button btnPlayVideo;
+        private  Button btnVisibilidad;
+        private  Button btnVisibilidadOff;
+
+        //Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
+        public LlistatVideosViewHolder(@NonNull View itemView) {
+            super(itemView);
+            titol = (TextView) itemView.findViewById(R.id.idTextVideos);
+            desc = (TextView) itemView.findViewById(R.id.idDescripcioCa);
+            btnPlayVideo =  (Button) itemView.findViewById(R.id.idBtnVideos);
+            btnVisibilidad = (Button) itemView.findViewById(R.id.idBtnVisibility);
+            btnVisibilidadOff = (Button) itemView.findViewById(R.id.idBtnVisibility_off);
+            mDatabase = FirebaseDatabase.getInstance().getReference();
+        }
+
+    }
+
+
 
     /**
      * Mètode per tal d'inflar la vista amb el Layrer layout.
@@ -43,7 +70,7 @@ public class LlistatVideosAdapter extends FirebaseRecyclerAdapter<Video, Llistat
     @NonNull
     @Override
     public LlistatVideosViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.llista_videos, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.llista_videos_mostrar, parent, false);
         return new LlistatVideosViewHolder(v);
     }
 
@@ -63,42 +90,31 @@ public class LlistatVideosAdapter extends FirebaseRecyclerAdapter<Video, Llistat
         holder.btnVisibilidad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                holder.btnVisibilidad.setVisibility(View.GONE);
+                holder.btnVisibilidadOff.setVisibility(View.VISIBLE);
                 Map<String, Object> VideoMap = new HashMap<>();
-                VideoMap.put("Mostrar",0);
-                mDatabase.child("Videos").updateChildren(VideoMap);
+                VideoMap.put("mostrar",0);
+                mDatabase.child("LlistatVideosCa/"+llistatVideo.getNumId()).updateChildren(VideoMap);
+                mDatabase.child("LlistatVideosEn/"+llistatVideo.getNumId()).updateChildren(VideoMap);
+                mDatabase.child("LlistatVideosEs/"+llistatVideo.getNumId()).updateChildren(VideoMap);
+            }
+        });
+
+        holder.btnVisibilidadOff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.btnVisibilidadOff.setVisibility(View.GONE);
+                holder.btnVisibilidad.setVisibility(View.VISIBLE);
+                Map<String, Object> VideoMap = new HashMap<>();
+                VideoMap.put("mostrar",1);
+                mDatabase.child("LlistatVideosCa/"+llistatVideo.getNumId()).updateChildren(VideoMap);
+                mDatabase.child("LlistatVideosEn/"+llistatVideo.getNumId()).updateChildren(VideoMap);
+                mDatabase.child("LlistatVideosEs/"+llistatVideo.getNumId()).updateChildren(VideoMap);
             }
         });
     }
 
-    /**
-     * @return size de la List videos
-     */
-    @Override
-    public int getItemCount() {
-        return llistatsVideos.size();
-    }
 
-    /**
-     * Classe LlistatVideosViewHolder
-     */
-    public class LlistatVideosViewHolder extends RecyclerView.ViewHolder {
-        //Inicialització de les variables
-        private TextView titol;
-        private TextView desc;
-        private Button btnPlayVideo;
-        private  Button btnVisibilidad;
-
-        //Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
-        public LlistatVideosViewHolder(@NonNull View itemView) {
-            super(itemView);
-            titol = (TextView) itemView.findViewById(R.id.idTextVideos);
-            //desc = (TextView) itemView.findViewById(R.id.idDesc);
-            btnPlayVideo =  (Button) itemView.findViewById(R.id.idBtnVideos);
-            btnVisibilidad = (Button) itemView.findViewById(R.id.idBtnVisibility);
-            mDatabase = FirebaseDatabase.getInstance().getReference();
-        }
-
-    }
 
     /**
      * Classe TouchElement que fem servir cada cop que seleccionem el botó corresponent "play"

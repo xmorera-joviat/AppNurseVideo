@@ -4,6 +4,7 @@ package com.example.nurseapp.TractamentVideos;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -49,14 +50,14 @@ public class LlistatVideos extends TractamentToolBar {
         Configuration config = new Configuration();
         config.locale = locale;
         getBaseContext().getResources().updateConfiguration(config, getResources().getDisplayMetrics());
-
         //Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
         recycler = (RecyclerView) findViewById(R.id.idRecyvler);
         LinearLayoutManager lim = new LinearLayoutManager(this);
         lim.setOrientation(LinearLayoutManager.VERTICAL);
         recycler.setLayoutManager(lim);
+        recycler.setHasFixedSize(true);
         searchView = findViewById(R.id.search);
-
+        data();
         //Mètode inicialitzaAdapter.
         inicialitzaAdapter();
 
@@ -162,8 +163,7 @@ public class LlistatVideos extends TractamentToolBar {
      */
     private void Cerca(String s) {
         // Preparem la consulta a realitzar a la base de dades.
-        Query consulta = FirebaseDatabase.getInstance()
-                .getReference(LlistaVideosLlengua)
+        Query consulta = databaseReference.child(LlistaVideosLlengua)
                 .orderByChild("titol")
                 .startAt(s)
                 .endAt(s + "\uf8ff");
@@ -188,8 +188,7 @@ public class LlistatVideos extends TractamentToolBar {
      * Mètode utilitzat per a inicialitzar l'adabter que hi té el List llsitatVideos.
      */
     public void inicialitzaAdapter(){
-        Query consulta = FirebaseDatabase.getInstance()
-                .getReference(LlistaVideosLlengua);
+        Query consulta = databaseReference.child("LlistatVideosCa");
 
         // Preparem l'objecte "Options" que ens ha de permetre crear l'adapter. Aquest objecte
         // defineix, entre altres aspectes, la consulta amb el tipus d'objecte que retornarà
@@ -199,7 +198,7 @@ public class LlistatVideos extends TractamentToolBar {
                         .Builder<Video>()
                         .setQuery(consulta, Video.class)
                         .build();
-
+        Toast.makeText(LlistatVideos.this, "Valor: "+ opcions.getClass().getCanonicalName(), Toast.LENGTH_LONG).show();
         // Creem l'objecte Adapter passant-li l'objecte Options al constructor.
         adapter = new LlistatVideosAdapter(opcions);
 
