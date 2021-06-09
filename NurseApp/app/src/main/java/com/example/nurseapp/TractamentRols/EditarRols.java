@@ -1,12 +1,12 @@
-package com.example.nurseapp;
+package com.example.nurseapp.TractamentRols;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
-import com.example.nurseapp.TractamentGenericToolBar.TractamentToolBar;
+import com.example.nurseapp.R;
+import com.example.nurseapp.TractamentToolBar;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;

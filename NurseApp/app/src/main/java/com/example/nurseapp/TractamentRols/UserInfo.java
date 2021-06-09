@@ -1,4 +1,4 @@
-package com.example.nurseapp;
+package com.example.nurseapp.TractamentRols;
 
 import java.util.List;
 

@@ -13,20 +13,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeNoActionBar"
         android:screenOrientation="portrait">
-        <activity android:name=".EditarRols" />
-        <activity android:name=".RecreateScreen" />
+        <activity android:name=".TractamentRols.EditarRols" />
+        <activity android:name=".RecrearPantalla" />
         <activity android:name=".Formularis_Calendari.ActivitatCalendari" />
         <activity android:name=".Formularis_Calendari.ActivitatFormularis" />
-        <activity android:name=".TractamentGenericToolBar.TractamentToolBar" />
-        <activity android:name=".TractamentVideos.EliminarVideo" />
-        <activity android:name=".TractamentVideos.AfegirVideos" />
-        <activity android:name=".TractamentVideos.ApiYoutube"
+        <activity android:name=".TractamentToolBar" />
+        <activity android:name=".GestioVideos.EliminarVideo" />
+        <activity android:name=".GestioVideos.AfegirVideos" />
+        <activity android:name=".GestioVideos.ApiYoutube"
             android:screenOrientation="userLandscape"/>
-        <activity android:name=".TractamentVideos.LlistatVideos" />
-        <activity android:name=".Registres_Acces.Registrarse" />
-        <activity android:name=".Registres_Acces.IniciarSessio" />
+        <activity android:name=".GestioVideos.LlistatVideos" />
+        <activity android:name=".Autentificacio.Registrarse" />
+        <activity android:name=".Autentificacio.IniciarSessio" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".PantallaInici">
+        <activity android:name=".PantallaInicial">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

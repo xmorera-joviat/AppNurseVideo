@@ -1,4 +1,4 @@
-package com.example.nurseapp.TractamentVideos;
+package com.example.nurseapp.GestioVideos;
 
 
 
@@ -11,15 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nurseapp.R;
-import com.example.nurseapp.TractamentGenericToolBar.TractamentToolBar;
+import com.example.nurseapp.TractamentToolBar;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;

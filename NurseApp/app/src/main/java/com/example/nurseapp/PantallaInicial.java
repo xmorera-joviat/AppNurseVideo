@@ -10,7 +10,7 @@ import android.os.Handler;
 /**
  * Classe que utilitzem per a tenir una pantalla d'inici, amb la seva imatge corresponent.
  */
-public class PantallaInici extends AppCompatActivity {
+public class PantallaInicial extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

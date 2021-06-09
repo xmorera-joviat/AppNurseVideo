@@ -1,4 +1,4 @@
-package com.example.nurseapp.TractamentGenericToolBar;
+package com.example.nurseapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

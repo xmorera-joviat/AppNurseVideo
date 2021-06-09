@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-public class RecreateScreen extends AppCompatActivity {
+public class RecrearPantalla extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

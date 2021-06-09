@@ -1,4 +1,4 @@
-package com.example.nurseapp.TractamentVideos;
+package com.example.nurseapp.GestioVideos;
 
 /**
  * Classe que utilitzem per a poder gestionar l'Id, nom, descripció i url de cada vídeo.

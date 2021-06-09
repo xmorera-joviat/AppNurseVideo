@@ -6,7 +6,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import com.example.nurseapp.R;
-import com.example.nurseapp.TractamentGenericToolBar.TractamentToolBar;
+import com.example.nurseapp.TractamentToolBar;
 
 import java.util.Locale;
 

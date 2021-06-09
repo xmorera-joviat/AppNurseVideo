@@ -1,4 +1,4 @@
-package com.example.nurseapp.Registres_Acces;
+package com.example.nurseapp.Autentificacio;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 
 import com.example.nurseapp.MainActivity;
 import com.example.nurseapp.R;
-import com.example.nurseapp.TractamentGenericToolBar.TractamentToolBar;
+import com.example.nurseapp.TractamentToolBar;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

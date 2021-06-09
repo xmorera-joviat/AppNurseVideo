@@ -15,13 +15,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.nurseapp.Registres_Acces.Registrarse;
-import com.example.nurseapp.TractamentVideos.EliminarVideo;
+import com.example.nurseapp.Autentificacio.Registrarse;
+import com.example.nurseapp.TractamentRols.EditarRols;
+import com.example.nurseapp.GestioVideos.EliminarVideo;
 import com.example.nurseapp.Formularis_Calendari.ActivitatCalendari;
 import com.example.nurseapp.Formularis_Calendari.ActivitatFormularis;
-import com.example.nurseapp.Registres_Acces.IniciarSessio;
-import com.example.nurseapp.TractamentVideos.AfegirVideos;
-import com.example.nurseapp.TractamentVideos.LlistatVideos;
+import com.example.nurseapp.Autentificacio.IniciarSessio;
+import com.example.nurseapp.GestioVideos.AfegirVideos;
+import com.example.nurseapp.GestioVideos.LlistatVideos;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -237,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.idLogout:
                 FirebaseAuth.getInstance().signOut();
-                Intent i = new Intent(this, RecreateScreen.class);
+                Intent i = new Intent(this, RecrearPantalla.class);
                 startActivity(i);
                 recreate();
                 break;
@@ -264,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
         Configuration config = new Configuration();
         config.locale = locale;
 
-        Intent i = new Intent(this, RecreateScreen.class);
+        Intent i = new Intent(this, RecrearPantalla.class);
         startActivity(i);
 
         // Actualizar recursos lenguaje de app.

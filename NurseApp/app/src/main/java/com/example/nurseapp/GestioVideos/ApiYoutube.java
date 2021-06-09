@@ -1,4 +1,4 @@
-package com.example.nurseapp.TractamentVideos;
+package com.example.nurseapp.GestioVideos;
 
 
 import android.content.Intent;
