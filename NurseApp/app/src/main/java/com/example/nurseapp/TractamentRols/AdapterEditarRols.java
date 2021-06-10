@@ -63,7 +63,7 @@ public class AdapterEditarRols extends FirestoreRecyclerAdapter<UserInfo, Adapte
                 });
 
         /*
-        // Intent per agafar el correu dels usuaris mitjançant la implementació del Admin sdk de firebase. Però no va.
+        // Intent per agafar el correu dels usuaris mitjançant la implementació del Admin sdk de firebase. Però actualment no funciona correctament.
         try {
             UserRecord userRecord = FirebaseAuth.getInstance().getUser(holder.userUid.getText().toString());
             holder.userEmail.setText(userRecord.getEmail());
