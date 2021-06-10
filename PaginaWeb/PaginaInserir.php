@@ -41,6 +41,7 @@ div.centrar {
 <style>
 body {
 background-color: #000000;
+color: #FFFFFF;
 }
 </style>
 
@@ -53,37 +54,37 @@ background-color: #000000;
 <br>
 <!--formulari-->
 <form action="/action_page.php" class="was-validated">
-  <div class="form-group">
-    <b for="uname" style="color:#FFFFFF;">Categoria:</b>
+    <b>Categoria:</b> 
+  <br>
+	<div class="form-group">
+		<input id = "categoryCa" type="text" size="30" maxlength="30" placeholder="Ingressa una categoria"> 
+		<input id = "categoryEs" type="text" size="30" maxlength="30" placeholder="Ingresa una categoria">
+		<input id = "categoryEn" type="text" size="30" maxlength="30" placeholder="category">
 	<br>
-    <input type="text" class="form-control" id="categoria" placeholder="Categoria" name="cat" required>
-    <div class="valid-feedback">Vàlid.</div>
-    <div class="invalid-feedback">No obligatori.</div>
+  <div class="form-group">
+    <b>descripció:</b>
+	<br>
+		<input id = "descripcioCa" type="text" size="30" maxlength="30" placeholder="descripció"> 
+		<input id = "descripcioEs" type="text" size="30" maxlength="30" placeholder="descripción">
+		<input id = "descripcioEn" type="text" size="30" maxlength="30" placeholder="description">
   </div>
   <div class="form-group">
-    <b for="pwd" style="color:#FFFFFF;">descripció:</b>
-    <input type="text" class="form-control" id="desc" placeholder="Descripció del Vídeo" name="des" required>
-    <div class="valid-feedback">Vàlid.</div>
-    <div class="invalid-feedback">Camp obligatori.</div>
-  </div>
-  <div class="form-group">
-    <b for="pwd" style="color:#FFFFFF;">Titol:</b>
-    <input type="text" class="form-control" id="titol" placeholder="Titol Vídeo" name="tl" required>
-    <div class="valid-feedback">Vàlid.</div>
-    <div class="invalid-feedback">Camp obligatori.</div>
+  <b>Titol:</b>
+  <br>
+    <input id = "titolCa" type="text" size="30" maxlength="30" placeholder="títol"> 
+	<input id = "titolEs" type="text" size="30" maxlength="30" placeholder="título">
+	<input id = "titolEn" type="text" size="30" maxlength="30" placeholder="title">
   </div>
   <div class="form-group">
     <b for="pwd" style="color:#FFFFFF;">Url:</b>
-    <input type="text" class="form-control" id="url" placeholder="URL Vídeo" name="urlvideo" required>
-    <div class="valid-feedback">Vàlid.</div>
-    <div class="invalid-feedback">Camp obligatori.</div>
+	<br>
+    <input id = "url" type="text" size="103" placeholder="Url">
   </div>
-
 
 <div class="centrar">
 <!--Php-->
 <?php 
-$url = "https://nurseapp-b4a04.firebaseio.com/LlistatVideos.json";
+$url = "https://nurseapp-b4a04.firebaseio.com/LlistatVideosCa.json";
 
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL,$url);
@@ -98,7 +99,11 @@ foreach ($data as $key => $value) {
 		$id++;
 		
 	}
-	echo "<button type='button' class='btn btn-primary btn-lg' onclick='Inserir(categoria.value,desc.value,titol.value,url.value,$id)'>Inserir</button>";
+	echo "AMAGAR VÍDEO<input type='checkbox' id='amagat'>";
+	echo "<br>";
+	echo "<br>";
+	echo "<button type='button' class='btn btn-primary btn-lg' onclick='Inserir(url.value,$id)'>Inserir</button>";
+
 ?>
 		
 <br>
@@ -113,10 +118,48 @@ foreach ($data as $key => $value) {
 
 <!--Funcions-->
   <script>
-function Inserir(cat,desc,title,url,id){
+function Inserir(url,id){
+			
+		document.getElementById("txtHint").innerHTML = "hola";
+		var x = document.getElementById("amagat");
+		var amagat = "false";
+		if(x.checked == true){
+			amagat = "true";
+		}
+		else{
+			amagat = "false";
+		}
+		//variables de text.
+		var catCa, descCa,titCa;
+		var catEs, descEs, titEs;
+		var catEn, descEn, titEn;
 		
-			document.getElementById("txtHint").innerHTML = id;
-		if(desc.length == 0 || title.length == 0 || url.length == 0){
+		//variables català
+		catCa = document.getElementById('categoryCa').value;
+		if(catCa == ""){
+			catCa = "default";
+		}
+		descCa = document.getElementById("descripcioCa").value;
+		titCa = document.getElementById("titolCa").value;
+		
+		//variables castella
+		catEs = document.getElementById("categoryEs").value;
+		if(catEs == ""){
+			catEs = "default";
+		}
+		descEs = document.getElementById("descripcioEs").value;
+		titEs = document.getElementById("titolEs").value;
+		
+		//variables anglès
+		catEn = document.getElementById("categoryEn").value;
+		if(catEn == ""){
+			catEn = "default";
+		}
+		descEn = document.getElementById("descripcioEn").value;
+		titEn = document.getElementById("titolEn").value;
+		
+		
+		if(descCa.length == 0 || titCa.length == 0 || descEs.length == 0 || titEs.length == 0 || descEn == 0 || titEn == 0 ||url.length == 0){
 			document.getElementById("txtHint").innerHTML = "Completi la informació obligatòria siusplau.";
 		}
 		else{
@@ -125,14 +168,30 @@ function Inserir(cat,desc,title,url,id){
 				document.getElementById("txtHint").innerHTML = "Posa un enllaç de youtube correcte. Exemple: youtube.com/watch?v=57mfjMVka";
 			}
 			else{
-				firebase.database().ref('LlistatVideos/'+id).set({
-					'categoria': cat,
-					'descVideo': desc,
+				firebase.database().ref('LlistatVideosCa/'+id).set({
+					'categoria': catCa,
+					'descVideo': descCa,
+					'mostrar': amagat,
 					'numId': id,
-					'texTitolVideos': title,
+					'titol': titCa,
 					'urlVideo': urlFinal
 				});
-				
+				firebase.database().ref('LlistatVideosEs/'+id).set({
+					'categoria': catEs,
+					'descVideo': descEs,
+					'mostrar': amagat,
+					'numId': id,
+					'titol': titEs,
+					'urlVideo': urlFinal
+				});
+				firebase.database().ref('LlistatVideosEn/'+id).set({
+					'categoria': catEn,
+					'descVideo': descEn,
+					'mostrar': amagat,
+					'numId': id,
+					'titol': titEn,
+					'urlVideo': urlFinal
+				});
 				document.getElementById("txtHint").innerHTML= "Inserit correctament.";
 			}
 		}

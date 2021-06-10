@@ -41,6 +41,7 @@ div.centrar {
 <style>
 body {
 background-color: #000000;
+color: #FFFFFF;
 }
 </style>
 
@@ -53,10 +54,12 @@ background-color: #000000;
 <button  class="btn btn-outline-success" onclick="window.location.href = 'PaginaInserir.php'" >Inserir Nou Vídeo</button>
 </div>
 <?php 
-$url = "https://nurseapp-b4a04.firebaseio.com/LlistatVideos.json";
+$urlCa = "https://nurseapp-b4a04.firebaseio.com/LlistatVideosCa.json";
+$urlEn = "https://nurseapp-b4a04.firebaseio.com/LlistatVideosEn.json";
+$urlEs = "https://nurseapp-b4a04.firebaseio.com/LlistatVideosEs.json";
 
 $ch = curl_init();
-curl_setopt($ch, CURLOPT_URL,$url);
+curl_setopt($ch, CURLOPT_URL,$urlCa);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
 $response = curl_exec($ch);
@@ -69,7 +72,10 @@ foreach ($data as $key => $value) {
 		$id = $data[$key]["numId"];
 		echo "\n <iframe width='560' height='315' src='https://www.youtube.com/embed/".$data[$key]["urlVideo"]."'title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe> \n";
 		echo "<br>";
-		echo "<p><button type='button' class='btn btn-outline-danger' onclick='Esborrar($id)'>Esborrar</button> \n";
+		echo "<button type='button' class='btn btn-outline-danger' onclick='Esborrar($id)'>Esborrar</button> \n";
+		echo "<button type='button' class='btn btn-outline-warning' onclick='Editar($id)'>Editar</button> \n";
+		echo "<input type='checkbox' id='amagat' name='vehicle1' value='amagar'>
+				<label for='vehicle1'> Amagar Vídeo</label>";
 		echo "<br>";
 		echo "<br>";
 	}
@@ -86,7 +92,9 @@ foreach ($data as $key => $value) {
 <script>
 function Esborrar(id){
 	
-	firebase.database().ref('LlistatVideos/'+id).remove()
+	firebase.database().ref('LlistatVideosCa/'+id).remove();
+	firebase.database().ref('LlistatVideosEn/'+id).remove();
+	firebase.database().ref('LlistatVideosEs/'+id).remove()
 		.then(result => window.location.reload(result));
 	
 }
@@ -95,6 +103,11 @@ function Esborrar(id){
 function SignOut(){
 	firebase.auth().signOut();
 	window.location.href = "PaginaInici.html";
+}
+</script>
+<script>
+function Editar(id){
+	window.location.href = "PaginaEditar.php?id="+id;
 }
 </script>
 </body>
