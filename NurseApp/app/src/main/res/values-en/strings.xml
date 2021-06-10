@@ -45,4 +45,8 @@
     <!--Vista EliminarVideos-->
     <string name="tlbevTitol">Delete video</string>
 
+    <!--Categoria-->
+    <string name="cTots"></string>
+    <string name="cMascareta">Mask</string>
+    <string name="cMaquina">machine</string>
 </resources>

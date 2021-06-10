@@ -45,4 +45,9 @@
     <!--Vista EliminarVideos-->
     <string name="tlbevTitol">Eliminar vídeo</string>
 
+    <!--Categoria-->
+    <string name="cTots"></string>
+    <string name="cMascareta">Mascarilla</string>
+    <string name="cMaquina">Máquina</string>
+
 </resources>

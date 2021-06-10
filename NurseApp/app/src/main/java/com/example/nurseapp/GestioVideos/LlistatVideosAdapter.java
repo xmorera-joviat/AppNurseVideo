@@ -86,7 +86,6 @@ public class LlistatVideosAdapter extends FirebaseRecyclerAdapter<Video, Llistat
 
         holder.titol.setText(video.getTitol());
         holder.desc.setText(video.getDescVideo());
-
         //Visualizar la situación de vídeos  de  por defecto.
         if (video.getMostrar().equals("true")){
             holder.btnVisibilidad.setVisibility(View.VISIBLE);
@@ -96,7 +95,7 @@ public class LlistatVideosAdapter extends FirebaseRecyclerAdapter<Video, Llistat
             holder.btnVisibilidadOff.setVisibility(View.VISIBLE);
             holder.btnVisibilidad.setVisibility(View.GONE);
         }
-        //holder.btnPlayVideo.setOnClickListener(new TouchElement(position));
+        holder.btnPlayVideo.setOnClickListener(new TouchElement(video.getUrlVideo().toString()));
         holder.btnVisibilidad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -135,10 +134,10 @@ public class LlistatVideosAdapter extends FirebaseRecyclerAdapter<Video, Llistat
      * per tal d'indicar quina url s'ha d'enviar a l'activity ApiYoutube.
      */
     class  TouchElement extends LlistatVideos implements View.OnClickListener{
-        int position;
+        String url;
 
-        public TouchElement(int position) {
-            this.position = position;
+        public TouchElement(String url) {
+            this.url =url;
         }
 
         @Override
@@ -147,7 +146,7 @@ public class LlistatVideosAdapter extends FirebaseRecyclerAdapter<Video, Llistat
             Bundle b = new Bundle();
 
 
-            b.putString("url", llistatsVideos.get(position).getUrlVideo());
+            b.putString("url", url);
             i.putExtras(b);
 
             v.getContext().startActivity(i);

@@ -4,7 +4,10 @@ package com.example.nurseapp.GestioVideos;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.nurseapp.R;
 import com.example.nurseapp.TractamentToolBar;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -36,6 +38,7 @@ public class LlistatVideos extends TractamentToolBar {
     public static FirebaseDatabase firebaseDatabase;
     public static DatabaseReference databaseReference;
     private String LlistaVideosLlengua;
+    private Spinner categoriaSpinner;
     int numLastArrayList = 0;
 
     @Override
@@ -58,6 +61,7 @@ public class LlistatVideos extends TractamentToolBar {
         data();
         //Mètode inicialitzaAdapter.
         inicialitzaAdapter();
+        CercaCategoria();
 
         //Mètodes setUpToolBar i customTitileToolBar heretats de la classe TractamentToolBar.
         setUpToolBar();
@@ -153,8 +157,43 @@ public class LlistatVideos extends TractamentToolBar {
         });
 
     }
+ private void CercaCategoria() {
+
+     ArrayAdapter<CharSequence> adp = ArrayAdapter.createFromResource(this,R.array.categorias, android.R.layout.simple_spinner_item);
+     categoriaSpinner =findViewById(R.id.categoriaSpinner);
+     categoriaSpinner.setAdapter(adp);
+     categoriaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+         @Override
+         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+             if (position == 0) {
+                 inicialitzaAdapter();
+             } else {
+                 String[] arryCategorias = getResources().getStringArray(R.array.categorias);
+                 Query consulta = databaseReference.child(LlistaVideosLlengua)
+                         .orderByChild("categoria").equalTo(arryCategorias[position]);
+
+                 // Preparem l'objecte "Options" que ens ha de permetre crear l'adapter. Aquest objecte
+                 // defineix, entre altres aspectes, la consulta amb el tipus d'objecte que retornarà
+                 // aquesta consulta (en el nostre cas, Videos).
+                 FirebaseRecyclerOptions<Video> opcions =
+                         new FirebaseRecyclerOptions
+                                 .Builder<Video>()
+                                 .setQuery(consulta, Video.class)
+                                 .build();
 
 
+                 // Creem l'objecte Adapter passant-li l'objecte Options al constructor.
+                 adapter = new LlistatVideosAdapter(opcions);
+
+                 // Associem l'adapter creat amb el RecyclerView que tenim a la vista.
+                 recycler.setAdapter(adapter);
+                 adapter.startListening();
+             }
+         }
+         @Override
+         public void onNothingSelected(AdapterView<?> parent) { }
+     });
+ }
     /**
      * Mètode que utilitzem per a filtrar el llistat de vídeos.
      * @param s string
@@ -163,8 +202,8 @@ public class LlistatVideos extends TractamentToolBar {
         // Preparem la consulta a realitzar a la base de dades.
         Query consulta = databaseReference.child(LlistaVideosLlengua)
                 .orderByChild("titol")
-                .startAt(s)
-                .endAt(s + "\uf8ff");
+                .startAt(s.toUpperCase())
+                .endAt(s.toLowerCase()+"\uf8ff");
 
         // Preparem l'objecte "Options" que ens ha de permetre crear l'adapter. Aquest objecte
         // defineix, entre altres aspectes, la consulta amb el tipus d'objecte que retornarà
@@ -175,11 +214,13 @@ public class LlistatVideos extends TractamentToolBar {
                         .setQuery(consulta, Video.class)
                         .build();
 
+
         // Creem l'objecte Adapter passant-li l'objecte Options al constructor.
         adapter = new LlistatVideosAdapter(opcions);
 
         // Associem l'adapter creat amb el RecyclerView que tenim a la vista.
         recycler.setAdapter(adapter);
+        adapter.startListening();
     }
 
     /**
@@ -202,6 +243,7 @@ public class LlistatVideos extends TractamentToolBar {
 
         // Associem l'adapter creat amb el RecyclerView que tenim a la vista.
         recycler.setAdapter(adapter);
+        adapter.startListening();
     }
 
 
