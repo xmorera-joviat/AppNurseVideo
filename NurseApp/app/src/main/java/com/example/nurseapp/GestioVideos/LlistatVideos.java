@@ -80,7 +80,7 @@ public class LlistatVideos extends TractamentToolBar {
     /**
      * Mètode per a carregar els item corresponents de cada vídeo.
      */
-    public void data(){
+    public void data() {
         //Instanciem de les variables firebaseDatabase i databaseReference.
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();

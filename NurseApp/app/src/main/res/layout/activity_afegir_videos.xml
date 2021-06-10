@@ -13,7 +13,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentAfegirVideos"
-        android:name=".TractamentVideos.FragmentAfegirVideos"
+        android:name="com.example.nurseapp.GestioVideos.FragmentAfegirVideos"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
