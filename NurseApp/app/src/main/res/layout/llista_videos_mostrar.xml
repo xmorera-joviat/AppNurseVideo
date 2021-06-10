@@ -22,7 +22,7 @@
             <TextView
                 android:id="@+id/idTextVideos"
                 android:layout_width="303dp"
-                android:layout_height="55dp"
+                android:layout_height="62dp"
                 android:layout_marginRight="70dp"
                 android:text=""
                 android:textColor="#ffffff"
@@ -31,8 +31,8 @@
 
             <TextView
                 android:id="@+id/idDescripcioCa"
-                android:layout_width="303dp"
-                android:layout_height="51dp"
+                android:layout_width="306dp"
+                android:layout_height="61dp"
                 android:layout_marginRight="70dp"
                 android:text=""
                 android:textColor="#ffffff"

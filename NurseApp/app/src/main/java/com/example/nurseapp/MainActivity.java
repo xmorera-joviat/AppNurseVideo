@@ -228,13 +228,11 @@ public class MainActivity extends AppCompatActivity {
                 Intent login = new Intent(this, IniciarSessio.class );
                 login.putExtra("llenguatge", getResources().getString(R.string.llenguatge));
                 startActivity(login);
-                finish();
                 break;
             case R.id.idRegister:
                 Intent register = new Intent(this, Registrarse.class );
                 register.putExtra("llenguatge", getResources().getString(R.string.llenguatge));
                 startActivity(register);
-                finish();
                 break;
             case R.id.idLogout:
                 FirebaseAuth.getInstance().signOut();

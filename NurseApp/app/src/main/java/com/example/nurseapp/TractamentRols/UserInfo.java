@@ -5,9 +5,7 @@ import java.util.List;
 public class UserInfo {
     private String rol;
 
-    public UserInfo() {
-
-    }
+    public UserInfo() { }
 
     public UserInfo(String rol) {
         this.rol = rol;
@@ -20,9 +18,5 @@ public class UserInfo {
     public void setRol(String rol) {
         this.rol = rol;
     }
-
-
-
-
 
 }

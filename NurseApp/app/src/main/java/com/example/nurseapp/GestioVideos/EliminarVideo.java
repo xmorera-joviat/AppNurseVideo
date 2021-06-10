@@ -84,13 +84,13 @@ public class EliminarVideo extends LlistatVideos {
     public void ShowVideos(){
         final List<Video> videos = new ArrayList<>();
 
-        mDataBase.child("Video").addListenerForSingleValueEvent(new ValueEventListener() {
+        mDataBase.child("LlistatVideosCa").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     for(DataSnapshot ds : dataSnapshot.getChildren()){
                         int id = Integer.parseInt(ds.child("numId").getValue().toString());
-                        String titol = ds.child("texTitolVideos").getValue().toString();
+                        String titol = ds.child("titol").getValue().toString();
                         String descVideo = ds.child("descVideo").getValue().toString();
                         String urlVideo = ds.child("urlVideo").getValue().toString();
                         String categoria = ds.child("categoria").getValue().toString();

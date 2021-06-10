@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="categorias">
+        <item>@string/cTots</item>
+        <item>@string/cMascareta</item>
+        <item>@string/cMaquina</item>
+    </string-array>
+
+</resources>
