@@ -11,12 +11,12 @@ public class Video {
     private String descVideo;
     private String urlVideo;
     private String categoria;
-    private String mostrar;
+    private int mostrar;
 
     public Video() {
     }
 
-    public Video(int numId, String titol, String descVideo, String urlVideo, String categoria, String mostrar) {
+    public Video(int numId, String titol, String descVideo, String urlVideo, String categoria, int mostrar) {
         this.numId = numId;
         this.titol = titol;
         this.descVideo = descVideo;
@@ -65,16 +65,13 @@ public class Video {
         this.categoria = categoria;
     }
 
-    public String getMostrar() {
+    public int getMostrar() {
         return mostrar;
     }
 
-    public void setMostrar(String mostrar) {
+    public void setMostrar(int mostrar) {
         this.mostrar = mostrar;
     }
-
-
-
 
     /**
      * Mètode toStrings per tal de retornar el títol dels vídeos.

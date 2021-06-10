@@ -2,18 +2,26 @@ package com.example.nurseapp.GestioVideos;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.LogPrinter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.nurseapp.R;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Locale;
 
@@ -24,7 +32,9 @@ public class AfegirVideos extends LlistatVideos {
 
     // Inicialització de les variables :
     DatabaseReference ref;
-    int numLlista = 0;
+    LlistatVideosAdapter llista;
+    int ultimID = 0;
+    Video video;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +54,21 @@ public class AfegirVideos extends LlistatVideos {
 
         FragmentAfegirVideos f = new FragmentAfegirVideos();
 
+        ref = FirebaseDatabase.getInstance().getReference();
+        Query query = ref.child("LlistatVideosCa").orderByChild("numId").limitToLast(1);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    ultimID = ds.child("numId").getValue(Integer.class);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         // Executem el mètode setUpToolBar
         setUpToolBar();
 
@@ -59,10 +84,6 @@ public class AfegirVideos extends LlistatVideos {
                        String tituloEs, String descEs, String urlEs, String categoriaEs,
                        String titleEn, String descEn, String urlEn, String categoryEn )
     {
-        // Número del següent ID.
-        numLlista = getMidaLlista();
-        numLlista++;
-
         // Fem una petita validació per saber si algun dels caps està buit.
         if (titolCa.equals("") || descCa.equals("") || urlCa.equals("") ||
                 tituloEs.equals("") || descEs.equals("") || urlEs.equals("") ||
@@ -81,42 +102,47 @@ public class AfegirVideos extends LlistatVideos {
                 inici = urlCa.indexOf("?v");
             }
 
-            Video Cat = new Video();
-            Video Esp = new Video();
-            Video Eng = new Video();
-
             if ((urlCa.contains("be/") || urlCa.contains("?v")) &&
                     (urlEs.contains("be/") || urlEs.contains("?v")) &&
                     (urlEn.contains("be/") || urlEn.contains("?v"))) {
-                Cat.setNumId(numLlista);
+
+                ultimID +=1;
+
+                Video Cat = new Video();
+
+                Cat.setNumId(ultimID);
                 Cat.setTitol(titolCa);
                 Cat.setDescVideo(descCa);
                 Cat.setUrlVideo(urlCa.substring(inici + 3, inici + 14));
                 Cat.setCategoria(categoriaCa);
+                Cat.setMostrar(1);
 
                 // Obtenim la referència del fill que tenim a la base de dades.
-                ref = FirebaseDatabase.getInstance().getReference().child("LlistatVideosCa");
-                ref.child(String.valueOf(numLlista)).setValue(Cat);
+                ref.child("LlistatVideosCa").child(String.valueOf(ultimID)).setValue(Cat);
 
-                Esp.setNumId(numLlista);
+                Video Esp = new Video();
+
+                Esp.setNumId(ultimID);
                 Esp.setTitol(tituloEs);
                 Esp.setDescVideo(descEs);
                 Esp.setUrlVideo(urlEs.substring(inici + 3, inici + 14));
                 Esp.setCategoria(categoriaEs);
+                Esp.setMostrar(1);
 
                 // Obtenim la referència del fill que tenim a la base de dades.
-                ref = FirebaseDatabase.getInstance().getReference().child("LlistatVideosEs");
-                ref.child(String.valueOf(numLlista)).setValue(Esp);
+                ref.child("LlistatVideosEs").child(String.valueOf(ultimID)).setValue(Esp);
 
-                Eng.setNumId(numLlista);
+                Video Eng = new Video();
+
+                Eng.setNumId(ultimID);
                 Eng.setTitol(titleEn);
                 Eng.setDescVideo(descEn);
                 Eng.setUrlVideo(urlEn.substring(inici + 3, inici + 14));
                 Eng.setCategoria(categoryEn);
+                Eng.setMostrar(1);
 
                 // Obtenim la referència del fill que tenim a la base de dades.
-                ref = FirebaseDatabase.getInstance().getReference().child("LlistatVideosEn");
-                ref.child(String.valueOf(numLlista)).setValue(Eng);
+                ref.child("LlistatVideosEn").child(String.valueOf(ultimID)).setValue(Eng);
 
                 // Si tot es correcte afegim el vídeo a la base de dades Firebase.
                 Toast.makeText(getApplicationContext(), "Vídeo afegit", Toast.LENGTH_LONG).show();
