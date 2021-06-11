@@ -53,34 +53,73 @@ color: #FFFFFF;
 <br> 
 <br>
 <!--formulari-->
-<form action="/action_page.php" class="was-validated">
-    <b>Categoria:</b> 
-  <br>
-	<div class="form-group">
-		<input id = "categoryCa" type="text" size="30" maxlength="30" placeholder="Ingressa una categoria"> 
-		<input id = "categoryEs" type="text" size="30" maxlength="30" placeholder="Ingresa una categoria">
-		<input id = "categoryEn" type="text" size="30" maxlength="30" placeholder="category">
-	<br>
-  <div class="form-group">
-    <b>descripció:</b>
-	<br>
-		<input id = "descripcioCa" type="text" size="30" maxlength="30" placeholder="descripció"> 
-		<input id = "descripcioEs" type="text" size="30" maxlength="30" placeholder="descripción">
-		<input id = "descripcioEn" type="text" size="30" maxlength="30" placeholder="description">
-  </div>
-  <div class="form-group">
-  <b>Titol:</b>
-  <br>
-    <input id = "titolCa" type="text" size="30" maxlength="30" placeholder="títol"> 
-	<input id = "titolEs" type="text" size="30" maxlength="30" placeholder="título">
-	<input id = "titolEn" type="text" size="30" maxlength="30" placeholder="title">
-  </div>
+<div class='row'>
+
+<div class='col'>
+<b>Videos en Català:</b>
+<br>
+<b>Categoria:</b> 
+  <br>  
+<input id = "categoryCa" type="text" size="60" maxlength="40" placeholder="Ingressa una categoria"> 
+<br>
+<br>	
+<b>Descripció: </b>
+<br>
+<input id = "descripcioCa" type="text" size="60" maxlength="40" placeholder="descripció"> 
+<br>
+<br>
+<b> Títol: </b>
+<br>
+<input id = "titolCa" type="text" size="60" maxlength="40" placeholder="títol"> 
+</div>
+
+<div class='col'>
+<b> Vídeo en castellà:</b>
+ <br>
+<b> Categoría:</b> 
+<br>
+<input id = "categoryEs" type="text" size="60" maxlength="40" placeholder="Ingresa una categoria">
+<br>
+<br>
+<b>Descripción:</b>
+<br>
+<input id = "descripcioEs" type="text" size="60" maxlength="40" placeholder="descripción">
+<br>
+<br>
+<b>Título:</b>
+<br>
+<input id = "titolEs" type="text" size="60" maxlength="40" placeholder="título">
+<br>
+<br>
+</div>
+
+<div class='col'>
+<b> Video in english: </b>	
+<br>
+<b> Category: </b>
+<br>
+<input id = "categoryEn" type="text" size="60" maxlength="40" placeholder="Ingresa una categoria">
+<br>
+<br>
+<b> Description: </b>
+<br>
+<input id = "descripcioEn" type="text" size="60" maxlength="40" placeholder="description">
+<br>
+<br>
+<b> Title: </b>
+<br>
+<input id = "titolEn" type="text" size="60" maxlength="40" placeholder="title">
+<br>
+<br>
+</div>
+</div>
+<div class ="centrar">
   <div class="form-group">
     <b for="pwd" style="color:#FFFFFF;">Url:</b>
 	<br>
-    <input id = "url" type="text" size="103" placeholder="Url">
+    <input id = "url" type="text" size="200" placeholder="Url">
   </div>
-
+</div>
 <div class="centrar">
 <!--Php-->
 <?php 
@@ -132,25 +171,17 @@ function Inserir(url,id){
 		
 		//variables català
 		catCa = document.getElementById('categoryCa').value;
-		if(catCa == ""){
-			catCa = "default";
-		}
 		descCa = document.getElementById("descripcioCa").value;
 		titCa = document.getElementById("titolCa").value;
 		
 		//variables castella
 		catEs = document.getElementById("categoryEs").value;
-		if(catEs == ""){
-			catEs = "default";
-		}
+		
 		descEs = document.getElementById("descripcioEs").value;
 		titEs = document.getElementById("titolEs").value;
 		
 		//variables anglès
 		catEn = document.getElementById("categoryEn").value;
-		if(catEn == ""){
-			catEn = "default";
-		}
 		descEn = document.getElementById("descripcioEn").value;
 		titEn = document.getElementById("titolEn").value;
 		

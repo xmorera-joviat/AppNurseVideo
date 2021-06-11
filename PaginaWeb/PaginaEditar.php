@@ -94,7 +94,11 @@ div.centrar {
 ?>
 </div>
 <br>
+<br>
+<div class = "centrar">
+<button type='button' class='btn btn-primary btn-lg' onclick="window.location.href = 'paginaVisualitzacio.php'">Tornar</button>
 <div id="txtHint"></div>
+</div>
 <script>
 function Editar(cat,desc,tit,url,id,ref){
 
