@@ -51,7 +51,6 @@ public class TractamentToolBar extends AppCompatActivity {
 
     /**
      * Mètode que controla quin botó del menú s'ha seleccionat per tal d'obrir la corresponent activity.
-     *
      * @param item MenuItem
      * @return item
      */

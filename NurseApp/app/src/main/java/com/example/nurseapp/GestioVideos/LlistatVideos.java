@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,9 +15,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.nurseapp.R;
 import com.example.nurseapp.TractamentToolBar;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,13 +37,14 @@ import java.util.Locale;
 public class LlistatVideos extends TractamentToolBar {
 
     //Inicialització de les variables
-    public static List<Video> videos = new ArrayList<>();
     public static RecyclerView recycler;
     public static LlistatVideosAdapter llistatVideosAdapter;
     public static MostrarVideosAdapter mostrarVideosAdapter;
-    public SearchView searchView;
+    private FirebaseUser user;
+    private FirebaseFirestore fStore;
     public static FirebaseDatabase firebaseDatabase;
     public static DatabaseReference databaseReference;
+    public SearchView searchView;
     private String LlistaVideosLlengua;
     private Spinner categoriaSpinner;
 
@@ -43,6 +52,8 @@ public class LlistatVideos extends TractamentToolBar {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_llistat_videos);
+
+        fStore = FirebaseFirestore.getInstance();
 
         Locale locale = new Locale(getIntent().getExtras().getString("llenguatge"));
         Locale.setDefault(locale);
@@ -60,8 +71,7 @@ public class LlistatVideos extends TractamentToolBar {
         data();
 
         //Mètode inicialitzaAdapter.
-        inicialitzaAdapter();
-        CercaCategoria();
+        SeleccionaCategoria();
 
         //Mètodes setUpToolBar i customTitileToolBar heretats de la classe TractamentToolBar.
         setUpToolBar();
@@ -76,7 +86,6 @@ public class LlistatVideos extends TractamentToolBar {
     @Override
     protected void onResume() {
         super.onResume();
-        videos.clear();
         data();
     }
 
@@ -117,44 +126,45 @@ public class LlistatVideos extends TractamentToolBar {
                 return true;
             }
         });
-
     }
- private void CercaCategoria() {
-     ArrayAdapter<CharSequence> adp = ArrayAdapter.createFromResource(this,R.array.categorias, android.R.layout.simple_spinner_item);
-     categoriaSpinner =findViewById(R.id.categoriaSpinner);
-     categoriaSpinner.setAdapter(adp);
-     categoriaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-         @Override
-         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-             if (position == 0) {
-                 inicialitzaAdapter();
+
+     private void SeleccionaCategoria() {
+         ArrayAdapter<CharSequence> adp = ArrayAdapter.createFromResource(this,R.array.categorias, android.R.layout.simple_spinner_item);
+         categoriaSpinner =findViewById(R.id.categoriaSpinner);
+         categoriaSpinner.setAdapter(adp);
+         categoriaSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+             @Override
+             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                 if (position == 0) {
+                     inicialitzaAdapter();
+                 }
+                 else {
+                     String[] arrayCategories = getResources().getStringArray(R.array.categorias);
+                     Query consulta = databaseReference.child(LlistaVideosLlengua).orderByChild("categoria").equalTo(arrayCategories[position]);
+
+                     // Preparem l'objecte "Options" que ens ha de permetre crear l'adapter. Aquest objecte
+                     // defineix, entre altres aspectes, la consulta amb el tipus d'objecte que retornarà
+                     // aquesta consulta (en el nostre cas, Videos).
+                     FirebaseRecyclerOptions<Video> opcions =
+                             new FirebaseRecyclerOptions
+                                     .Builder<Video>()
+                                     .setQuery(consulta, Video.class)
+                                     .build();
+
+
+                     // Creem l'objecte Adapter passant-li l'objecte Options al constructor.
+                     mostrarVideosAdapter = new MostrarVideosAdapter(opcions);
+
+                     // Associem l'adapter creat amb el RecyclerView que tenim a la vista.
+                     recycler.setAdapter(mostrarVideosAdapter);
+                     mostrarVideosAdapter.startListening();
+                 }
              }
-             else {
-                 String[] arrayCategories = getResources().getStringArray(R.array.categorias);
-                 Query consulta = databaseReference.child(LlistaVideosLlengua).orderByChild("categoria").equalTo(arrayCategories[position]);
+             @Override
+             public void onNothingSelected(AdapterView<?> parent) { }
+         });
+     }
 
-                 // Preparem l'objecte "Options" que ens ha de permetre crear l'adapter. Aquest objecte
-                 // defineix, entre altres aspectes, la consulta amb el tipus d'objecte que retornarà
-                 // aquesta consulta (en el nostre cas, Videos).
-                 FirebaseRecyclerOptions<Video> opcions =
-                         new FirebaseRecyclerOptions
-                                 .Builder<Video>()
-                                 .setQuery(consulta, Video.class)
-                                 .build();
-
-
-                 // Creem l'objecte Adapter passant-li l'objecte Options al constructor.
-                 mostrarVideosAdapter = new MostrarVideosAdapter(opcions);
-
-                 // Associem l'adapter creat amb el RecyclerView que tenim a la vista.
-                 recycler.setAdapter(mostrarVideosAdapter);
-                 mostrarVideosAdapter.startListening();
-             }
-         }
-         @Override
-         public void onNothingSelected(AdapterView<?> parent) { }
-     });
- }
     /**
      * Mètode que utilitzem per a filtrar el llistat de vídeos.
      * @param s string
@@ -199,14 +209,77 @@ public class LlistatVideos extends TractamentToolBar {
                         .setQuery(consulta, Video.class)
                         .build();
 
-        // Creem l'objecte Adapter passant-li l'objecte Options al constructor.
-        mostrarVideosAdapter = new MostrarVideosAdapter(opcions);
-
-        // Associem l'adapter creat amb el RecyclerView que tenim a la vista.
-        recycler.setAdapter(mostrarVideosAdapter);
-        mostrarVideosAdapter.startListening();
+        SetAdapter(opcions);
     }
 
+    private void SetAdapter(FirebaseRecyclerOptions opcions) {
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+        // Comprovem que no sigui null, i per tant, algú tingui la sessió iniciada.
+        if (user != null) {
+            DocumentReference df = fStore.collection("Users").document(user.getUid());
+
+            // Extraiem les dades del document
+            df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    if (documentSnapshot.getString("rol") != null) {
+                        if (documentSnapshot.getString("rol").equals("editor")) {
+                            // Creem l'objecte Adapter passant-li l'objecte Options al constructor.
+                            mostrarVideosAdapter = new MostrarVideosAdapter(opcions);
+
+                            // Associem l'adapter creat amb el RecyclerView que tenim a la vista.
+                            recycler.setAdapter(mostrarVideosAdapter);
+                            mostrarVideosAdapter.startListening();
+                        }
+                        else if (documentSnapshot.getString("rol").equals("professional")) {
+                            // Creem l'objecte Adapter passant-li l'objecte Options al constructor.
+                            mostrarVideosAdapter = new MostrarVideosAdapter(opcions);
+
+                            // Associem l'adapter creat amb el RecyclerView que tenim a la vista.
+                            recycler.setAdapter(mostrarVideosAdapter);
+                            mostrarVideosAdapter.startListening();
+                        }
+                        else {
+                            // Creem l'objecte Adapter passant-li l'objecte Options al constructor.
+                            llistatVideosAdapter = new LlistatVideosAdapter(opcions);
+
+                            // Associem l'adapter creat amb el RecyclerView que tenim a la vista.
+                            recycler.setAdapter(llistatVideosAdapter);
+                            llistatVideosAdapter.startListening();
+                        }
+                    }
+                    else {
+                        // Creem l'objecte Adapter passant-li l'objecte Options al constructor.
+                        llistatVideosAdapter = new LlistatVideosAdapter(opcions);
+
+                        // Associem l'adapter creat amb el RecyclerView que tenim a la vista.
+                        recycler.setAdapter(llistatVideosAdapter);
+                        llistatVideosAdapter.startListening();
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    // Creem l'objecte Adapter passant-li l'objecte Options al constructor.
+                    llistatVideosAdapter = new LlistatVideosAdapter(opcions);
+
+                    // Associem l'adapter creat amb el RecyclerView que tenim a la vista.
+                    recycler.setAdapter(llistatVideosAdapter);
+                    llistatVideosAdapter.startListening();
+                }
+            });
+        }
+        // Si es null, ficarem la llista dels pacients.
+        else {
+            // Creem l'objecte Adapter passant-li l'objecte Options al constructor.
+            llistatVideosAdapter = new LlistatVideosAdapter(opcions);
+
+            // Associem l'adapter creat amb el RecyclerView que tenim a la vista.
+            recycler.setAdapter(llistatVideosAdapter);
+            llistatVideosAdapter.startListening();
+        }
+    }
 
     /**
      * Mètode que utilitzem per a carregar la connexió a Firebase i eliminar l'ID indicat.
@@ -226,22 +299,6 @@ public class LlistatVideos extends TractamentToolBar {
         // Eliminem el vídeo de la llista de vídeos en castellà.
         ref = database.getReference("LlistatVideosEs").child(String.valueOf(i));
         ref.removeValue();
-
-        videos.clear();
-
-        mostrarVideosAdapter.notifyDataSetChanged();
-    }
-
-    @Override protected void onStart()
-    {
-        super.onStart();
-        mostrarVideosAdapter.startListening();
-    }
-
-    @Override protected void onStop()
-    {
-        super.onStop();
-        mostrarVideosAdapter.stopListening();
     }
 
 }

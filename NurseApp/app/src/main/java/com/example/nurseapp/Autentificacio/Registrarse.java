@@ -2,6 +2,7 @@ package com.example.nurseapp.Autentificacio;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -117,4 +118,20 @@ public class Registrarse extends TractamentToolBar {
             Toast.makeText(getApplicationContext(), "La contrasenya no coincideix!", Toast.LENGTH_LONG).show();
         }
     }
+
+    /**
+     * Mètode que controla quin botó del menú s'ha seleccionat per tal d'obrir la corresponent activity.
+     * @param item MenuItem
+     * @return item
+     */
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(i);
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }
