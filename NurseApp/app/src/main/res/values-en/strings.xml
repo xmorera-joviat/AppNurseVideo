@@ -48,5 +48,5 @@
     <!--Categoria-->
     <string name="cTots"></string>
     <string name="cMascareta">Mask</string>
-    <string name="cMaquina">machine</string>
+    <string name="cMaquina">Machine</string>
 </resources>

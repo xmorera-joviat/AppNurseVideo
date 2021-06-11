@@ -95,7 +95,7 @@ public class EliminarVideo extends LlistatVideos {
                         String urlVideo = ds.child("urlVideo").getValue().toString();
                         String categoria = ds.child("categoria").getValue().toString();
 
-                        videos.add(new Video(id, titol, descVideo, urlVideo, categoria, "true"));
+                        videos.add(new Video(id, titol, descVideo, urlVideo, categoria, 1));
 
                         ArrayAdapter<Video> arrayAdapter = new ArrayAdapter<>
                                 (EliminarVideo.this, android.R.layout.simple_dropdown_item_1line, videos);
@@ -137,13 +137,12 @@ public class EliminarVideo extends LlistatVideos {
                                 int i = videos.get(numFilaSnipper).getNumId();
                                 DeleteVideo(i);
 
+                                Toast.makeText(getApplicationContext(), "Vídeo eliminat", Toast.LENGTH_LONG).show();
+
                                 finish();
                                 overridePendingTransition(0, 0);
                                 startActivity(getIntent());
                                 overridePendingTransition(0, 0);
-
-                                Toast.makeText(getApplicationContext(), "Vídeo eliminat", Toast.LENGTH_LONG).show();
-
                             }
                         });
 

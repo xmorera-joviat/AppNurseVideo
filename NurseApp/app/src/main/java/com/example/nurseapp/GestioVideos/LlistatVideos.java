@@ -1,7 +1,5 @@
 package com.example.nurseapp.GestioVideos;
 
-
-
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
@@ -33,13 +31,13 @@ public class LlistatVideos extends TractamentToolBar {
     //Inicialització de les variables
     public static List<Video> videos = new ArrayList<>();
     public static RecyclerView recycler;
-    public static LlistatVideosAdapter adapter;
+    public static LlistatVideosAdapter llistatVideosAdapter;
+    public static MostrarVideosAdapter mostrarVideosAdapter;
     public SearchView searchView;
     public static FirebaseDatabase firebaseDatabase;
     public static DatabaseReference databaseReference;
     private String LlistaVideosLlengua;
     private Spinner categoriaSpinner;
-    int numLastArrayList = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +49,7 @@ public class LlistatVideos extends TractamentToolBar {
         Configuration config = new Configuration();
         config.locale = locale;
         getBaseContext().getResources().updateConfiguration(config, getResources().getDisplayMetrics());
+
         //Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
         recycler = (RecyclerView) findViewById(R.id.idRecyvler);
         LinearLayoutManager lim = new LinearLayoutManager(this);
@@ -59,6 +58,7 @@ public class LlistatVideos extends TractamentToolBar {
         recycler.setHasFixedSize(true);
         searchView = findViewById(R.id.search);
         data();
+
         //Mètode inicialitzaAdapter.
         inicialitzaAdapter();
         CercaCategoria();
@@ -76,7 +76,6 @@ public class LlistatVideos extends TractamentToolBar {
     @Override
     protected void onResume() {
         super.onResume();
-
         videos.clear();
         data();
     }
@@ -103,43 +102,6 @@ public class LlistatVideos extends TractamentToolBar {
                 break;
         }
 
-        /*
-        //Amb el databaseReference.child aconseguim tenir un ValueEventListener escoltant el que tenim a la base de dades de FiireBase
-        // i així poder afegir-ho a la nostra List videos.
-        databaseReference.child(LlistaVideosLlengua).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    /*
-                    for(DataSnapshot ds : dataSnapshot.getChildren()){
-                        int id = Integer.parseInt(ds.child("numId").getValue().toString());
-                        String titol = ds.child("titol").getValue().toString();
-                        String descVideo = ds.child("descVideo").getValue().toString();
-                        String urlVideo = ds.child("urlVideo").getValue().toString();
-                        String categoria = ds.child("categoria").getValue().toString();
-
-                        videos.add(new Video(id, titol, descVideo, urlVideo, categoria, true));
-                    }
-
-                    //Poder saber quin és l'ID corresponent per tenir un autoincrement dels IDs a la base de dades Firebase.
-                    long count = (dataSnapshot.getChildrenCount());
-
-                    int i = (int) count;
-
-                    numLastArrayList = videos.get(i-1).getNumId();
-
-                    adapter = new LlistatVideosAdapter(videos);
-                    recycler.setAdapter(adapter);
-
-                    inicialitzaAdapter();
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-        */
         //searchView.setOnQueryTextListener que utilitzem per poder fer cerques al llistat.
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -158,7 +120,6 @@ public class LlistatVideos extends TractamentToolBar {
 
     }
  private void CercaCategoria() {
-
      ArrayAdapter<CharSequence> adp = ArrayAdapter.createFromResource(this,R.array.categorias, android.R.layout.simple_spinner_item);
      categoriaSpinner =findViewById(R.id.categoriaSpinner);
      categoriaSpinner.setAdapter(adp);
@@ -167,10 +128,10 @@ public class LlistatVideos extends TractamentToolBar {
          public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
              if (position == 0) {
                  inicialitzaAdapter();
-             } else {
-                 String[] arryCategorias = getResources().getStringArray(R.array.categorias);
-                 Query consulta = databaseReference.child(LlistaVideosLlengua)
-                         .orderByChild("categoria").equalTo(arryCategorias[position]);
+             }
+             else {
+                 String[] arrayCategories = getResources().getStringArray(R.array.categorias);
+                 Query consulta = databaseReference.child(LlistaVideosLlengua).orderByChild("categoria").equalTo(arrayCategories[position]);
 
                  // Preparem l'objecte "Options" que ens ha de permetre crear l'adapter. Aquest objecte
                  // defineix, entre altres aspectes, la consulta amb el tipus d'objecte que retornarà
@@ -183,11 +144,11 @@ public class LlistatVideos extends TractamentToolBar {
 
 
                  // Creem l'objecte Adapter passant-li l'objecte Options al constructor.
-                 adapter = new LlistatVideosAdapter(opcions);
+                 mostrarVideosAdapter = new MostrarVideosAdapter(opcions);
 
                  // Associem l'adapter creat amb el RecyclerView que tenim a la vista.
-                 recycler.setAdapter(adapter);
-                 adapter.startListening();
+                 recycler.setAdapter(mostrarVideosAdapter);
+                 mostrarVideosAdapter.startListening();
              }
          }
          @Override
@@ -216,11 +177,11 @@ public class LlistatVideos extends TractamentToolBar {
 
 
         // Creem l'objecte Adapter passant-li l'objecte Options al constructor.
-        adapter = new LlistatVideosAdapter(opcions);
+        mostrarVideosAdapter = new MostrarVideosAdapter(opcions);
 
         // Associem l'adapter creat amb el RecyclerView que tenim a la vista.
-        recycler.setAdapter(adapter);
-        adapter.startListening();
+        recycler.setAdapter(mostrarVideosAdapter);
+        mostrarVideosAdapter.startListening();
     }
 
     /**
@@ -228,7 +189,6 @@ public class LlistatVideos extends TractamentToolBar {
      */
     public void inicialitzaAdapter(){
         Query consulta = databaseReference.child(LlistaVideosLlengua);
-
 
         // Preparem l'objecte "Options" que ens ha de permetre crear l'adapter. Aquest objecte
         // defineix, entre altres aspectes, la consulta amb el tipus d'objecte que retornarà
@@ -238,12 +198,13 @@ public class LlistatVideos extends TractamentToolBar {
                         .Builder<Video>()
                         .setQuery(consulta, Video.class)
                         .build();
+
         // Creem l'objecte Adapter passant-li l'objecte Options al constructor.
-        adapter = new LlistatVideosAdapter(opcions);
+        mostrarVideosAdapter = new MostrarVideosAdapter(opcions);
 
         // Associem l'adapter creat amb el RecyclerView que tenim a la vista.
-        recycler.setAdapter(adapter);
-        adapter.startListening();
+        recycler.setAdapter(mostrarVideosAdapter);
+        mostrarVideosAdapter.startListening();
     }
 
 
@@ -268,29 +229,19 @@ public class LlistatVideos extends TractamentToolBar {
 
         videos.clear();
 
-        adapter.notifyDataSetChanged();
+        mostrarVideosAdapter.notifyDataSetChanged();
     }
-
-    /**
-     * Mètode per a retornar el últim nombre de la llista que conte els vídeos,
-     * és utilitzat per a controlar l'autoincrement a la base de dades Firebase.
-     * @return int numLastArrayList
-     */
-    public int getMidaLlista(){
-        return numLastArrayList;
-    }
-
 
     @Override protected void onStart()
     {
         super.onStart();
-        adapter.startListening();
+        mostrarVideosAdapter.startListening();
     }
-
 
     @Override protected void onStop()
     {
         super.onStop();
-        adapter.stopListening();
+        mostrarVideosAdapter.stopListening();
     }
+
 }

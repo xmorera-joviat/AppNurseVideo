@@ -32,9 +32,7 @@ public class AfegirVideos extends LlistatVideos {
 
     // Inicialització de les variables :
     DatabaseReference ref;
-    LlistatVideosAdapter llista;
     int ultimID = 0;
-    Video video;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
