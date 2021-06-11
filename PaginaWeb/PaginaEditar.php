@@ -79,13 +79,71 @@ div.centrar {
 <?php 
 
 	$id = $_GET['id'];
-	echo "<button type='button' class='btn btn-primary btn-lg' onclick='Editar(categoria.value,desc.value,titol.value,url.value,$id)'>Realitzar Edició</button>";
+	$ref = $_GET['reference'];
+	$num = 0;
+	if($ref == "LlistatVideosCa"){
+		$num = 1;
+	}
+	else if($ref == "LlistatVideosEs"){
+		$num = 2;
+	}
+	else if ($ref == "LlistatVideosEn"){
+		$num = 3;
+	}
+		echo "<button type='button' class='btn btn-primary btn-lg' onclick='Editar(categoria.value,desc.value,titol.value,url.value,$id,$num)'>Realitzar Edició</button>";
 ?>
 </div>
-
+<br>
+<div id="txtHint"></div>
 <script>
-function Editar()(
+function Editar(cat,desc,tit,url,id,ref){
 
+	if(cat.length == 0 || desc.length == 0 || tit.length == 0 || url.length == 0){
+		document.getElementById("txtHint").innerHTML = "Completi la informació obligatòria siusplau.";
+	}
+	var urlFinal = url.substring(url.indexOf("watch?v=")+8,url.length);
+	if(urlFinal == ""){
+		document.getElementById("txtHint").innerHTML = "Posa un enllaç de youtube correcte. Exemple: youtube.com/watch?v=57mfjMVka";
+	}
+	
+	if(ref == 1) {
+		firebase.database().ref('LlistatVideosCa/'+id).update({
+					'categoria': cat,
+					'descVideo': desc,
+					'mostrar': '1',
+					'numId': id,
+					'titol': tit,
+					'urlVideo': urlFinal
+				});
+			document.getElementById("txtHint").innerHTML = "edició correcte.";
+			window.location.href = "paginaVisualitzacio.php";
+	}
+	else if($ref == 2) {
+		firebase.database().ref('LlistatVideosEs/'+id).update({
+					'categoria': cat,
+					'descVideo': desc,
+					'mostrar': '1',
+					'numId': id,
+					'titol': tit,
+					'urlVideo': urlFinal
+				})
+			
+			document.getElementById("txtHint").innerHTML = "edició correcte.";
+			window.location.href = "paginaVisualitzacio.php";
+	}
+	else if($ref == 3){
+		firebase.database().ref('LlistatVideosEn/'+id).update({
+					'categoria': cat,
+					'descVideo': desc,
+					'mostrar': '1',
+					'numId': id,
+					'titol': tit,
+					'urlVideo': urlFinal
+				})
+			
+			document.getElementById("txtHint").innerHTML = "edició correcte.";
+			window.location.href = "paginaVisualitzacio.php";
+	}
 }
 </script>
 

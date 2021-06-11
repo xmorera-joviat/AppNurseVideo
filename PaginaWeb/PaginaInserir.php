@@ -120,14 +120,10 @@ foreach ($data as $key => $value) {
   <script>
 function Inserir(url,id){
 			
-		document.getElementById("txtHint").innerHTML = "hola";
 		var x = document.getElementById("amagat");
-		var amagat = "false";
+		var mostrar = 1;
 		if(x.checked == true){
-			amagat = "true";
-		}
-		else{
-			amagat = "false";
+			mostrar = 0;
 		}
 		//variables de text.
 		var catCa, descCa,titCa;
@@ -171,7 +167,7 @@ function Inserir(url,id){
 				firebase.database().ref('LlistatVideosCa/'+id).set({
 					'categoria': catCa,
 					'descVideo': descCa,
-					'mostrar': amagat,
+					'mostrar': mostrar,
 					'numId': id,
 					'titol': titCa,
 					'urlVideo': urlFinal
@@ -179,7 +175,7 @@ function Inserir(url,id){
 				firebase.database().ref('LlistatVideosEs/'+id).set({
 					'categoria': catEs,
 					'descVideo': descEs,
-					'mostrar': amagat,
+					'mostrar': mostrar,
 					'numId': id,
 					'titol': titEs,
 					'urlVideo': urlFinal
@@ -187,11 +183,12 @@ function Inserir(url,id){
 				firebase.database().ref('LlistatVideosEn/'+id).set({
 					'categoria': catEn,
 					'descVideo': descEn,
-					'mostrar': amagat,
+					'mostrar': mostrar,
 					'numId': id,
 					'titol': titEn,
 					'urlVideo': urlFinal
-				});
+				})
+				.then(result => window.location.reload(result));
 				document.getElementById("txtHint").innerHTML= "Inserit correctament.";
 			}
 		}

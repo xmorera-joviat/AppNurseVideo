@@ -54,6 +54,7 @@ color: #FFFFFF;
 <button  class="btn btn-outline-success" onclick="window.location.href = 'PaginaInserir.php'" >Inserir Nou Vídeo</button>
 </div>
 <?php 
+echo "<div>";
 $urlCa = "https://nurseapp-b4a04.firebaseio.com/LlistatVideosCa.json";
 $urlEn = "https://nurseapp-b4a04.firebaseio.com/LlistatVideosEn.json";
 $urlEs = "https://nurseapp-b4a04.firebaseio.com/LlistatVideosEs.json";
@@ -67,19 +68,84 @@ curl_close($ch);
 
 $data = json_decode($response,true);
 
+//urls finals
+$urlCaFinal = substr($urlCa, strpos($urlCa,"com/")+4, strlen($urlCa));
+$urlEsFinal = substr($urlEs, strpos($urlEs,"com/")+4, strlen($urlEs));
+$urlEnFinal = substr($urlEn, strpos($urlEn,"com/")+4, strlen($urlEn));
+echo "<div class='row'>";
+
+
+echo "<div class='col'>";
+echo "<b>Videos en Català:</b>";
+echo "<br>";
+//Videos Català
 foreach ($data as $key => $value) {
 	if($value != null){
 		$id = $data[$key]["numId"];
 		echo "\n <iframe width='560' height='315' src='https://www.youtube.com/embed/".$data[$key]["urlVideo"]."'title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe> \n";
 		echo "<br>";
 		echo "<button type='button' class='btn btn-outline-danger' onclick='Esborrar($id)'>Esborrar</button> \n";
-		echo "<button type='button' class='btn btn-outline-warning' onclick='Editar($id)'>Editar</button> \n";
+		echo "<button type='button' class='btn btn-outline-warning' onclick='Editar(1,$id)'>Editar Dades</button> \n";
 		echo "<input type='checkbox' id='amagat' name='vehicle1' value='amagar'>
 				<label for='vehicle1'> Amagar Vídeo</label>";
 		echo "<br>";
 		echo "<br>";
 	}
 }
+echo"</div>";
+//Videos Castellà
+$chEs = curl_init();
+curl_setopt($chEs,CURLOPT_URL,$urlEs);
+curl_setopt($chEs,CURLOPT_RETURNTRANSFER,true);
+
+$responseEs = curl_exec($chEs);
+curl_close($chEs);
+
+$dataEs = json_decode($responseEs,true);
+echo "<div class='col'>";
+echo "<b>Videos en Castellà:</b>";
+echo "<br>";
+foreach ($dataEs as $key => $valueEs) {
+	if($valueEs != null){
+		$id = $dataEs[$key]["numId"];
+		echo "\n <iframe width='560' height='315' src='https://www.youtube.com/embed/".$dataEs[$key]["urlVideo"]."'title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe> \n";
+		echo "<br>";
+		echo "<button type='button' class='btn btn-outline-danger' onclick='Esborrar($id)'>Esborrar</button> \n";
+		echo "<button type='button' class='btn btn-outline-warning' onclick='Editar(2,$id)'>Editar Dades</button> \n";
+		echo "<input type='checkbox' id='amagat' name='vehicle1' value='amagar'>
+				<label for='vehicle1'> Amagar Vídeo</label>";
+		echo "<br>";
+		echo "<br>";
+		}
+}
+echo "</div>";
+
+//Videos anglès.
+$chEn = curl_init();
+curl_setopt($chEn,CURLOPT_URL,$urlEn);
+curl_setopt($chEn,CURLOPT_RETURNTRANSFER,true);
+
+$responseEn = curl_exec($chEn);
+curl_close($chEn);
+
+$dataEn = json_decode($responseEn,true);
+echo "<div class='col'>";
+echo "<b> Vídeos en Anglès:</b>";
+echo "<br>";
+foreach ($dataEn as $key => $valueEn) {
+	if($valueEn != null) {
+		$id = $dataEn[$key]["numId"];
+		echo "\n <iframe width='560' height='315' src='https://www.youtube.com/embed/".$dataEn[$key]["urlVideo"]."'title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe> \n";
+		echo "<br>";
+		echo "<button type='button' class='btn btn-outline-danger' onclick='Esborrar($id)'>Esborrar</button> \n";
+		echo "<button type='button' class='btn btn-outline-warning' onclick='Editar(3,$id)'>Editar Dades</button> \n";
+		echo "<input type='checkbox' id='amagat' name='vehicle1' value='amagar'>
+				<label for='vehicle1'> Amagar Vídeo</label>";
+		echo "<br>";
+		echo "<br>";
+	}
+}
+echo "</div>";
 ?>
 </div>
 <div class="centrar">
@@ -106,8 +172,17 @@ function SignOut(){
 }
 </script>
 <script>
-function Editar(id){
-	window.location.href = "PaginaEditar.php?id="+id;
+function Editar(ref, id){
+	if(ref == 1){
+		window.location.href = "PaginaEditar.php?id="+id+"&reference=LlistatVideosCa";
+	}
+	else if(ref == 2){
+		window.location.href = "PaginaEditar.php?id="+id+"&reference=LlistatVideosEs";  
+	}
+	else if(ref == 3){
+		window.location.href = "PaginaEditar.php?id="+id+"&reference=LlistatVideosEn";
+	}
+	
 }
 </script>
 </body>
