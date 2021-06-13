@@ -34,6 +34,7 @@ div.centrar {
 <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
 <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-firestore.js"></script>
 
 <script>
   // Your web app's Firebase configuration
@@ -75,12 +76,8 @@ background-color: #000000;
 </div>
 <br>
 <div class="centrar">
-<button class="btn btn-outline-success" onclick="Verify(email.value,contrassenya.value,verificacio.value)">Entrar</button>
+<button class="btn btn-outline-success" onclick="Verify(email.value,contrassenya.value,verificacio.value);">Confirmar</button>
 
-<br>
-<br>
-<br>
-<button class="btn btn-outline-success" onclick="window.location.href = 'PaginaInici.html'" >Tornar</button>
 </div>
 <br>
 <br>
@@ -106,13 +103,33 @@ function Verify(email,password,verifyPass){
 </script>
 <script>
 function Register(email,password){
-		firebase.auth().createUserWithEmailAndPassword(email,password).catch(function(error){
+  
+	firebase.auth().createUserWithEmailAndPassword(email,password).catch(function(error){
 			var errorCode = error.code;
 			var errorMessage = error.message;
 			
 			document.getElementById("txtHint").innerHTML = errorMessage;
-		});
-		document.getElementById("txtHint").innerHTML = "Usuari registrat correctament.";
+			
+	});
+	document.getElementById("txtHint").innerHTML = "Usuari registrat correctament";
+	setTimeout(() => {ObtenerUid(); }, 2000);
+}
+</script>
+<script>
+function ObtenerUid(){
+
+	
+  var user = firebase.auth().currentUser;
+  var uid = user.uid;
+  var db = firebase.firestore();
+  
+  setTimeout(() => { db.collection("Users").doc(uid).set({
+    rol: "editor"
+  }).then(result => window.location.reload(result)); }, 1000);
+  document.getElementById("txtHint").innerHTML = "Rol usuari registrat ";
+
+
+	
 }
 </script>
 </div>

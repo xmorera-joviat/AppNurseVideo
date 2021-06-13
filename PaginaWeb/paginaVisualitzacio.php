@@ -86,8 +86,12 @@ foreach ($data as $key => $value) {
 		echo "<br>";
 		echo "<button type='button' class='btn btn-outline-danger' onclick='Esborrar($id)'>Esborrar</button> \n";
 		echo "<button type='button' class='btn btn-outline-warning' onclick='Editar(1,$id)'>Editar Dades</button> \n";
-		echo "<input type='checkbox' id='amagat' name='vehicle1' value='amagar'>
-				<label for='vehicle1'> Amagar Vídeo</label>";
+		if($data[$key]["mostrar"] == 1){
+			echo "<button type='button' class = 'btn btn-outline-success' onclick='Amagar(0,$id)'> Amagar Vídeo</button> \n";
+		}
+		else if($data[$key]["mostrar"] == 0){
+			echo "<button type='button' class = 'btn btn-outline-success' onclick='Amagar(1,$id)'> Mostrar Vídeo</button> \n";
+		}
 		echo "<br>";
 		echo "<br>";
 	}
@@ -112,8 +116,12 @@ foreach ($dataEs as $key => $valueEs) {
 		echo "<br>";
 		echo "<button type='button' class='btn btn-outline-danger' onclick='Esborrar($id)'>Esborrar</button> \n";
 		echo "<button type='button' class='btn btn-outline-warning' onclick='Editar(2,$id)'>Editar Dades</button> \n";
-		echo "<input type='checkbox' id='amagat' name='vehicle1' value='amagar'>
-				<label for='vehicle1'> Amagar Vídeo</label>";
+		if($dataEs[$key]["mostrar"] == 1){
+			echo "<button type='button' class = 'btn btn-outline-success' onclick='Amagar(0,$id)'> Amagar Vídeo</button> \n";
+		}
+		else if($dataEs[$key]["mostrar"] == 0){
+			echo "<button type='button' class = 'btn btn-outline-success' onclick='Amagar(1,$id)'> Mostrar Vídeo</button> \n";
+		}
 		echo "<br>";
 		echo "<br>";
 		}
@@ -139,8 +147,12 @@ foreach ($dataEn as $key => $valueEn) {
 		echo "<br>";
 		echo "<button type='button' class='btn btn-outline-danger' onclick='Esborrar($id)'>Esborrar</button> \n";
 		echo "<button type='button' class='btn btn-outline-warning' onclick='Editar(3,$id)'>Editar Dades</button> \n";
-		echo "<input type='checkbox' id='amagat' name='vehicle1' value='amagar'>
-				<label for='vehicle1'> Amagar Vídeo</label>";
+		if($dataEn[$key]["mostrar"] == 1){
+			echo "<button type='button' class = 'btn btn-outline-success' onclick='Amagar(0,$id)'> Amagar Vídeo</button> \n";
+		}
+		else if($dataEn[$key]["mostrar"] == 0){
+			echo "<button type='button' class = 'btn btn-outline-success' onclick='Amagar(1,$id)'> Mostrar Vídeo</button> \n";
+		}
 		echo "<br>";
 		echo "<br>";
 	}
@@ -183,6 +195,35 @@ function Editar(ref, id){
 		window.location.href = "PaginaEditar.php?id="+id+"&reference=LlistatVideosEn";
 	}
 	
+}
+</script>
+<script>
+function Amagar(amagar,id){
+	if(amagar == 0){
+	
+		firebase.database().ref('LlistatVideosCa/'+id).update({
+					'mostrar': '0'
+				});
+		firebase.database().ref('LlistatVideosEs/'+id).update({
+					'mostrar': '0'
+				});
+		firebase.database().ref('LlistatVideosEn/'+id).update({
+					'mostrar': '0'
+				}).then(result => window.location.reload(result));
+	}
+	else if(amagar == 1){
+		
+	
+		firebase.database().ref('LlistatVideosCa/'+id).update({
+					'mostrar': '1'
+				});
+		firebase.database().ref('LlistatVideosEs/'+id).update({
+					'mostrar': '1'
+				});
+		firebase.database().ref('LlistatVideosEn/'+id).update({
+					'mostrar': '1'
+				}).then(result => window.location.reload(result));
+	}
 }
 </script>
 </body>
