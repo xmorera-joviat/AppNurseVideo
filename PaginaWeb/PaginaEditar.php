@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Pagina Edició</title>
+  <title>Pagina Inserció</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -31,12 +31,6 @@
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
 </script>
-<style>
-body {
-background-color: #000000;
-color: #FFFFFF;
-}
-</style>
 
 <style>
 div.centrar {
@@ -44,112 +38,191 @@ div.centrar {
 	text-align: center;
 }
 </style>
+<style>
+body {
+background-color: #000000;
+color: #FFFFFF;
+}
+</style>
 
-<h1 align="center">Editar Vídeo</h1>
+<br>
+<div class="centrar">
+<h1>Editar Vídeo</h1>
+</div>
+
+<br> 
+<br>
+<!--formulari-->
+<div class='row'>
+
+<div class='col'>
+<b>Videos en Català:</b>
+<br>
+<b>Categoria:</b> 
+  <br>  
+<input id = "categoryCa" type="text" size="60" maxlength="40" placeholder="Ingressa una categoria"> 
+<br>
+<br>	
+<b>Descripció: </b>
+<br>
+<input id = "descripcioCa" type="text" size="60" maxlength="40" placeholder="descripció"> 
 <br>
 <br>
-<form action="/action_page.php" class="was-validated">
-  <div class="form-group">
-    <b for="uname" style="color:#FFFFFF;">Categoria:</b>
-	<br>
-    <input type="text" class="form-control" id="categoria" placeholder="Categoria" name="cat" required>
-    <div class="valid-feedback">Vàlid.</div>
-    <div class="invalid-feedback">No obligatori.</div>
-  </div>
-  <div class="form-group">
-    <b for="pwd" style="color:#FFFFFF;">descripció:</b>
-    <input type="text" class="form-control" id="desc" placeholder="Descripció del Vídeo" name="des" required>
-    <div class="valid-feedback">Vàlid.</div>
-    <div class="invalid-feedback">Camp obligatori.</div>
-  </div>
-  <div class="form-group">
-    <b for="pwd" style="color:#FFFFFF;">Titol:</b>
-    <input type="text" class="form-control" id="titol" placeholder="Titol Vídeo" name="tl" required>
-    <div class="valid-feedback">Vàlid.</div>
-    <div class="invalid-feedback">Camp obligatori.</div>
-  </div>
+<b> Títol: </b>
+<br>
+<input id = "titolCa" type="text" size="60" maxlength="40" placeholder="títol"> 
+</div>
+
+<div class='col'>
+<b> Vídeo en castellà:</b>
+ <br>
+<b> Categoría:</b> 
+<br>
+<input id = "categoryEs" type="text" size="60" maxlength="40" placeholder="Ingresa una categoria">
+<br>
+<br>
+<b>Descripción:</b>
+<br>
+<input id = "descripcioEs" type="text" size="60" maxlength="40" placeholder="descripción">
+<br>
+<br>
+<b>Título:</b>
+<br>
+<input id = "titolEs" type="text" size="60" maxlength="40" placeholder="título">
+<br>
+<br>
+</div>
+
+<div class='col'>
+<b> Video in english: </b>	
+<br>
+<b> Category: </b>
+<br>
+<input id = "categoryEn" type="text" size="60" maxlength="40" placeholder="Ingresa una categoria">
+<br>
+<br>
+<b> Description: </b>
+<br>
+<input id = "descripcioEn" type="text" size="60" maxlength="40" placeholder="description">
+<br>
+<br>
+<b> Title: </b>
+<br>
+<input id = "titolEn" type="text" size="60" maxlength="40" placeholder="title">
+<br>
+<br>
+</div>
+</div>
+<div class ="centrar">
   <div class="form-group">
     <b for="pwd" style="color:#FFFFFF;">Url:</b>
-    <input type="text" class="form-control" id="url" placeholder="URL Vídeo" name="urlvideo" required>
-    <div class="valid-feedback">Vàlid.</div>
-    <div class="invalid-feedback">Camp obligatori.</div>
+	<br>
+    <input id = "url" type="text" size="200" placeholder="Url">
   </div>
-</form>
+</div>
 <div class="centrar">
+<!--Php-->
 <?php 
+$url = "https://nurseapp-b4a04.firebaseio.com/LlistatVideosCa.json";
 
-	$id = $_GET['id'];
-	$ref = $_GET['reference'];
-	$num = 0;
-	if($ref == "LlistatVideosCa"){
-		$num = 1;
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL,$url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+$response = curl_exec($ch);
+curl_close($ch);
+
+$data = json_decode($response,true);
+$id = 0;
+foreach ($data as $key => $value) {
+		$id++;
+		
 	}
-	else if($ref == "LlistatVideosEs"){
-		$num = 2;
-	}
-	else if ($ref == "LlistatVideosEn"){
-		$num = 3;
-	}
-		echo "<button type='button' class='btn btn-primary btn-lg' onclick='Editar(categoria.value,desc.value,titol.value,url.value,$id,$num)'>Realitzar Edició</button>";
+	echo "AMAGAR VÍDEO<input type='checkbox' id='amagat'>";
+	echo "<br>";
+	echo "<br>";
+	echo "<button type='button' class='btn btn-primary btn-lg' onclick='Inserir(url.value,$id)'>Inserir</button>";
+
 ?>
-</div>
+		
 <br>
 <br>
-<div class = "centrar">
-<button type='button' class='btn btn-primary btn-lg' onclick="window.location.href = 'paginaVisualitzacio.php'">Tornar</button>
-<div id="txtHint"></div>
-</div>
-<script>
-function Editar(cat,desc,tit,url,id,ref){
 
-	if(cat.length == 0 || desc.length == 0 || tit.length == 0 || url.length == 0){
-		document.getElementById("txtHint").innerHTML = "Completi la informació obligatòria siusplau.";
-	}
-	var urlFinal = url.substring(url.indexOf("watch?v=")+8,url.length);
-	if(urlFinal == ""){
-		document.getElementById("txtHint").innerHTML = "Posa un enllaç de youtube correcte. Exemple: youtube.com/watch?v=57mfjMVka";
-	}
-	
-	if(ref == 1) {
-		firebase.database().ref('LlistatVideosCa/'+id).update({
-					'categoria': cat,
-					'descVideo': desc,
-					'mostrar': '1',
+<div id="txtHint"></div>
+<br>
+<br>
+<button type='button' class='btn btn-primary btn-lg' onclick="window.location.href = 'paginaVisualitzacio.php'">Torna a la Visualització</button>
+</div>
+
+
+<!--Funcions-->
+  <script>
+function Inserir(url,id){
+			
+		var x = document.getElementById("amagat");
+		var mostrar = 1;
+		if(x.checked == true){
+			mostrar = 0;
+		}
+		//variables de text.
+		var catCa, descCa,titCa;
+		var catEs, descEs, titEs;
+		var catEn, descEn, titEn;
+		
+		//variables català
+		catCa = document.getElementById('categoryCa').value;
+		descCa = document.getElementById("descripcioCa").value;
+		titCa = document.getElementById("titolCa").value;
+		
+		//variables castella
+		catEs = document.getElementById("categoryEs").value;
+		
+		descEs = document.getElementById("descripcioEs").value;
+		titEs = document.getElementById("titolEs").value;
+		
+		//variables anglès
+		catEn = document.getElementById("categoryEn").value;
+		descEn = document.getElementById("descripcioEn").value;
+		titEn = document.getElementById("titolEn").value;
+		
+		
+		if(descCa.length == 0 || titCa.length == 0 || descEs.length == 0 || titEs.length == 0 || descEn == 0 || titEn == 0 ||url.length == 0){
+			document.getElementById("txtHint").innerHTML = "Completi la informació obligatòria siusplau.";
+		}
+		else{
+			var urlFinal = url.substring(url.indexOf("watch?v=")+8,url.length);
+			if(urlFinal == ""){
+				document.getElementById("txtHint").innerHTML = "Posa un enllaç de youtube correcte. Exemple: youtube.com/watch?v=57mfjMVka";
+			}
+			else{
+				firebase.database().ref('LlistatVideosCa/'+id).set({
+					'categoria': catCa,
+					'descVideo': descCa,
+					'mostrar': mostrar,
 					'numId': id,
-					'titol': tit,
+					'titol': titCa,
 					'urlVideo': urlFinal
 				});
-			document.getElementById("txtHint").innerHTML = "edició correcte.";
-			window.location.href = "paginaVisualitzacio.php";
-	}
-	else if($ref == 2) {
-		firebase.database().ref('LlistatVideosEs/'+id).update({
-					'categoria': cat,
-					'descVideo': desc,
-					'mostrar': '1',
+				firebase.database().ref('LlistatVideosEs/'+id).set({
+					'categoria': catEs,
+					'descVideo': descEs,
+					'mostrar': mostrar,
 					'numId': id,
-					'titol': tit,
+					'titol': titEs,
+					'urlVideo': urlFinal
+				});
+				firebase.database().ref('LlistatVideosEn/'+id).set({
+					'categoria': catEn,
+					'descVideo': descEn,
+					'mostrar': mostrar,
+					'numId': id,
+					'titol': titEn,
 					'urlVideo': urlFinal
 				})
-			
-			document.getElementById("txtHint").innerHTML = "edició correcte.";
-			window.location.href = "paginaVisualitzacio.php";
-	}
-	else if($ref == 3){
-		firebase.database().ref('LlistatVideosEn/'+id).update({
-					'categoria': cat,
-					'descVideo': desc,
-					'mostrar': '1',
-					'numId': id,
-					'titol': tit,
-					'urlVideo': urlFinal
-				})
-			
-			document.getElementById("txtHint").innerHTML = "edició correcte.";
-			window.location.href = "paginaVisualitzacio.php";
-	}
+				.then(result => window.location.reload(result));
+				document.getElementById("txtHint").innerHTML= "Inserit correctament.";
+			}
+		}
 }
 </script>
-
 </body>
-</html>

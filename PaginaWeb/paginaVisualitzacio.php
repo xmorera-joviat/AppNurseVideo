@@ -84,14 +84,14 @@ foreach ($data as $key => $value) {
 		$id = $data[$key]["numId"];
 		echo "\n <iframe width='560' height='315' src='https://www.youtube.com/embed/".$data[$key]["urlVideo"]."'title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe> \n";
 		echo "<br>";
-		echo "<button type='button' class='btn btn-outline-danger' onclick='Esborrar($id)'>Esborrar</button> \n";
-		echo "<button type='button' class='btn btn-outline-warning' onclick='Editar(1,$id)'>Editar Dades</button> \n";
+		echo "<button type='button' class='btn btn-outline-warning' onclick='Editar($id)'>Editar Dades</button> \n";
 		if($data[$key]["mostrar"] == 1){
 			echo "<button type='button' class = 'btn btn-outline-success' onclick='Amagar(0,$id)'> Amagar Vídeo</button> \n";
 		}
 		else if($data[$key]["mostrar"] == 0){
 			echo "<button type='button' class = 'btn btn-outline-success' onclick='Amagar(1,$id)'> Mostrar Vídeo</button> \n";
 		}
+		echo "<button type='button' class='btn btn-outline-danger' onclick='Esborrar($id)'>Esborrar</button> \n";
 		echo "<br>";
 		echo "<br>";
 	}
@@ -114,14 +114,14 @@ foreach ($dataEs as $key => $valueEs) {
 		$id = $dataEs[$key]["numId"];
 		echo "\n <iframe width='560' height='315' src='https://www.youtube.com/embed/".$dataEs[$key]["urlVideo"]."'title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe> \n";
 		echo "<br>";
-		echo "<button type='button' class='btn btn-outline-danger' onclick='Esborrar($id)'>Esborrar</button> \n";
-		echo "<button type='button' class='btn btn-outline-warning' onclick='Editar(2,$id)'>Editar Dades</button> \n";
+		echo "<button type='button' class='btn btn-outline-warning' onclick='Editar($id)'>Editar Dades</button> \n";
 		if($dataEs[$key]["mostrar"] == 1){
 			echo "<button type='button' class = 'btn btn-outline-success' onclick='Amagar(0,$id)'> Amagar Vídeo</button> \n";
 		}
 		else if($dataEs[$key]["mostrar"] == 0){
 			echo "<button type='button' class = 'btn btn-outline-success' onclick='Amagar(1,$id)'> Mostrar Vídeo</button> \n";
 		}
+		echo "<button type='button' class='btn btn-outline-danger' onclick='Esborrar($id)'>Esborrar</button> \n";
 		echo "<br>";
 		echo "<br>";
 		}
@@ -145,14 +145,14 @@ foreach ($dataEn as $key => $valueEn) {
 		$id = $dataEn[$key]["numId"];
 		echo "\n <iframe width='560' height='315' src='https://www.youtube.com/embed/".$dataEn[$key]["urlVideo"]."'title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe> \n";
 		echo "<br>";
-		echo "<button type='button' class='btn btn-outline-danger' onclick='Esborrar($id)'>Esborrar</button> \n";
-		echo "<button type='button' class='btn btn-outline-warning' onclick='Editar(3,$id)'>Editar Dades</button> \n";
+		echo "<button type='button' class='btn btn-outline-warning' onclick='Editar($id)'>Editar Dades</button> \n";
 		if($dataEn[$key]["mostrar"] == 1){
 			echo "<button type='button' class = 'btn btn-outline-success' onclick='Amagar(0,$id)'> Amagar Vídeo</button> \n";
 		}
 		else if($dataEn[$key]["mostrar"] == 0){
 			echo "<button type='button' class = 'btn btn-outline-success' onclick='Amagar(1,$id)'> Mostrar Vídeo</button> \n";
 		}
+		echo "<button type='button' class='btn btn-outline-danger' onclick='Esborrar($id)'>Esborrar</button> \n";
 		echo "<br>";
 		echo "<br>";
 	}
@@ -169,11 +169,12 @@ echo "</div>";
 </div>
 <script>
 function Esborrar(id){
-	
-	firebase.database().ref('LlistatVideosCa/'+id).remove();
-	firebase.database().ref('LlistatVideosEn/'+id).remove();
-	firebase.database().ref('LlistatVideosEs/'+id).remove()
-		.then(result => window.location.reload(result));
+	if(confirm('Estas segur que vols esborrar el vídeo?')){
+		firebase.database().ref('LlistatVideosCa/'+id).remove();
+		firebase.database().ref('LlistatVideosEn/'+id).remove();
+		firebase.database().ref('LlistatVideosEs/'+id).remove()
+			.then(result => window.location.reload(result));
+	}
 	
 }
 </script>
@@ -185,16 +186,7 @@ function SignOut(){
 </script>
 <script>
 function Editar(ref, id){
-	if(ref == 1){
-		window.location.href = "PaginaEditar.php?id="+id+"&reference=LlistatVideosCa";
-	}
-	else if(ref == 2){
-		window.location.href = "PaginaEditar.php?id="+id+"&reference=LlistatVideosEs";  
-	}
-	else if(ref == 3){
-		window.location.href = "PaginaEditar.php?id="+id+"&reference=LlistatVideosEn";
-	}
-	
+	window.location.href = "PaginaEditar.php?id="+id;  	
 }
 </script>
 <script>
@@ -202,26 +194,26 @@ function Amagar(amagar,id){
 	if(amagar == 0){
 	
 		firebase.database().ref('LlistatVideosCa/'+id).update({
-					'mostrar': '0'
+					'mostrar': 0
 				});
 		firebase.database().ref('LlistatVideosEs/'+id).update({
-					'mostrar': '0'
+					'mostrar': 0
 				});
 		firebase.database().ref('LlistatVideosEn/'+id).update({
-					'mostrar': '0'
+					'mostrar': 0
 				}).then(result => window.location.reload(result));
 	}
 	else if(amagar == 1){
 		
 	
 		firebase.database().ref('LlistatVideosCa/'+id).update({
-					'mostrar': '1'
+					'mostrar': 1
 				});
 		firebase.database().ref('LlistatVideosEs/'+id).update({
-					'mostrar': '1'
+					'mostrar': 1
 				});
 		firebase.database().ref('LlistatVideosEn/'+id).update({
-					'mostrar': '1'
+					'mostrar': 1
 				}).then(result => window.location.reload(result));
 	}
 }
