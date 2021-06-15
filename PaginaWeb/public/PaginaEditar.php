@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Pagina Inserció</title>
+  <title>Pagina Editar</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -123,25 +123,12 @@ color: #FFFFFF;
 <div class="centrar">
 <!--Php-->
 <?php 
-$url = "https://nurseapp-b4a04.firebaseio.com/LlistatVideosCa.json";
 
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL,$url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$id = $_GET['id'];
 
-$response = curl_exec($ch);
-curl_close($ch);
-
-$data = json_decode($response,true);
-$id = 0;
-foreach ($data as $key => $value) {
-		$id++;
-		
-	}
-	echo "AMAGAR VÍDEO<input type='checkbox' id='amagat'>";
 	echo "<br>";
 	echo "<br>";
-	echo "<button type='button' class='btn btn-primary btn-lg' onclick='Inserir(url.value,$id)'>Inserir</button>";
+	echo "<button type='button' class='btn btn-primary btn-lg' onclick='Inserir(url.value,$id)'>Confirmar</button>";
 
 ?>
 		
@@ -159,11 +146,8 @@ foreach ($data as $key => $value) {
   <script>
 function Inserir(url,id){
 			
-		var x = document.getElementById("amagat");
-		var mostrar = 1;
-		if(x.checked == true){
-			mostrar = 0;
-		}
+	document.getElementById("txtHint").innerHTML =url;
+			
 		//variables de text.
 		var catCa, descCa,titCa;
 		var catEs, descEs, titEs;
@@ -185,9 +169,30 @@ function Inserir(url,id){
 		descEn = document.getElementById("descripcioEn").value;
 		titEn = document.getElementById("titolEn").value;
 		
-		
-		if(descCa.length == 0 || titCa.length == 0 || descEs.length == 0 || titEs.length == 0 || descEn == 0 || titEn == 0 ||url.length == 0){
-			document.getElementById("txtHint").innerHTML = "Completi la informació obligatòria siusplau.";
+			
+		if(descCa.length == 0 && titCa.length == 0 && descEs.length == 0 && titEs.length == 0 && descEn == 0 && titEn == 0 && url.length == 0){
+			document.getElementById("txtHint").innerHTML = "ompli els camps si us plau, pots introduir només un url.";
+		}
+		else if(descCa.length == 0 || titCa.length == 0 || descEs.length == 0 || titEs.length == 0 || descEn == 0 || titEn == 0 ||url.length > 0){
+			document.getElementById("txtHint").innerHTML = "Posa un enllaç de youtube correcte. Exemple: youtube.com/watch?v=57mfjMVka";
+			
+			var urlFinal1 = url.substring(url.indexOf("watch?v=")+8,url.length);
+			if(urlFinal1 == ""){
+				document.getElementById("txtHint").innerHTML = "Posa un enllaç de youtube correcte. Exemple: youtube.com/watch?v=57mfjMVka";
+			}
+			else{
+				firebase.database().ref('LlistatVideosCa/'+id).update({
+					'urlVideo': urlFinal1
+				});
+				firebase.database().ref('LlistatVideosEs/'+id).update({				
+					'urlVideo': urlFinal1
+				});
+				firebase.database().ref('LlistatVideosEn/'+id).update({
+					'urlVideo': urlFinal1
+				})
+				.then(result => window.location.reload(result));
+				document.getElementById("txtHint").innerHTML= "Inserit correctament.";
+			}
 		}
 		else{
 			var urlFinal = url.substring(url.indexOf("watch?v=")+8,url.length);
@@ -195,26 +200,23 @@ function Inserir(url,id){
 				document.getElementById("txtHint").innerHTML = "Posa un enllaç de youtube correcte. Exemple: youtube.com/watch?v=57mfjMVka";
 			}
 			else{
-				firebase.database().ref('LlistatVideosCa/'+id).set({
+				firebase.database().ref('LlistatVideosCa/'+id).update({
 					'categoria': catCa,
 					'descVideo': descCa,
-					'mostrar': mostrar,
 					'numId': id,
 					'titol': titCa,
 					'urlVideo': urlFinal
 				});
-				firebase.database().ref('LlistatVideosEs/'+id).set({
+				firebase.database().ref('LlistatVideosEs/'+id).update({
 					'categoria': catEs,
 					'descVideo': descEs,
-					'mostrar': mostrar,
 					'numId': id,
 					'titol': titEs,
 					'urlVideo': urlFinal
 				});
-				firebase.database().ref('LlistatVideosEn/'+id).set({
+				firebase.database().ref('LlistatVideosEn/'+id).update({
 					'categoria': catEn,
 					'descVideo': descEn,
-					'mostrar': mostrar,
 					'numId': id,
 					'titol': titEn,
 					'urlVideo': urlFinal

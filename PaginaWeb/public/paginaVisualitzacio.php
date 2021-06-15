@@ -185,7 +185,7 @@ function SignOut(){
 }
 </script>
 <script>
-function Editar(ref, id){
+function Editar(id){
 	window.location.href = "PaginaEditar.php?id="+id;  	
 }
 </script>

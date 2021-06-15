@@ -60,8 +60,15 @@ background-color: #000000;
 </style>
 <div class="centrar">
 <div id="txtHint"></div>
+ <b> Nom:</b> <br>
+<input id = "nom" type="text" size="30" maxlength="30" placeholder="Nom d'usuari.">
 <br>
-  <b> Usuari:</b> <br>
+<br>
+<b> Cognoms:</b> <br>
+<input id = "cognom" type="cognom" size="30" maxlength="30" placeholder="Cognoms.">
+<br>
+<br>
+  <b> Correu:</b> <br>
 <input id = "email" type="email" size="30" maxlength="30" placeholder="Ingressa un email.">
 </div>
 <br>
@@ -76,22 +83,25 @@ background-color: #000000;
 </div>
 <br>
 <div class="centrar">
-<button class="btn btn-outline-success" onclick="Verify(email.value,contrassenya.value,verificacio.value);">Confirmar</button>
+<button class="btn btn-outline-success" onclick="Verify(nom.value,cognom.value,email.value,contrassenya.value,verificacio.value)">Confirmar</button>
 
 </div>
 <br>
 <br>
-<?php
-	 $url = "";
-	 
-?>
+
 <script>
-function Verify(email,password,verifyPass){
-	if(email.length == 0 || password.length == 0 || verifyPass.length == 0){
+function Verify(nom,cognom,email,password,verifyPass){
+
+		document.getElementById("txtHint").innerHTML = nom; 
+		
+	if(nom == 0 || cognom == 0 ||email.length == 0 || password.length == 0 || verifyPass.length == 0){
 		document.getElementById("txtHint").innerHTML = "Completa la informació siusplau.";
 		return;
 	}
+	
 	else{
+	
+		document.getElementById("txtHint").innerHTML = "hola";
 		if (password == verifyPass){
 			Register(email,password);
 		}
@@ -99,11 +109,11 @@ function Verify(email,password,verifyPass){
 			document.getElementById("txtHint").innerHTML = "Les contrassenyes no coincideixen.";
 		}
 	}
+	
 }
 </script>
 <script>
 function Register(email,password){
-  
 	firebase.auth().createUserWithEmailAndPassword(email,password).catch(function(error){
 			var errorCode = error.code;
 			var errorMessage = error.message;
@@ -118,12 +128,15 @@ function Register(email,password){
 <script>
 function ObtenerUid(){
 
-	
+  var na = document.getElementById("nom").value;
+  var cog = document.getElementById("cognom").value;
   var user = firebase.auth().currentUser;
   var uid = user.uid;
   var db = firebase.firestore();
   
   setTimeout(() => { db.collection("Users").doc(uid).set({
+	cognoms: cog,
+	nom: na,
     rol: "editor"
   }).then(result => window.location.reload(result)); }, 1000);
   document.getElementById("txtHint").innerHTML = "Rol usuari registrat ";
