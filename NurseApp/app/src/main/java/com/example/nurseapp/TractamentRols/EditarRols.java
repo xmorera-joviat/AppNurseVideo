@@ -45,7 +45,7 @@ public class EditarRols extends TractamentToolBar {
 
     private void MostrarUsuaris() {
         // Preparem la consulta que obtindrà les dades a visualitzar en el RecyclerView.
-        Query consulta = db.collection("Users");
+        Query consulta = db.collection("Users").orderBy("cognoms");
 
         // Preparem l'objecte "Options" que ens ha de permetre crear l'adapter. Aquest objecte
         // defineix, entre altres aspectes, la consulta amb el tipus d'objecte que retornarà

@@ -12,7 +12,7 @@
         />
 
     <EditText
-        android:id="@+id/idEmail"
+        android:id="@+id/idNom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/idToolBar"
@@ -20,16 +20,38 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="90dp"
         android:layout_marginRight="50dp"
+        android:hint="@string/edtNom" />
+
+    <EditText
+        android:id="@+id/idCognoms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/idToolBar"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="175dp"
+        android:layout_marginRight="50dp"
+        android:hint="@string/edtCognoms" />
+
+    <EditText
+        android:id="@+id/idEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/idToolBar"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="261dp"
+        android:layout_marginRight="50dp"
         android:hint="@string/edtEmail" />
 
     <EditText
         android:id="@+id/idContrassenya"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/idEmail"
+        android:layout_below="@id/idNom"
         android:layout_centerInParent="true"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="216dp"
         android:layout_marginRight="50dp"
         android:hint="@string/edtContrasenya"
         android:inputType="textPassword" />
@@ -38,10 +60,10 @@
         android:id="@+id/idComprovacio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/idEmail"
+        android:layout_below="@id/idNom"
         android:layout_centerInParent="true"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="127dp"
+        android:layout_marginTop="303dp"
         android:layout_marginRight="50dp"
         android:hint="@string/edtContrasenya"
         android:inputType="textPassword" />
@@ -52,11 +74,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/idContrassenya"
         android:layout_centerInParent="true"
-        android:layout_marginTop="126dp"
+        android:layout_marginTop="150dp"
         android:background="@drawable/buttons"
         android:text="@string/btnAcces"
-        android:textColor="@color/white"
-        >
+        android:textColor="@color/white">
 
     </Button>
 

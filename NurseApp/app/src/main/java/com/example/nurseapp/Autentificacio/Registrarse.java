@@ -33,9 +33,7 @@ public class Registrarse extends TractamentToolBar {
     private FirebaseFirestore fStore;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
-    private EditText editTextEmail;
-    private EditText editTextContrassenya;
-    private EditText editTextComprovacio;
+    private EditText editTextNom, editTextCognoms, editTextEmail,editTextContrassenya,editTextComprovacio;
     private Button buttonAcces;
 
     @Override
@@ -50,6 +48,8 @@ public class Registrarse extends TractamentToolBar {
         customTitileToolBar(getResources().getString(R.string.register));
 
         // Vinculem les variables amb els corresponents objectes de l'apartat gràfic.
+        editTextNom = findViewById(R.id.idNom);
+        editTextCognoms = findViewById(R.id.idCognoms);
         editTextEmail = findViewById(R.id.idEmail);
         editTextContrassenya = findViewById(R.id.idContrassenya);
         editTextComprovacio = findViewById(R.id.idComprovacio);
@@ -71,6 +71,8 @@ public class Registrarse extends TractamentToolBar {
      * Mètode amb el que comprovem si el registre a la base de dades Firebase s'ha realitzat correctament.
      */
     public void ComprovarRegistre() {
+        String nom = editTextNom.getText().toString();
+        String cognoms = editTextCognoms.getText().toString();
         String email = editTextEmail.getText().toString();
         String contrassenya = editTextContrassenya.getText().toString();
         String comprovacio = editTextComprovacio.getText().toString();
@@ -88,6 +90,8 @@ public class Registrarse extends TractamentToolBar {
                                     // Afegim automàticament que la compte és un pacient.
                                     DocumentReference df = fStore.collection("Users").document(user.getUid());
                                     Map<String,Object> userInfo = new HashMap<>();
+                                    userInfo.put("nom",nom);
+                                    userInfo.put("cognoms",cognoms);
                                     userInfo.put("rol","pacient");
                                     df.set(userInfo);
 

@@ -16,6 +16,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -57,7 +58,8 @@ public class AdapterEditarRols extends FirestoreRecyclerAdapter<UserInfo, Adapte
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                                holder.userUid.setText(task.getResult().getDocuments().get(position).getId());
+                            holder.userUid.setText(task.getResult().getDocuments().get(position).getId());
+                            holder.userName.setText(task.getResult().getDocuments().get(position).getString("cognoms") + ", " + task.getResult().getDocuments().get(position).getString("nom"));
                         }
                     }
                 });
@@ -84,7 +86,7 @@ public class AdapterEditarRols extends FirestoreRecyclerAdapter<UserInfo, Adapte
                     DocumentReference df = fStore.collection("Users").document(holder.userUid.getText().toString());
                     Map<String, Object> rol = new HashMap<>();
                     rol.put("rol", holder.rolSpinner.getAdapter().getItem(position));
-                    df.set(rol);
+                    df.update(rol);
                 }
             }
 
@@ -103,13 +105,13 @@ public class AdapterEditarRols extends FirestoreRecyclerAdapter<UserInfo, Adapte
     // de la llista.
     public class ViewHolderUserInfo extends RecyclerView.ViewHolder {
         TextView userUid;
-        TextView userEmail;
+        TextView userName;
         Spinner rolSpinner;
 
         public ViewHolderUserInfo(@NonNull View itemView) {
             super(itemView);
             userUid = (TextView) itemView.findViewById(R.id.userUid);
-            userEmail = (TextView) itemView.findViewById(R.id.userEmail);
+            userName = (TextView) itemView.findViewById(R.id.userName);
             rolSpinner = (Spinner) itemView.findViewById(R.id.rolSpinner);
         }
     }

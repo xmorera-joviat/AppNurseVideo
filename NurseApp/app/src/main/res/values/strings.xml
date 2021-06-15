@@ -2,6 +2,10 @@
     <string name="llenguatge">ca</string>
 
     <!--Menu-->
+    <string name="benvingut">Hola, benvingut a NurseApp!
+        Clica la icona a continuació.</string>
+
+    <!--Menu-->
     <string name="menuAcces">Accedir</string>
     <string name="menuLlenguatge">Llenguatge</string>
 
@@ -25,7 +29,9 @@
 
     <!--Vista Acces-->
     <string name="btnAcces">Accedir</string>
-    <string name="edtEmail">Email</string>
+    <string name="edtNom">Nom</string>
+    <string name="edtCognoms">Cognoms</string>
+    <string name="edtEmail">Adreça electrònica</string>
     <string name="edtContrasenya">Contrasenya</string>
     <string name="tlbaTitol">Inicia sessió</string>
 

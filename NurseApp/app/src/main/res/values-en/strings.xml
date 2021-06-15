@@ -3,6 +3,10 @@
     <string name="llenguatge">en</string>
 
     <!--Menu-->
+    <string name="benvingut">Hello, welcome to NurseApp!
+        Click the icon below.</string>
+
+    <!--Menu-->
     <string name="menuAcces">Login</string>
     <string name="menuLlenguatge">Language</string>
 
@@ -26,6 +30,8 @@
 
     <!--Vista Acces-->
     <string name="btnAcces">Access</string>
+    <string name="edtNom">Name</string>
+    <string name="edtCognoms">Surnames</string>
     <string name="edtEmail">Email</string>
     <string name="edtContrasenya">Password</string>
     <string name="tlbaTitol">Login</string>

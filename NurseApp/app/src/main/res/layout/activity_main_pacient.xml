@@ -38,5 +38,23 @@
         app:layout_constraintStart_toStartOf="@+id/imv_video"
         app:layout_constraintTop_toBottomOf="@+id/imv_video" />
 
+    <TextView
+        android:id="@+id/benvingutTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/benvingut"
+        android:textAlignment="center"
+        android:textColor="#65473E"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/imv_video"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idToolBar" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
