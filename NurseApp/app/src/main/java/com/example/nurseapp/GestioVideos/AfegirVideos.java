@@ -78,14 +78,14 @@ public class AfegirVideos extends LlistatVideos {
      * Mètode encarregat de comprovar les dades introduïdes per l'usuari,
      * i en cas de ser correctes, afegir-les a la base de dades.
      */
-    public void Afegir(String titolCa, String descCa, String urlCa, String categoriaCa,
-                       String tituloEs, String descEs, String urlEs, String categoriaEs,
-                       String titleEn, String descEn, String urlEn, String categoryEn )
+    public void Afegir(String titolCa, String descCa, String categoriaCa,
+                       String tituloEs, String descEs, String categoriaEs,
+                       String titleEn, String descEn, String categoryEn, String url)
     {
         // Fem una petita validació per saber si algun dels caps està buit.
-        if (titolCa.equals("") || descCa.equals("") || urlCa.equals("") ||
-                tituloEs.equals("") || descEs.equals("") || urlEs.equals("") ||
-                titleEn.equals("") || descEn.equals("") || urlEn.equals("") )
+        if (titolCa.equals("") || descCa.equals("") ||
+                tituloEs.equals("") || descEs.equals("") ||
+                titleEn.equals("") || descEn.equals("") || url.equals(""))
         {
             Toast.makeText(getApplicationContext(), "Omple els camps obligatoris, siusplau!", Toast.LENGTH_LONG).show();
         }
@@ -94,15 +94,13 @@ public class AfegirVideos extends LlistatVideos {
         else {
             int inici = 0;
 
-            if (urlCa.contains("be/")) {
-                inici = urlCa.indexOf("be/");
-            } else if (urlCa.contains("?v")) {
-                inici = urlCa.indexOf("?v");
+            if (url.contains("be/")) {
+                inici = url.indexOf("be/");
+            } else if (url.contains("?v")) {
+                inici = url.indexOf("?v");
             }
 
-            if ((urlCa.contains("be/") || urlCa.contains("?v")) &&
-                    (urlEs.contains("be/") || urlEs.contains("?v")) &&
-                    (urlEn.contains("be/") || urlEn.contains("?v"))) {
+            if (url.contains("be/") || url.contains("?v")) {
 
                 ultimID +=1;
 
@@ -111,7 +109,7 @@ public class AfegirVideos extends LlistatVideos {
                 Cat.setNumId(ultimID);
                 Cat.setTitol(titolCa);
                 Cat.setDescVideo(descCa);
-                Cat.setUrlVideo(urlCa.substring(inici + 3, inici + 14));
+                Cat.setUrlVideo(url.substring(inici + 3, inici + 14));
                 Cat.setCategoria(categoriaCa);
                 Cat.setMostrar(1);
 
@@ -123,7 +121,7 @@ public class AfegirVideos extends LlistatVideos {
                 Esp.setNumId(ultimID);
                 Esp.setTitol(tituloEs);
                 Esp.setDescVideo(descEs);
-                Esp.setUrlVideo(urlEs.substring(inici + 3, inici + 14));
+                Esp.setUrlVideo(url.substring(inici + 3, inici + 14));
                 Esp.setCategoria(categoriaEs);
                 Esp.setMostrar(1);
 
@@ -135,7 +133,7 @@ public class AfegirVideos extends LlistatVideos {
                 Eng.setNumId(ultimID);
                 Eng.setTitol(titleEn);
                 Eng.setDescVideo(descEn);
-                Eng.setUrlVideo(urlEn.substring(inici + 3, inici + 14));
+                Eng.setUrlVideo(url.substring(inici + 3, inici + 14));
                 Eng.setCategoria(categoryEn);
                 Eng.setMostrar(1);
 
