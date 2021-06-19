@@ -9,13 +9,27 @@
     android:background="#ffffff">
 
     <ImageView
-        android:layout_width="303dp"
-        android:layout_height="286dp"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
         android:layout_centerInParent="true"
-        app:srcCompat="@drawable/logo"
-        android:contentDescription="@string/content_description_hospital_sant_pau">
+        android:contentDescription="@string/content_rdp"
+        app:srcCompat="@drawable/logo_rdp"></ImageView>
 
 
-    </ImageView>
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:contentDescription="@string/content_rdp"
+        app:srcCompat="@drawable/logo_hospital"></ImageView>
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="110dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:contentDescription="@string/content_rdp"
+        app:srcCompat="@drawable/logo_joviat"></ImageView>
 
 </RelativeLayout>

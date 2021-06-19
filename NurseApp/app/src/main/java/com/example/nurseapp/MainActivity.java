@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Incialitzem la instància dels diferents items.
         logIn = menu.findItem(R.id.idLogin);
-        register = menu.findItem(R.id.idRegister);
+        //register = menu.findItem(R.id.idRegister);
         logOut = menu.findItem(R.id.idLogout);
 
         return super.onCreateOptionsMenu(menu);
@@ -206,9 +206,9 @@ public class MainActivity extends AppCompatActivity {
         super.onPrepareOptionsMenu(menu);
 
         // Comprovem si l'usuari té la sessió iniciada i en qüestió d'aixó mostrem
-        // les opcions de iniciar sessió i registrar-te, o l'opció de tancar sessió.
+        // les opcions de iniciar sessió i registrar-te(acció desactivada), o l'opció de tancar sessió.
         logIn.setVisible(!loggedIn);
-        register.setVisible(!loggedIn);
+        //register.setVisible(!loggedIn);
         logOut.setVisible(loggedIn);
 
         return true;
@@ -217,6 +217,11 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Mètode que controla quin botó del menú s'ha seleccionat per tal d'obrir la corresponent activity.
      * També controla el text que hi ha en el centre de la toolbar en aquesta activity.
+     * -------------------------------------------------------------------------------------------------
+     * (xm)s'ha desactiviat (veure també menu.xml) el menu de registre, ja que de moment no es
+     * registraran usuaris, només perfils d'usuari creats des de admin. S'ha d'estudiar la conveniència
+     * d'utiltzar usuaris registrats i el seu tractament (LODP).
+     * -------------------------------------------------------------------------------------------------
      * @param item MenuItem
      * @return ItemSelected
      */
@@ -229,12 +234,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(login);
                 finish();
                 break;
-            case R.id.idRegister:
+            /*case R.id.idRegister:
                 Intent register = new Intent(this, Registrarse.class );
                 register.putExtra("llenguatge", getResources().getString(R.string.llenguatge));
                 startActivity(register);
                 finish();
-                break;
+                break;*/
             case R.id.idLogout:
                 FirebaseAuth.getInstance().signOut();
                 Intent i = new Intent(this, RecrearPantalla.class);

@@ -14,11 +14,13 @@
                 android:title="@string/login"
                 app:showAsAction="never"
                 />
-            <item
+           <!-- Element eliminat, de moment no es registrarn usuaris (veure MainActivity)
+           <item
                 android:id="@+id/idRegister"
                 android:title="@string/register"
                 app:showAsAction="never"
-                />
+           />
+           -->
             <item
                 android:id="@+id/idLogout"
                 android:title="@string/logout"
