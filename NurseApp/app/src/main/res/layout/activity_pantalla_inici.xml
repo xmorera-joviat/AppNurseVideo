@@ -12,7 +12,8 @@
         android:layout_width="303dp"
         android:layout_height="286dp"
         android:layout_centerInParent="true"
-        app:srcCompat="@drawable/logo">
+        app:srcCompat="@drawable/logo"
+        android:contentDescription="@string/content_description_hospital_sant_pau">
 
 
     </ImageView>
