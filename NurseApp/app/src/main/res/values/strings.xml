@@ -2,7 +2,7 @@
     <string name="llenguatge">ca</string>
 
     <!--Menu-->
-    <string name="benvingut">Hola, benvingut a NurseApp!
+    <string name="benvingut">Hola, benvingut a Recursos Digitals en Pneumologia!
         Clica la icona a continuació.</string>
 
     <!--Menu-->
@@ -18,7 +18,7 @@
     <string name="subMenuAngles">Anglès</string>
 
     <!--Vista Inici-->
-    <string name="app_name">NurseApp</string>
+    <string name="app_name">RecursosDigitalsPneumologia</string>
     <string name="tlbiTitol">Inici</string>
     <string name="btnFormulari">Formulari</string>
     <string name="btnVideo">Vídeos</string>

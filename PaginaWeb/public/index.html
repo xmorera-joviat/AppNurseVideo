@@ -43,7 +43,7 @@ div.centrar {
 </style>
 <style>
 body {
-background-color: #000000;
+background-color: #4D4D4D;
 }
 </style>
 <div class="centrar">
@@ -60,13 +60,13 @@ background-color: #000000;
 <br>
   <b>Usuari:</b> 
   <br>
-<input id = "email" type="email" size="30" maxlength="30" placeholder="Ingressa un email.">
+<input id = "email" type="email" size="30" maxlength="30" placeholder="email">
 </div>
 <br>
 <div class="centrar">
   <b>Contrassenya:</b>
   <br>
-<input id = "contrassenya" type="password" size="30" maxlength="20"  placeholder="Ingressa una contrassenya.">
+<input id = "contrassenya" type="password" size="30" maxlength="20"  placeholder="contrassenya">
 </div>
 <br>
 <div class="centrar">
@@ -80,7 +80,7 @@ background-color: #000000;
 <script>
 function Verify(email,password){
 	if(email.length == 0 || password.length == 0){
-		document.getElementById("txtHint").innerHTML = "Completa la informació siusplau.";
+		document.getElementById("txtHint").innerHTML = "Cal introduir email i contrasenya";
 		return;
 	}
 	else{
@@ -93,7 +93,7 @@ function SignIn(email,password){
 		firebase.auth().signInWithEmailAndPassword(email, password)
   .then((userCredential) => {
     // Signed in
-	window.location.href = "paginaVisualitzacio.php";
+	window.location.href = "visualitzar.php";
     var user = userCredential.user;
     // ...
   })

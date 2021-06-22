@@ -35,12 +35,13 @@
 <style>
 div.centrar {
 	color: #FFFFFF;
+
 	text-align: center;
 }
 </style>
 <style>
 body {
-background-color: #000000;
+background-color: #4d4d4d;
 color: #FFFFFF;
 }
 </style>
@@ -138,7 +139,7 @@ $id = $_GET['id'];
 <div id="txtHint"></div>
 <br>
 <br>
-<button type='button' class='btn btn-primary btn-lg' onclick="window.location.href = 'paginaVisualitzacio.php'">Torna a la Visualització</button>
+<button type='button' class='btn btn-primary btn-lg' onclick="window.location.href = 'visualitzar.php'">Torna a la Visualització</button>
 </div>
 
 

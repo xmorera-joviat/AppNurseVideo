@@ -40,7 +40,7 @@ div.centrar {
 </style>
 <style>
 body {
-background-color: #000000;
+background-color: #4d4d4d;
 color: #FFFFFF;
 }
 </style>

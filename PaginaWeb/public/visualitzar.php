@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Pagina Visualització</title>
+  <title>Visualitzar Vídeos</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -40,7 +40,7 @@ div.centrar {
 </style>
 <style>
 body {
-background-color: #000000;
+background-color: #4D4D4D;
 color: #FFFFFF;
 }
 </style>
@@ -51,7 +51,7 @@ color: #FFFFFF;
 <div class="centrar">
 <br>
 <br>
-<button  class="btn btn-outline-success" onclick="window.location.href = 'PaginaInserir.php'" >Inserir Nou Vídeo</button>
+<button  class="btn btn-outline-success" onclick="window.location.href = 'inserir.php'" >Inserir Nou Vídeo</button>
 </div>
 <?php 
 echo "<div>";
@@ -181,12 +181,12 @@ function Esborrar(id){
 <script>
 function SignOut(){
 	firebase.auth().signOut();
-	window.location.href = "PaginaInici.html";
+	window.location.href = "index.html";
 }
 </script>
 <script>
 function Editar(id){
-	window.location.href = "PaginaEditar.php?id="+id;  	
+	window.location.href = "editar.php?id="+id;  	
 }
 </script>
 <script>

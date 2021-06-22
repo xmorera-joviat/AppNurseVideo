@@ -3,7 +3,7 @@
     <string name="llenguatge">es</string>
 
     <!--Menu-->
-    <string name="benvingut">Hola, ¡bienvenido a NurseApp!
+    <string name="benvingut">Hola, ¡bienvenido a Recursos Digitales en Neumología!
         Clica el icono a continuación.</string>
 
     <!--Menu-->
@@ -19,7 +19,7 @@
     <string name="subMenuAngles">Inglés</string>
 
     <!--Vista Inici-->
-    <string name="app_name">NurseApp</string>
+    <string name="app_name">RespiratoryDigitalResources</string>
     <string name="tlbiTitol">Inicio</string>
     <string name="btnFormulari">Formulario</string>
     <string name="btnVideo">Vídeos</string>
