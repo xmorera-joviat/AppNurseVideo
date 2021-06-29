@@ -58,7 +58,7 @@
         <br />
 		<b> Títol: </b>
         <br />
-        <input id = "titolCa" type="text" size="60" maxlength="40" placeholder="títol">
+        <input id = "titolCa" type="text" size="60" maxlength="60" placeholder="títol">
         <br /><br />
         <b>Descripció: </b>
         <br />
@@ -66,7 +66,7 @@
         <br /><br />
         <b>Categoria:</b> 
         <br />  
-        <input id = "categoryCa" type="text" size="60" maxlength="40" placeholder="categoria"> 
+        <input id = "categoryCa" type="text" size="60" maxlength="60" placeholder="categoria"> 
         <br /><br /> 
       </div>
     
@@ -75,7 +75,7 @@
         <br />
   	  	<b>Título:</b>
         <br />
-        <input id = "titolEs" type="text" size="60" maxlength="40" placeholder="título">   
+        <input id = "titolEs" type="text" size="60" maxlength="60" placeholder="título">   
         <br />
         <br />
         <b>Descripción:</b>
@@ -85,7 +85,7 @@
         <br />
         <b> Categoría:</b> 
         <br />
-        <input id = "categoryEs" type="text" size="60" maxlength="40" placeholder="categoría">
+        <input id = "categoryEs" type="text" size="60" maxlength="60" placeholder="categoría">
         <br />
         <br />
       </div>
@@ -95,7 +95,7 @@
         <br />
   	  	<b> Title: </b>
         <br />
- 		<input id = "titolEn" type="text" size="60" maxlength="40" placeholder="title"> 
+ 		<input id = "titolEn" type="text" size="60" maxlength="60" placeholder="title"> 
         <br />
         <br />
         <b> Description: </b>
@@ -106,7 +106,7 @@
         <br />
         <b> Category: </b>
         <br />
-        <input id = "categoryEn" type="text" size="60" maxlength="40" placeholder="category">
+        <input id = "categoryEn" type="text" size="60" maxlength="60" placeholder="category">
         <br />
         <br />
       </div>
@@ -201,9 +201,6 @@
 				//document.getElementById("txtHint").innerHTML = urlFinal;		 
     		
     			
-    			
-    			
-   
     		
       		if(urlFinal == ""){
         			document.getElementById("txtHint").innerHTML = "Introduir un enllaç de youtube correcte. Exemple: https://youtu.be/vX3krP6JmOY o https://youtube.com/watch?v=vX3krP6JmOY";

@@ -42,8 +42,7 @@
   
   <body>
   
-  <!-- comentari intern -->	<script>console.log("Prova consola html linia 46");</script>
-  
+   
   	<div id="txtHint"></div>
   	<br />
   	<div class="centrar">
@@ -87,7 +86,7 @@
 							  	echo "<br />Categoria: ".$data[$key]["categoria"];
 								
 								echo "<br /><br />";
-            					echo "<button type='button' disabled class='btn btn-outline-warning' onclick='editar($id)'>Editar Dades</button> \n";//botó desabilitat
+            					echo "<button type='button' class='btn btn-outline-warning' onclick='editar($id)'>Editar Dades</button> \n";
             					if($data[$key]["mostrar"] == 1){
             						echo "<button type='button' class = 'btn btn-outline-success' onclick='amagar(0,$id)'> Amagar Vídeo</button> \n";
             					}
