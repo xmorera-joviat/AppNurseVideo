@@ -88,7 +88,9 @@
 		$dataEn = json_decode($responseEn,true);
   
   		//urls finals
-  		$urlFinal = substr($url, strpos($url,"com/")+4, strlen($url));
+  		//$urlFinal = substr($url, strpos($url,"com/")+4, strlen($url));
+  		//guardem la variable de la URL del vídeo per actualitzar les dades.
+		
   		echo "<div class='row'>";    
   			echo "<div class='col'>";      
 				foreach ($data as $key => $value) {
@@ -98,7 +100,13 @@
            					echo "\n <iframe width='460' height='259' src='https://www.youtube.com/embed/".$data[$key]["urlVideo"].
 							"'title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; 
 							encrypted-media; gyroscope; picture-in-picture' allowfullscreen></iframe> \n";
-                					
+           			        
+           					$urlVideo = $data[$key]["urlVideo"];
+           					
+           	echo "</div>";
+        echo "</div>";
+           	echo "<div class='row'>";
+           		echo "<div class='col'>";
     						echo "<br />Títol:";
 							echo "<br /><input id = 'titolCa' type='text' size='60' maxlength='60' value='".$data[$key]['titol']."'>";
     					  	echo "<br />Descripció:";
@@ -109,6 +117,8 @@
 						}
         			}
         		}
+        		echo "</div>";
+        		echo "<div class='col'>";
 				foreach ($dataEs as $key => $value) {
         			if($value != null){
 						if($dataEs[$key]["numId"]== $id){
@@ -122,6 +132,8 @@
 						}
         			}
         		}
+        		echo "</div>";
+        		echo "<div class='col'>";
 				foreach ($dataEn as $key => $value) {
         			if($value != null){
 						if($dataEn[$key]["numId"]== $id){
@@ -141,31 +153,33 @@
 		echo "<div class='centrar'>";
    		  	echo "<br>";
   			echo "<br>";
-  			echo "<button type='button' class='btn btn-primary btn-lg' onclick='Inserir(url.value,$id)'>Actualitzar</button>";
-		echo "</div>";
+  			//echo "<button type='button' class='btn btn-primary btn-lg' onclick='Inserir(url.value,$id)'>Actualitzar</button>";
+  			echo "<button type='button' class='btn btn-primary btn-lg' onclick='actualitzar($id)'>Actualitzar</button>";
+  			
+  			echo "</div>";
 	?>
   		
   	<br>
   	<br>
   
-  	<div id="txtHint"></div>
+  	<div class='centrar' id="txtHint"></div>
   	   <br>
   	   <br>
-	<div>   
+	<div class='centrar'>   
   	   <button type='button' class='btn btn-primary btn-lg' onclick="window.location.href = 'visualitzar.php'">Tornar a la Visualització</button>
   	</div>
   
   
   
     <script>
-  		function Inserir(url,id){
-		
-		document.getElementById("txtHint").innerHTML="pendent d'actualitzar... en breu s'implementarà.";
-	/*	
-			document.getElementById("txtHint").innerHTML =url;
+  		//function actualitzar(id){
+  		function actualitzar(id){
+		document.getElementById("txtHint").innerHTML="pendent d'actualitzar... work in progress!.";
+	
+			
   			
   			//variables de text.
-  			var titCa, descCa,catCa;
+  			var titCa, descCa, catCa;
   			var titEs, descEs, catEs;
   			var titEn, descEn, catEn;
   		
@@ -183,65 +197,28 @@
   			titEn = document.getElementById("titolEn").value;
   			descEn = document.getElementById("descripcioEn").value;
   			catEn = document.getElementById("categoriaEn").value;
-  		
-  			
-  			if(descCa.length == 0 || titCa.length == 0 || descEs.length == 0 || titEs.length == 0 || descEn == 0 || titEn == 0 || url.length == 0){
-  				document.getElementById("txtHint").innerHTML = "ompli els camps si us plau.";
-  			}
-  			else if(descCa.length == 0 || titCa.length == 0 || descEs.length == 0 || titEs.length == 0 || descEn == 0 || titEn == 0 ||url.length > 0){
-  				 document.getElementById("txtHint").innerHTML = "Posa un enllaç de youtube correcte. Exemple: youtube.com/watch?v=57mfjMVka";
-  			
-  				 var urlFinal1 = url.substring(url.indexOf("watch?v=")+8,url.length);
-  				 if(urlFinal1 == ""){
-  				 	document.getElementById("txtHint").innerHTML = "Posa un enllaç de youtube correcte. Exemple: youtube.com/watch?v=57mfjMVka";
-  				 }
-  				 else{
-  				 	firebase.database().ref('LlistatVideosCa/'+id).update({
-  						'urlVideo': urlFinal1
-  					});
-  					firebase.database().ref('LlistatVideosEs/'+id).update({				
-  						'urlVideo': urlFinal1
-  					});
-  					firebase.database().ref('LlistatVideosEn/'+id).update({
-  						'urlVideo': urlFinal1
-  					})
-  					.then(result => window.location.reload(result));
-  					document.getElementById("txtHint").innerHTML= "Inserit correctament.";
-  				}
-  			}
-  			else{
-  				 var urlFinal = url.substring(url.indexOf("watch?v=")+8,url.length);
-  				 if(urlFinal == ""){
-  				 	document.getElementById("txtHint").innerHTML = "Posa un enllaç de youtube correcte. Exemple: youtube.com/watch?v=57mfjMVka";
-  				}
-  				else{
-  					 firebase.database().ref('LlistatVideosCa/'+id).update({
-  					 	'categoria': catCa,
-  						'descVideo': descCa,
-  						'numId': id,
-  						'titol': titCa,
-  						'urlVideo': urlFinal
-  					});
-  					firebase.database().ref('LlistatVideosEs/'+id).update({
-  						'categoria': catEs,
-  						'descVideo': descEs,
-  						'numId': id,
-  						'titol': titEs,
-  						'urlVideo': urlFinal
-  					});
-  					firebase.database().ref('LlistatVideosEn/'+id).update({
-  						'categoria': catEn,
-  						'descVideo': descEn,
-  						'numId': id,
-  						'titol': titEn,
-  						'urlVideo': urlFinal
-  					})
-  					.then(result => window.location.reload(result));
-  					document.getElementById("txtHint").innerHTML= "Inserit correctament.";
-  				}
-  			}
+	  		
+  			//actualitzar firebase
+    		firebase.database().ref('LlistatVideosCa/'+id).update({
+    			'categoria': catCa,
+    			'descVideo': descCa,
+    			'numId': id,
+    			'titol': titCa
+    		});
+    		firebase.database().ref('LlistatVideosEs/'+id).update({
+    			'categoria': catEs,
+    			'descVideo': descEs,
+    			'numId': id,
+    			'titol': titEs
+    		});
+    		firebase.database().ref('LlistatVideosEn/'+id).update({
+    			'categoria': catEn,
+    			'descVideo': descEn,
+    			'numId': id,
+    			'titol': titEn
+    		});
+    		document.getElementById("txtHint").innerHTML= "Actualitzat correctament.";		
   		}
-	*/
   	</script>
   </body>
 </html>
