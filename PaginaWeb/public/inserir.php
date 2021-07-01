@@ -8,9 +8,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-	  	<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
   	<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
-  	<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script> 
+  	<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
+  	<script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script> 
     <script>
       // Your web app's Firebase configuration
       // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -26,7 +27,6 @@
       };
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
-      firebase.analytics();
     </script>
     
     <style>
@@ -139,7 +139,11 @@
         		$id++;	
         	}
 			
-        echo "AMAGAR VÍDEO<input type='checkbox' id='amagat'>";
+        echo "AMAGAR VÍDEO <input type='checkbox' id='amagat'>";
+        echo "<br />";
+        echo "<br />";
+        
+        echo "PROFESSIONAL <input type='checkbox' id='ambit'>";
         echo "<br />";
         echo "<br />";
         			
@@ -161,12 +165,13 @@
 	<script>
         function Inserir(url,id){
         			
-        	var x = document.getElementById("amagat");
+        	
         	var mostrar = 1;
 			var urlFinal="";
-        	if(x.checked == true){
-        		mostrar = 0;
-        	}
+			var mostrar = document.getElementById("amagat");
+        	if(mostrar.checked == true){mostrar = 0;}
+        	var ambit = document.getElementById("ambit");
+        	if(ambit.checked == true){ambit = 1;}
         	//variables de text.
         	var catCa, descCa,titCa;
         	var catEs, descEs, titEs;
@@ -207,6 +212,7 @@
         		}
         		else{
         			firebase.database().ref('LlistatVideosCa/'+id).set({
+            			'ambit' : ambit,
         				'categoria': catCa,
         				'descVideo': descCa,
         				'mostrar': mostrar,
@@ -215,6 +221,7 @@
         				'urlVideo': urlFinal
         			});
         			firebase.database().ref('LlistatVideosEs/'+id).set({
+        				'ambit' : ambit,
         				'categoria': catEs,
         				'descVideo': descEs,
         				'mostrar': mostrar,
@@ -223,6 +230,7 @@
         				'urlVideo': urlFinal
         			});
         			firebase.database().ref('LlistatVideosEn/'+id).set({
+        				'ambit' : ambit,
         				'categoria': catEn,
         				'descVideo': descEn,
         				'mostrar': mostrar,
