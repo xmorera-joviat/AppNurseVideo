@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Creem una instància de la base de dades de firebase cloudstore.
+        // Creem una instància de la base de dades de firebase CloudFirestore.
         fStore = FirebaseFirestore.getInstance();
 
         // Agafem les dades de l'usuari.
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             loggedIn = true;
             CheckUserRole(user.getUid());
         }
-        // Si es null, ficarem la vista dels pacients.
+        // Si es null, posarem la vista dels pacients.
         else {
             loggedIn = false;
             setContentView(R.layout.activity_main_pacient);

@@ -1,0 +1,293 @@
+{
+  "LlistatVideosCa" : [ null, {
+    "ambit" : 0,
+    "categoria" : "Mascareta",
+    "descVideo" : "Col·locació mascareta nasobucal F20",
+    "mostrar" : 1,
+    "numId" : 1,
+    "titol" : "Col·locació mascareta F20",
+    "urlVideo" : "ASGSQIaLidE"
+  }, {
+    "ambit" : 0,
+    "categoria" : "Mascareta",
+    "descVideo" : "Col·locació mascareta nasobucal F30",
+    "mostrar" : 1,
+    "numId" : 2,
+    "titol" : "Col·locació mascareta F30",
+    "urlVideo" : "9jSAJFnerCY"
+  }, {
+    "ambit" : 0,
+    "categoria" : "",
+    "descVideo" : "Col·locació mascareta nasobucal Amara",
+    "mostrar" : 1,
+    "numId" : 3,
+    "titol" : "Col·locació mascareta Amara View",
+    "urlVideo" : "xn2xB-gN09o"
+  }, {
+    "ambit" : 0,
+    "categoria" : "",
+    "descVideo" : "Neteja mascareta nasobucal F20",
+    "mostrar" : 1,
+    "numId" : 4,
+    "titol" : "Neteja mascareta F20 i arnès",
+    "urlVideo" : "gr7jr3_x6a8"
+  }, {
+    "ambit" : 0,
+    "categoria" : "Màquina",
+    "descVideo" : "Com muntar la màquina",
+    "mostrar" : 1,
+    "numId" : 5,
+    "titol" : "Muntatge i desmuntatge per a neteja màquina",
+    "urlVideo" : "7bdqSlfIQLo"
+  }, null, {
+    "ambit" : 0,
+    "categoria" : "pacient-ventilacio",
+    "descVideo" : "correcció fuites",
+    "mostrar" : 1,
+    "numId" : 7,
+    "titol" : "Correcció de fuites per a la mascareta nasal Philips Pico",
+    "urlVideo" : "b9VQPid3J9w"
+  }, {
+    "ambit" : 0,
+    "categoria" : "Pacient-Ventilacio",
+    "descVideo" : "Col.locació mascareta Amara View",
+    "mostrar" : 1,
+    "numId" : 8,
+    "titol" : "Col.locació mascareta Amara View Philips",
+    "urlVideo" : "po9mbqrgfTo"
+  }, {
+    "ambit" : 0,
+    "categoria" : "Pacient-son",
+    "descVideo" : "mascareta nasal Dreamwear",
+    "mostrar" : 1,
+    "numId" : 9,
+    "titol" : "Col.locació mascareta nasal Dreamwear",
+    "urlVideo" : "5JdDU6uvz_g"
+  }, {
+    "ambit" : 0,
+    "categoria" : "professional",
+    "descVideo" : "OAF",
+    "mostrar" : 1,
+    "numId" : 10,
+    "titol" : "OAF_Com s'utilitza l'airvo 2?",
+    "urlVideo" : "XDqQ8H4QWaY"
+  }, {
+    "ambit" : 0,
+    "categoria" : "PROFESSIONAL",
+    "descVideo" : "OAF-2",
+    "mostrar" : 1,
+    "numId" : 11,
+    "titol" : "OAF_Utilitzacio. Part 2",
+    "urlVideo" : "BTciAdB_BzY"
+  }, {
+    "ambit" : 1,
+    "categoria" : "Professional",
+    "descVideo" : "Introducció i descripció del servei de pneumologia i acollida a la sala C2 de l'hospital de Sant Pau de Barcelona per als nous professionals",
+    "mostrar" : 1,
+    "numId" : 12,
+    "titol" : "Acollida nous professionals a la sala C2",
+    "urlVideo" : "cInqX2SwcX4"
+  }, {
+    "ambit" : 1,
+    "categoria" : "Professional",
+    "descVideo" : "Intervenció del tabaquisme al pacient ingresssat",
+    "mostrar" : 1,
+    "numId" : 13,
+    "titol" : "Intervenció del tabaquisme al pacient ingresssat",
+    "urlVideo" : "N5xWQwzTQzg"
+  } ],
+  "LlistatVideosEn" : [ null, {
+    "ambit" : 0,
+    "categoria" : "Mask",
+    "descVideo" : "Fitting nasobucal mask F20",
+    "mostrar" : 1,
+    "numId" : 1,
+    "titol" : "Fitting mask F20 ",
+    "urlVideo" : "ASGSQIaLidE"
+  }, {
+    "ambit" : 0,
+    "categoria" : "Mask",
+    "descVideo" : "Fitting nasobucal mask F30",
+    "mostrar" : 1,
+    "numId" : 2,
+    "titol" : "Fitting mask F30",
+    "urlVideo" : "9jSAJFnerCY"
+  }, {
+    "ambit" : 0,
+    "categoria" : "",
+    "descVideo" : "Fitting of Amara nasobuccal mask",
+    "mostrar" : 1,
+    "numId" : 3,
+    "titol" : "Amara View mask fitting",
+    "urlVideo" : "xn2xB-gN09o"
+  }, {
+    "ambit" : 0,
+    "categoria" : "",
+    "descVideo" : "Nasobuccal mask cleaning F20",
+    "mostrar" : 1,
+    "numId" : 4,
+    "titol" : "Cleaning F20 mask and headgear",
+    "urlVideo" : "gr7jr3_x6a8"
+  }, {
+    "ambit" : 0,
+    "categoria" : "Machine",
+    "descVideo" : "How to assemble the machine",
+    "mostrar" : 1,
+    "numId" : 5,
+    "titol" : "Assembly and disassembly for machine cleaning",
+    "urlVideo" : "7bdqSlfIQLo"
+  }, null, {
+    "ambit" : 0,
+    "categoria" : "pacient-ventilacio",
+    "descVideo" : "Leaks Mask",
+    "mostrar" : 1,
+    "numId" : 7,
+    "titol" : "management of leaks un mask Philips Pico",
+    "urlVideo" : "b9VQPid3J9w"
+  }, {
+    "ambit" : 0,
+    "categoria" : "Pacient-Ventilacio",
+    "descVideo" : "Fit Amara View Philips",
+    "mostrar" : 1,
+    "numId" : 8,
+    "titol" : "Mask fit Amara View Philips",
+    "urlVideo" : "po9mbqrgfTo"
+  }, {
+    "ambit" : 0,
+    "categoria" : "Pacient-son",
+    "descVideo" : "Nasal Mask Dreamwear ",
+    "mostrar" : 1,
+    "numId" : 9,
+    "titol" : "Fit nasal Mask Dreamwear ",
+    "urlVideo" : "5JdDU6uvz_g"
+  }, {
+    "ambit" : 0,
+    "categoria" : "Professional",
+    "descVideo" : "HFNC",
+    "mostrar" : 1,
+    "numId" : 10,
+    "titol" : "HFNC_Introduction",
+    "urlVideo" : "XDqQ8H4QWaY"
+  }, {
+    "ambit" : 0,
+    "categoria" : "PROFESSIONAL",
+    "descVideo" : "HFNC",
+    "mostrar" : 1,
+    "numId" : 11,
+    "titol" : "HFNC_ Part 2",
+    "urlVideo" : "BTciAdB_BzY"
+  }, {
+    "ambit" : 1,
+    "categoria" : "Professional",
+    "descVideo" : "Introduction and description of Respiratory Despartment",
+    "mostrar" : 1,
+    "numId" : 12,
+    "titol" : "Wellcoming new professionals to Sala C2",
+    "urlVideo" : "cInqX2SwcX4"
+  }, {
+    "ambit" : 1,
+    "categoria" : "Professional",
+    "descVideo" : "Smoking intervention in the admitted patient",
+    "mostrar" : 1,
+    "numId" : 13,
+    "titol" : "Smoking intervention in the admitted patient",
+    "urlVideo" : "N5xWQwzTQzg"
+  } ],
+  "LlistatVideosEs" : [ null, {
+    "ambit" : 0,
+    "categoria" : "Mascarilla",
+    "descVideo" : "Colocación mascarilla nasobucal F20",
+    "mostrar" : 1,
+    "numId" : 1,
+    "titol" : "Colocación mascarilla F20",
+    "urlVideo" : "ASGSQIaLidE"
+  }, {
+    "ambit" : 0,
+    "categoria" : "Mascarilla",
+    "descVideo" : "Colocación mascarilla Nasobucal F30",
+    "mostrar" : 1,
+    "numId" : 2,
+    "titol" : "Colocación mascarilla F30",
+    "urlVideo" : "9jSAJFnerCY"
+  }, {
+    "ambit" : 0,
+    "categoria" : "",
+    "descVideo" : "Colocación mascarilla nasobucal Amara",
+    "mostrar" : 1,
+    "numId" : 3,
+    "titol" : "Colocación mascarilla Amara View",
+    "urlVideo" : "xn2xB-gN09o"
+  }, {
+    "ambit" : 0,
+    "categoria" : "",
+    "descVideo" : "Limpieza mascarilla nasobucal F20",
+    "mostrar" : 1,
+    "numId" : 4,
+    "titol" : "Limpieza mascarilla F20 y arnés",
+    "urlVideo" : "gr7jr3_x6a8"
+  }, {
+    "ambit" : 0,
+    "categoria" : "Máquina",
+    "descVideo" : "Cómo montar la máquina",
+    "mostrar" : 1,
+    "numId" : 5,
+    "titol" : "Montaje y desmontaje para limpieza máquina",
+    "urlVideo" : "7bdqSlfIQLo"
+  }, null, {
+    "ambit" : 0,
+    "categoria" : "pacient-ventilacio",
+    "descVideo" : "Corrección fugas",
+    "mostrar" : 1,
+    "numId" : 7,
+    "titol" : "Corrección de fugas para la mascarilla Philips nasal Pico",
+    "urlVideo" : "b9VQPid3J9w"
+  }, {
+    "ambit" : 0,
+    "categoria" : "Pacient-Ventilacio",
+    "descVideo" : "Colocación mascarilla Amara View",
+    "mostrar" : 1,
+    "numId" : 8,
+    "titol" : "Colocación mascarilla Amara View Philips",
+    "urlVideo" : "po9mbqrgfTo"
+  }, {
+    "ambit" : 0,
+    "categoria" : "Pacient-son",
+    "descVideo" : "mascarilla nasal Dreamwear",
+    "mostrar" : 1,
+    "numId" : 9,
+    "titol" : "Colocación mascarilla nasal Dreamwear",
+    "urlVideo" : "5JdDU6uvz_g"
+  }, {
+    "ambit" : 0,
+    "categoria" : "Profesional",
+    "descVideo" : "OAF",
+    "mostrar" : 1,
+    "numId" : 10,
+    "titol" : "OAF_Cómo se utiliza el airvo2?",
+    "urlVideo" : "XDqQ8H4QWaY"
+  }, {
+    "ambit" : 0,
+    "categoria" : "PROFESIONAL",
+    "descVideo" : "OAF-2",
+    "mostrar" : 1,
+    "numId" : 11,
+    "titol" : "OAF_Utilizacion. Parte 2",
+    "urlVideo" : "BTciAdB_BzY"
+  }, {
+    "ambit" : 1,
+    "categoria" : "Professional",
+    "descVideo" : "Introducción y descripción  del servicio de neumología y acogida a la sala C2 del hospital de Sant Pau de Barcelona para los nuevos profesionales",
+    "mostrar" : 1,
+    "numId" : 12,
+    "titol" : "Acogida nuevos profesionales a la sala C2",
+    "urlVideo" : "cInqX2SwcX4"
+  }, {
+    "ambit" : 1,
+    "categoria" : "Professional",
+    "descVideo" : "Intervención del tabaquismo al paciente ingresado",
+    "mostrar" : 1,
+    "numId" : 13,
+    "titol" : "Intervención del tabaquismo al paciente ingresado",
+    "urlVideo" : "N5xWQwzTQzg"
+  } ]
+}

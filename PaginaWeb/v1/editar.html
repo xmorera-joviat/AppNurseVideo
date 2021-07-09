@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Pagina Editar</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	
+    <style>
+      div.centrar {
+   		color: #FFFFFF;
+  		text-align: center;
+      }
+      body {
+      	 background-color: #4d4d4d;
+      	 color: #FFFFFF;
+      }
+    </style>
+  </head>
+
+  <body>
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  	<script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-firestore.js"></script> 
+	<script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-analytics.js"></script> 
+	<script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>	
+  	<script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  	  var firebaseConfig = {
+  	    apiKey: "AIzaSyCe7NPMFUTamWIH9fdk0xjk9pj3KllxkrI",
+  	    authDomain: "nurseapp-b4a04.firebaseapp.com",
+  	    databaseURL: "https://nurseapp-b4a04.firebaseio.com",
+  	    projectId: "nurseapp-b4a04",
+  	    storageBucket: "nurseapp-b4a04.appspot.com",
+  	    messagingSenderId: "243441860725",
+  	    appId: "1:243441860725:web:47745a69e80569c627b83c",
+  	    measurementId: "G-HL8B5LYF0W"
+  	  };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);   
+      var db = firebase.firestore(); 
+  	</script>
+  
+  	<div class="centrar">
+  		<h1>Editar Vídeo</h1>
+	</div>
+
+   <!-- mostrar les dades existents-->
+
+ 	<div>
+ 		<div class='row'>
+ 			<div class='col'id ="col0">
+ 				<div id= "vid">
+ 				</div>
+ 				<div id="professional">
+		        	<b>Professional:</b>	
+		        </div>
+	 			<span id ="cat">
+	 				<b>Categoria:</b>
+		 			<select id = "categoria" name="categoria">
+		        		<option value="0"></option>
+		        		<!-- aquí va el codi de les opcions que està més avall -->
+		     			<!--  	<option value="10000">Nova categoria</option> --> <!-- per implmentar per si volem afegir una nova categoria -->	
+		        	</select> 		
+	 			</span>
+ 			</div>
+ 		
+ 			<div class='col'id ="col1">
+ 			
+ 			</div>
+ 			 <div class='col'id ="col2">
+
+ 			</div>
+		</div>			
+	</div>
+	<script>
+		const id = localStorage.getItem("storageName");	
+		//console.log("video a editar: " + id);
+	
+		var docRef = db.collection("llista_videos").doc(id);
+			docRef.get().then((doc) => {
+ 				var columna0 = document.getElementById("col0");//on posarem els elements per editar
+ 				var columna1 = document.getElementById("col1");
+ 				var professional = document.getElementById("professional");
+ 				var vid = document.getElementById("vid");
+ 				 				
+ 				var separador =document.createElement("p");
+ 				
+ 				var video = document.createElement("iframe");
+ 				video.setAttribute("width", "460");
+ 				video.setAttribute("height", "260");
+ 				video.setAttribute("src", "https://www.youtube.com/embed/" + doc.data()['url_video']);
+ 				video.setAttribute("title","YouTube video player");
+ 				video.setAttribute("frameborder","1");
+ 				video.setAttribute("allow","fullscreen");
+ 				video.setAttribute("id", doc.id);
+ 				
+ 				var ttitol=document.createElement("div");
+ 				var text = document.createTextNode("Títol");
+ 				ttitol.appendChild(text);
+ 				
+ 				var titol = document.createElement("input");
+ 				titol.setAttribute("id","titol");
+ 				titol.setAttribute("type","text");
+ 				titol.setAttribute("size","60");
+ 				titol.setAttribute("maxlength","60");
+ 				titol.setAttribute("value",doc.data()['titol']);
+ 				
+ 				var tdescripcio=document.createElement("div");
+ 				text = document.createTextNode("Descripció");
+ 				tdescripcio.appendChild(text);
+ 				
+ 				var descripcio = document.createElement("textarea");
+ 				descripcio.setAttribute("id","descripcio");
+ 				descripcio.setAttribute("rows","3");
+ 				descripcio.setAttribute("cols","63");
+ 				text = document.createTextNode(doc.data()['descripcio']);
+ 				descripcio.appendChild(text);
+ 				
+ 				var ttitulo=document.createElement("div");
+ 				text = document.createTextNode("Título");
+ 				ttitulo.appendChild(text);
+ 				
+ 				var titulo = document.createElement("input");
+ 				titulo.setAttribute("id","titulo");
+ 				titulo.setAttribute("type","text");
+ 				titulo.setAttribute("size","60");
+ 				titulo.setAttribute("maxlength","60");
+ 				titulo.setAttribute("value",doc.data()['titulo']);
+ 				
+ 				var tdescripcion=document.createElement("div");
+ 				text = document.createTextNode("Descripción");
+ 				tdescripcion.appendChild(text);
+ 				
+ 				var descripcion = document.createElement("textarea");
+ 				descripcion.setAttribute("id","descripcion");
+ 				descripcion.setAttribute("rows","3");
+ 				descripcion.setAttribute("cols","63");
+ 				text = document.createTextNode(doc.data()['descripcion']);
+ 				descripcion.appendChild(text);
+ 				
+ 				var ttitle=document.createElement("div");
+ 				text = document.createTextNode("Title");
+ 				ttitle.appendChild(text);
+ 				
+ 				var title = document.createElement("input");
+ 				title.setAttribute("id","title");
+ 				title.setAttribute("type","text");
+ 				title.setAttribute("size","60");
+ 				title.setAttribute("maxlength","60");
+ 				title.setAttribute("value",doc.data()['title']);
+ 				
+ 				var tdescription=document.createElement("div");
+ 				text = document.createTextNode("Description");
+ 				tdescription.appendChild(text);
+ 				
+ 				var description = document.createElement("textarea");
+ 				description.setAttribute("id","description");
+ 				description.setAttribute("rows","3");
+ 				description.setAttribute("cols","63");
+ 				text = document.createTextNode(doc.data()['description']);
+ 				description.appendChild(text);
+ 				 				
+ 				
+ 			 	//llegim el document categoria per omplir les diferents opcions
+ 			 	
+ 			 	var categoria_seleccionada= doc.data()['categoria'];//categoria del video actual
+ 			 	
+ 	        	db.collection('categoria').get().then((querySnapshot) =>{
+ 		 			querySnapshot.forEach((doc) => {
+ 		 				var opcio=document.getElementById('categoria');//element del que penjarem els elements que creem
+ 		 				var option = document.createElement("option");
+ 		 				option.setAttribute("value", doc.id);
+ 		 					
+	 		 				// opció preseleccionada
+	 		 			if (doc.id==categoria_seleccionada){
+	 		 				option.setAttribute("selected","selected");
+	 		 			}
+ 		 				var text = document.createTextNode(doc.data()['categoria']);
+ 		 				option.appendChild(text);
+ 		 				opcio.appendChild(option);
+ 		 			});
+ 		 		});
+
+ 				var ambit = document.createElement("input");
+ 				ambit.setAttribute("id","ambit");
+ 				ambit.setAttribute("type","checkbox");
+ 				
+ 				
+ 				professional.appendChild(ambit); 				 				
+ 				vid.appendChild(separador); 
+				vid.appendChild(video);
+				vid.appendChild(separador); 
+ 				
+ 				columna1.appendChild(ttitol);
+ 				columna1.appendChild(titol);
+ 				columna1.appendChild(tdescripcio);
+ 				columna1.appendChild(descripcio);
+ 				columna1.appendChild(ttitulo);
+ 				columna1.appendChild(titulo);
+ 				columna1.appendChild(tdescripcion);
+ 				columna1.appendChild(descripcion);
+ 				columna1.appendChild(ttitle);
+ 				columna1.appendChild(title);
+ 				columna1.appendChild(tdescription);
+ 				columna1.appendChild(description);
+ 			});
+	</script>
+	
+
+  
+  	<div class='centrar' id="txtHint"></div>
+  	   <br>
+  	   <br>
+	<div class='centrar'>   
+  	   <button type='button' class='btn btn-primary btn-success' onclick=actualitzar()>ACTUALITZAR</button>
+  	   <button type='button' class='btn btn-primary btn-danger' onclick="window.location.href = 'visualitzar.html'">CANCEL·LAR</button>
+  	</div>
+    
+    <script>
+    
+  		function actualitzar(){
+  			
+  			const id = localStorage.getItem("storageName");
+  			//variables per actualitzar.
+  			var titol=document.getElementById('titol').value;
+  			var titulo=document.getElementById('titulo').value;
+  			var title=document.getElementById('title').value;
+  			var descripcio=document.getElementById('descripcio').value;
+  			var descripcion=document.getElementById('descripcion').value;  			
+  			var description=document.getElementById('description').value;
+  			var ambit=document.getElementById('ambit');
+	  			if(ambit.checked == true) ambit = 1; 
+				else ambit = 0;
+  			var categoria=document.getElementById('categoria').value;
+  			
+  			//document.getElementById("txtHint").innerHTML =('Elements per actualitzar: '+titol+titulo+title+descripcio+descripcion+description+
+  			//		" ambit: "+ambit+" categoria: "+categoria+"   id: "+id);
+
+
+  			//actualitzar firestore
+  			var actualitzarRef = db.collection('llista_videos').doc(id);
+  			return actualitzarRef.update({
+  				'ambit' : ambit,
+				'categoria': categoria,
+				'descripcio': descripcio,
+				'descripcion': descripcion,
+				'description': description,
+				'title': title,
+				'titol': titol,
+				'titulo': titulo
+  			})
+  			.then(() => {
+  			    console.log("Document successfully updated!");
+  			    //redirecció a la pàgina de visualitzar
+  			  	window.location.href = 'visualitzar.html'
+  			})
+  			.catch((error) => {
+  			    // The document probably doesn't exist.
+  			    console.error("Error updating document: ", error);
+  			});
+  		}
+  	</script>
+  </body>
+</html>

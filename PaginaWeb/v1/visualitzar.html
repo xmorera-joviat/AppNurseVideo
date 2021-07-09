@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Visualitzar Vídeos</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  	<style>
+  		div.centrar {
+  			color: #FFFFFF;
+  			text-align: center;
+  		}
+  		body {
+  		background-color: #4D4D4D;
+  		color: #FFFFFF;
+  		}
+  	</style>
+  </head>
+  
+  <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  	<script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-firestore.js"></script> 
+	<script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-analytics.js"></script> 
+	<script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>	
+  	<script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  	  var firebaseConfig = {
+  	    apiKey: "AIzaSyCe7NPMFUTamWIH9fdk0xjk9pj3KllxkrI",
+  	    authDomain: "nurseapp-b4a04.firebaseapp.com",
+  	    databaseURL: "https://nurseapp-b4a04.firebaseio.com",
+  	    projectId: "nurseapp-b4a04",
+  	    storageBucket: "nurseapp-b4a04.appspot.com",
+  	    messagingSenderId: "243441860725",
+  	    appId: "1:243441860725:web:47745a69e80569c627b83c",
+  	    measurementId: "G-HL8B5LYF0W"
+  	  };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);   
+      var db = firebase.firestore(); 
+  	</script>
+   	
+  	<br />
+  	<div class="centrar">
+  		<br />
+  		<br />
+  		<button  class="btn btn-outline-success" onclick="window.location.href = 'inserir.html'" >Inserir Nou Vídeo</button>
+  	</div>
+  	<div id="txtHint"class="centrar"></div>
+ 	<div>
+ 		<div class='row'>
+ 			<div class='col'id ="col1">
+ 				<b>Llistat de vídeos</b>
+ 				<br />
+		 		<script> //mostrar els vídeos
+		 		db.collection('llista_videos').get().then((querySnapshot) =>{
+		 			querySnapshot.forEach((doc) => {
+		 				var columna = document.getElementById("col1");//on posarem els elements creats
+		 				var separador =document.createElement("p");
+		 				
+		 				var video = document.createElement("iframe");
+		 				video.setAttribute("width", "560");
+		 				video.setAttribute("height", "315");
+		 				video.setAttribute("src", "https://www.youtube.com/embed/" + doc.data()['url_video']);
+		 				video.setAttribute("title","YouTube video player");
+		 				video.setAttribute("frameborder","1");
+		 				video.setAttribute("allow","fullscreen");
+		 				video.setAttribute("id", doc.id);
+		 				
+		 				var titol = document.createElement("div");
+		 				var text = document.createTextNode("Títol: "+doc.data()['titol']);
+		 				titol.appendChild(text);
+		 				
+		 				var descripcio = document.createElement("div");
+		 				text = document.createTextNode("Descripció: "+doc.data()['descripcio']);
+		 				descripcio.appendChild(text);
+		 						 				
+		 				var categoria = document.createElement("div");
+						//fem consulta al document 'categoria' cercant per l'id que tenim guardat al document 'llista_videos'
+						var docRef = db.collection("categoria").doc(doc.data()['categoria']);
+							docRef.get().then((doc) => {
+							    if (doc.exists) {
+							        text = document.createTextNode("Categoria: "+doc.data()['categoria']);
+							        categoria.appendChild(text);
+							    } else {
+							        // doc.data() will be undefined in this case
+							        console.log("No such document!");
+							    }
+							}).catch((error) => {
+							    console.log("Error getting document:", error);
+						});
+						 				
+		 				var ambit = document.createElement("div");
+		 				if (doc.data()['ambit'] == 0){
+		 					text = document.createTextNode("Àmbit: Pacient");
+		 				}else{
+		 					text = document.createTextNode("Àmbit: Professional");
+		 				}
+		 				ambit.appendChild(text);
+		 				
+		 				var botons = document.createElement("div");
+		 				const id= JSON.stringify(doc.id); //convertim l'objecte doc.id en un String
+		 				
+		 				var boto_editar = document.createElement("BUTTON");
+		 				boto_editar.setAttribute("class","btn btn-outline-warning");
+		 				boto_editar.setAttribute("onclick", "editar("+id+")");
+		 				boto_editar.innerHTML= "EDITAR";
+		 				botons.appendChild(boto_editar);
+		 				
+		 				var boto_mostrar = document.createElement("BUTTON");
+		 				boto_mostrar.setAttribute("class","btn btn-outline-success");
+		 				var estat = doc.data()['mostrar'];
+		 				if (estat){
+			 				boto_mostrar.innerHTML= "OCULTAR";
+		 				}
+		 				else {
+		 					boto_mostrar.innerHTML= "MOSTRAR";
+		 				}
+		 				boto_mostrar.setAttribute("onclick", "mostrar("+id+","+estat+")");
+		 				botons.appendChild(boto_mostrar);
+		 				
+		 				var boto_esborrar = document.createElement("BUTTON");
+		 				boto_esborrar.setAttribute("class","btn btn-outline-danger");
+		 				boto_esborrar.setAttribute("onclick", "esborrar("+id+")");
+		 				boto_esborrar.innerHTML= "ESBORRAR";
+		 				botons.appendChild(boto_esborrar);
+		 				
+		 				columna.appendChild(separador);
+		 				columna.appendChild(video);
+		 				columna.appendChild(titol);
+		 				columna.appendChild(descripcio);
+		 				columna.appendChild(categoria);
+		 				columna.appendChild(ambit);
+		 				columna.appendChild(botons);
+		 				
+		 				
+		 			 /* console.log(doc.id);
+		 				console.log(doc.data()['url_video']);
+		 				console.log(doc.data()['titulo']);
+		 				console.log(doc.data()['title']); */
+		 			});
+		 		});
+		 		</script>
+ 			</div>
+ 		</div>	
+ 	</div>
+  	<div class="centrar">
+  		<br />
+  		<br />
+  		<button  class="btn btn-primary btn-lg" onclick="signOut()" >Sortir</button> 
+  		<br />
+  		<br />
+  	</div>
+  	
+  	<!-- -----------------------FUNCIONS--------------------- -->
+  	<script>
+  	
+  	function esborrar(id){
+  		if(confirm('Estas segur que vols esborrar el vídeo?')){
+  			
+  			db.collection('llista_videos').doc(id).delete().then(() => {
+  			  	document.getElementById('txtHint').innerHTML= "Vídeo esborrat correctament!";
+  			    location.reload();//recarreguem la pàgina
+  			}).catch((error) => {
+  			    console.error("Error removing document: ", error);
+  			});
+  		}
+  	}
+  	
+  	function editar(id){
+  		//passem l'id per modificar i obrim la pàgina d'edició
+  		var getInput = id;
+  	    localStorage.setItem("storageName",getInput);
+  		window.location.href = "editar.html"; 
+  	}
+  
+  	function mostrar(id,estat){
+  		document.getElementById('txtHint').innerHTML= "S'ha clicat MOSTRAR/OCULTAR el document "+id+" estat: "+estat;
+  		var mostrarRef = db.collection("llista_videos").doc(id);
+	  	// actualitzem l'estat de visualització del vídeo
+	  	estat=!estat;
+	  	return mostrarRef.update({
+	  	    mostrar: estat
+	  	})
+	  	.then(() => {
+	  	    window.location.reload();
+	  	})
+	  	.catch((error) => {
+	  	    // The document probably doesn't exist.
+	  	    console.error("Error updating document: ", error);
+	  	});
+	}
+  		
+	function signOut(){
+		firebase.auth().signOut();
+		window.location.href = "index.html";
+	}
+  	</script>
+  </body>
+</html>

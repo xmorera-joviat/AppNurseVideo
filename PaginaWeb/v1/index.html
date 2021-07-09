@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <title>Inici</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+      <!-- apartat de Firebase-->
+    
+      <!-- The core Firebase JS SDK is always required and must be listed first -->
+      <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
+    
+      <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+      <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-analytics.js"></script>
+      <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+          apiKey: "AIzaSyCe7NPMFUTamWIH9fdk0xjk9pj3KllxkrI",
+          authDomain: "nurseapp-b4a04.firebaseapp.com",
+          databaseURL: "https://nurseapp-b4a04.firebaseio.com",
+          projectId: "nurseapp-b4a04",
+          storageBucket: "nurseapp-b4a04.appspot.com",
+          messagingSenderId: "243441860725",
+          appId: "1:243441860725:web:47745a69e80569c627b83c",
+          measurementId: "G-HL8B5LYF0W"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+      </script>
+      <style>
+        div.centrar {
+    	   color: #FFFFFF;
+    	   text-align: center;
+        }
+    
+        body {
+          background-color: #4D4D4D;
+        }
+      </style>
+	</head>
+
+  <body>
+  
+    <div class="centrar">
+      <h1>Iniciar Sessió</h1>
+    </div>
+    <br>
+    <br>
+    <br>
+  
+  
+  
+    <div class="centrar">
+    <div id="txtHint"></div>
+    <br>
+      <b>Usuari:</b> 
+      <br>
+      <input id = "email" type="email" size="30" maxlength="30" placeholder="email">
+    </div>
+    <br>
+    <div class="centrar">
+      <b>Contrassenya:</b>
+      <br>
+      <input id = "contrassenya" type="password" size="30" maxlength="20"  placeholder="contrassenya">
+    </div>
+    <br>
+    <div class="centrar">
+      <br>
+      <button class="btn btn-outline-success" onclick="verify(email.value,contrassenya.value)">Entrar</button>
+      <br>
+    </div>
+  
+  
+    <script>
+      function verify(email,password){
+      	if(email.length == 0 || password.length == 0){
+      		document.getElementById("txtHint").innerHTML = "Cal introduir email i contrasenya";
+      		return;
+      	}
+      	else{
+      		SignIn(email,password);
+      	}
+      }
+    </script>
+    <script>
+      function SignIn(email,password){
+      		firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          // Signed in
+      	window.location.href = "visualitzar.html";
+          var user = userCredential.user;
+          // ...
+        })
+        .catch((error) => {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+      	
+      	document.getElementById("txtHint").innerHTML = errorMessage;
+        });
+      }
+    </script>
+  </body>
+</html>
